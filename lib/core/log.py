@@ -32,6 +32,7 @@ else:
 class Logger:
 
     def __init__(self):
+        self.result = []
         wincode = """
 class ntcolor:
     '''windows cmd color'''
@@ -85,5 +86,30 @@ class otcolor:
 
     def critical(self,msg):
         self.color.cprint(msg, RED, 0)
+    
+    def security_note(self,msg):
+        self.result.append("[Note]" + msg)
+        self.color.cprint(msg, CYAN, 0)
+    
+    def security_warning(self,msg):
+        self.result.append("[Warning]" + msg)
+        self.color.cprint(msg, YELLOW, 0)
+    
+    def security_hole(self,msg):
+        self.result.append("[Hole]" + msg)
+        self.color.cprint(msg, RED, 0)
+    
+    def security_info(self,msg):
+        self.result.append("[Info]" + msg)
+        self.color.cprint(msg, GREEN, 0)
+
+    def report(self):
+        import os
+        print os.linesep
+        self.info("[***] Scan report:" + os.linesep)
+
+        for item in self.result:
+            self.info('      ' + item + os.linesep)
+        self.info("[***] Report end")
 
 logger = Logger()

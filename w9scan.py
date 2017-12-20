@@ -53,16 +53,20 @@ def main():
     """
     Main function of w9scan when running from command line.
     """
-
-    checkEnvironment() # 检测环境
-    setPaths(modulePath()) # 为一些目录和文件设置了绝对路径
-    banner()
-    Test_Url = raw_input('Input url > ')
-    Test_Url = Test_Url.strip()
-    #Test_Url = "https://blog.hacking8.com/"
-    e = Exploit_run(Test_Url)
-    print '[***] ScanStart Target:%s' % Test_Url
-    e.load_modules("www",Test_Url)
+    try:
+        checkEnvironment() # 检测环境
+        setPaths(modulePath()) # 为一些目录和文件设置了绝对路径
+        banner()
+        Test_Url = raw_input('Input url > ')
+        Test_Url = Test_Url.strip()
+        #Test_Url = "https://blog.hacking8.com/"
+        e = Exploit_run(Test_Url)
+        print '[***] ScanStart Target:%s' % Test_Url
+        e.load_modules("www",Test_Url)
+        logger.report()
+    except KeyboardInterrupt:
+        logger.critical("[***] UserInterrupt")
+        exit()
 
 
 if __name__ == '__main__':
