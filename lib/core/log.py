@@ -88,19 +88,19 @@ class otcolor:
         self.color.cprint(msg, RED, 0)
     
     def security_note(self,msg):
-        self.result.append("[Note]" + msg)
+        self.result.append("[Note] " + msg)
         self.color.cprint(msg, CYAN, 0)
     
     def security_warning(self,msg):
-        self.result.append("[Warning]" + msg)
+        self.result.append("[Warning] " + msg)
         self.color.cprint(msg, YELLOW, 0)
     
     def security_hole(self,msg):
-        self.result.append("[Hole]" + msg)
+        self.result.append("[Hole] " + msg)
         self.color.cprint(msg, RED, 0)
     
     def security_info(self,msg):
-        self.result.append("[Info]" + msg)
+        self.result.append("[Info] " + msg)
         self.color.cprint(msg, GREEN, 0)
 
     def report(self):
