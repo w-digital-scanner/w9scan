@@ -12,3 +12,6 @@ paths = AttribDict()
 
 # w9scan cmder
 cmdLineOptions = AttribDict()
+
+# w9scan urlconfig
+urlconfig = AttribDict()

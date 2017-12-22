@@ -15,7 +15,7 @@ import os
 import inspect
 from distutils.version import LooseVersion
 from lib.core.settings import VERSION
-from lib.core.data import cmdLineOptions
+from lib.core.data import urlconfig
 from lib.core.exploit import Exploit_run
 
 def modulePath():
@@ -57,12 +57,18 @@ def main():
         checkEnvironment() # 检测环境
         setPaths(modulePath()) # 为一些目录和文件设置了绝对路径
         banner()
-        Test_Url = raw_input('Input url > ')
-        Test_Url = Test_Url.strip()
-        #Test_Url = "https://blog.hacking8.com/"
-        e = Exploit_run(Test_Url)
-        print '[***] ScanStart Target:%s' % Test_Url
-        e.load_modules("www",Test_Url)
+
+        # url config
+        urlconfig.url = raw_input('Input url > ')
+        urlconfig.url = urlconfig.url.strip()
+        urlconfig.scanport = False
+        input_scanport = raw_input('Need scan all ports ?(Y/N) (default N)> ')
+        if input_scanport.lower() in ("y","yes"):
+            urlconfig.scanport = True
+
+        e = Exploit_run()
+        print '[***] ScanStart Target:%s' % urlconfig.url
+        e.load_modules("www",urlconfig.url)
         logger.report()
     except KeyboardInterrupt:
         logger.critical("[***] UserInterrupt")
