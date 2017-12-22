@@ -5,8 +5,6 @@ import time
 
 def assign(service, arg):
     if service == "www":
-        return
-    else:
         oo000 = urlparse.urlparse(arg)
         return (True, '''%s://%s/WebResource.axd''' % (oo000.scheme, oo000.netloc))
 

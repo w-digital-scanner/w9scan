@@ -4,8 +4,6 @@ import urlparse
 
 def assign(service, arg):
     if service == "www":
-        return
-    else:
         url_info = urlparse.urlparse(arg)
         return (True, "%s://%s/~.aspx" % (url_info.scheme, url_info.netloc))
 

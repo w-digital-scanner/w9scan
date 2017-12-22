@@ -4,8 +4,6 @@ import re
 
 def assign(service, arg):
     if service == "www":
-        return
-    else:
         OO0o = urlparse.urlparse(arg)
         return (True, '''%s://%s/''' % (OO0o.scheme, OO0o.netloc))
 
