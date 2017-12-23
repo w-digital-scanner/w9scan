@@ -64,17 +64,17 @@ def main():
         urlconfig.url = "https://blog.hacking8.com/"
 
         urlconfig.scanport = False
-        input_scanport = raw_input('Need scan all ports ?(Y/N) (default N)> ')
-        if input_scanport.lower() in ("y","yes"):
-            urlconfig.scanport = True
+        # input_scanport = raw_input('Need scan all ports ?(Y/N) (default N)> ')
+        # if input_scanport.lower() in ("y","yes"):
+        #     urlconfig.scanport = True
 
         e = Exploit_run()
         print '[***] ScanStart Target:%s' % urlconfig.url
         e.load_modules("www",urlconfig.url)
-        e.wait()
+        e.run()
         logger.report()
     except KeyboardInterrupt:
-        logger.critical("[***] UserInterrupt")
+        logger.critical("[***] User Interrupt")
         exit()
 
 

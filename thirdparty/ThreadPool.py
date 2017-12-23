@@ -1,127 +1,193 @@
-# ThreadPool is a simple thread pool
-#
-# Copyright (C) 2012 Yummy Bian <yummy.bian#gmail.com>
-#
-# under the terms of the GNU Lesser General Public License as published
-# by the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# ThreadPool is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the GNU Lesser General Public License for more details.
-#
-# You should have received a copy of the GNU Lesser General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.";
-#
-
-import sys
-import Queue
-import threading
+from threading import Thread, Lock, currentThread, Event, Semaphore
+from weakref import ref
+import atexit
 import time
 import traceback
 
-class Worker(threading.Thread):
-    """Routines for work thread."""
+try:
+    from queue import Queue, Empty
+except ImportError:
+    from Queue import Queue, Empty
 
-    def __init__(self, in_queue, out_queue, err_queue):
-        """Initialize and launch a work thread,
-        in_queue which tasks in it waiting for processing,
-        out_queue which the return value of the task in it,
-        err_queue which stores error info when processing the task.
+_threadpools = set()
+_G_MAXTHREAD = Semaphore(200)
+
+
+def _shutdown_all():
+    for pool_ref in tuple(_threadpools):
+        pool = pool_ref()
+        if pool:
+            pool.wait()
+
+
+atexit.register(_shutdown_all)
+TASK_STATUS_QUEUE = 0
+TASK_STATUS_RUNNING = 1
+TASK_STATUS_FINISHED = 2
+
+
+class ThreadPool(object):
+    """
+
+    """
+
+    def __init__(self, max_threads=20, core_threads=0, keepalive=1):
         """
-        threading.Thread.__init__(self)
-        self.setDaemon(True)
-        self.in_queue = in_queue
-        self.out_queue = out_queue
-        self.err_queue = err_queue
-        self.start()
-
-    def run(self):
-        while True:
-            # Processing tasks in the in_queue until command is stop.
-            command, callback, args, kwds = self.in_queue.get()
-            if command == 'stop':
-                break
-            if command == 'process':
-                try:
-                    self.out_queue.put(callback(*args, **kwds))
-                except Exception:
-                    pass
-            else:
-                time.sleep(0.1)
-           
-    def dismiss(self):
-        command = 'stop'
-        self.in_queue.put((command, None, None, None))
-
-    def report_error(self):
-        '''We "report" errors by adding error information to err_queue.'''
-        self.err_queue.put(sys.exc_info()[:2])
-
-
-class ThreadPool():
-    """Manager thread pool."""
-    max_threads = 32
-
-    def __init__(self, num_threads, pool_size=0):
-        """Spawn num_threads threads in the thread pool,
-        and initialize three queues.
+        :param core_threads: maximum number of persistent threads in the pool
+        :param max_threads: maximum number of total threads in the pool
+        :param keepalive: seconds to keep non-core worker threads waiting
+            for new tasks
         """
-        # pool_size = 0 indicates buffer is unlimited.
-        self.num_threads = ThreadPool.max_threads \
-            if num_threads > ThreadPool.max_threads \
-            else num_threads
-        self.in_queue = Queue.Queue(pool_size)
-        self.out_queue = Queue.Queue(pool_size)
-        self.err_queue = Queue.Queue(pool_size)
-        self.workers = {}
-        for i in range(self.num_threads):
-            worker = Worker(self.in_queue, self.out_queue, self.err_queue)
-            self.workers[i] = worker
-        self.is_continue = True
+        self.core_threads = core_threads
+        self.max_threads = max(max_threads, core_threads, 1)
+        self.keepalive = keepalive
+        self._queue = Queue()
+        self._threads_lock = Lock()
+        self._threads = set()
+        self._shutdown = False
+        self._stop = False
+        self._busy = 0
+        self._event_dismiss = Event()
+        _threadpools.add(ref(self))
 
-    def add_task(self, callback, *args, **kwds):
-        command = 'process'
-        self.in_queue.put((command, callback, args, kwds))
-
-    def _get_results(self, queue):
-        '''Generator to yield one after the others all items currently
-           in the queue, without any waiting
-        '''
+    def _adjust_threadcount(self):
+        if self.num_threads >= self.max_threads:
+            return
+        self._threads_lock.acquire()
         try:
-            while True:
-                yield queue.get_nowait()
-        except Queue.Empty:
-            raise StopIteration
+            self._add_thread(self.num_threads < self.core_threads)
+        except:
+            pass
+        finally:
+            self._threads_lock.release()
 
-    def get_task(self):
-        return self.out_queue.get()
+    def _add_thread(self, core):
+        if not _G_MAXTHREAD.acquire(False):
+            return
+        t = Thread(target=self._run_jobs, args=(core,))
+        t.setDaemon(True)
+        t.start()
+        self._threads.add(t)
 
-    def wait(self):
-        _is = False
-        for i in range(self.num_threads):
-            if self.workers[i].is_alive():
-                _is = True
+    def _run_jobs(self, core):
+        block = True
+        timeout = None
+        if not core:
+            block = self.keepalive > 0
+            timeout = self.keepalive
+        while True:
+            is_empty = True
+            try:
+                func, arg, callback, callback_arg = self._queue.get(block, timeout)
+                is_empty = False
+            except Empty:
                 break
-        return _is
-        
 
-    def show_results(self):
-        for result in self._get_results(self.out_queue):
-            print 'Result:', result
+            if is_empty:
+                if self._shutdown:
+                    break
+            elif func:
+                if not self._stop:
+                    try:
+                        if callback:
+                            callback(TASK_STATUS_RUNNING, callback_arg)
+                        func(arg)
+                        if callback:
+                            callback(TASK_STATUS_FINISHED, callback_arg)
+                    except Exception as e:
+                        print 'THREAD:', e
+                        print traceback.format_exc()
 
-    def show_errors(self):
-        for etyp, err in self._get_results(self.err_queue):
-            print 'Error:', etyp, err
+                self._threads_lock.acquire()
+                self._busy -= 1
+                self._threads_lock.release()
 
-    def destroy(self):
-        # order is important: first, request all threads to stop...:
-        for i in self.workers:
-            self.workers[i].dismiss()
-        # ...then, wait for each of them to terminate:
-        for i in self.workers:
-            self.workers[i].join()
-        # clean up the workers from now-unused thread objects
-        del self.workers
+        self._threads_lock.acquire()
+        try:
+            self._threads.remove(currentThread())
+        finally:
+            self._threads_lock.release()
+
+        self._event_dismiss.set()
+        _G_MAXTHREAD.release()
+
+    @property
+    def num_threads(self):
+        return len(self._threads)
+
+    def busy(self):
+        return self._busy
+
+    def idel(self):
+        return max(0, self.max_threads - self._busy)
+
+    def push(self, func, arg=None, callback=None, callback_arg=None):
+        if self._stop:
+            return
+        self._threads_lock.acquire()
+        try:
+            self._queue.put((func,
+                             arg,
+                             callback,
+                             callback_arg))
+            if func:
+                self._busy += 1
+            if callback:
+                callback(TASK_STATUS_QUEUE, callback_arg)
+        finally:
+            self._threads_lock.release()
+
+        self._adjust_threadcount()
+
+    def wait_for_idel(self, timeout=None):
+        if self.num_threads < self.max_threads:
+            time.sleep(0.5)
+            return
+        if self._event_dismiss.wait(timeout):
+            self._event_dismiss.clear()
+
+    def stop(self):
+        self._stop = True
+
+    def wait(self, wait=True):
+        if self._shutdown:
+            return
+        self._shutdown = True
+        self._stop = not wait
+        _threadpools.remove(ref(self))
+        self._threads_lock.acquire()
+        try:
+            for _ in range(self.num_threads):
+                self._queue.put((None, None, None, None))
+
+            threads = tuple(self._threads)
+        finally:
+            self._threads_lock.release()
+            for thread in threads:
+                thread.join()
+
+    def __repr__(self):
+        if self.max_threads:
+            threadcount = '%d/%d' % (self.num_threads, self.max_threads)
+        else:
+            threadcount = '%d' % self.num_threads
+        return '<ThreadPool at %x; threads=%s>' % (id(self), threadcount)
+
+
+if __name__ == '__main__':
+    pass
+    # def worker(arg):
+    #     print arg
+
+
+    # def callback(status, arg):
+    #     print status, arg
+
+
+    # tp = ThreadPool(3)
+    # for i in range(1):
+    #     tp.push(worker, 1, callback, 'worker')
+
+    # tp.wait()
+    # print tp.busy()
 
