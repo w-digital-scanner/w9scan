@@ -7857,7 +7857,7 @@ def assign(service, arg):
 
 def audit(arg):
     results = builtwith(arg)
-    security_info(results)
+    security_info(str(results))
 
 
 if __name__ == '__main__':

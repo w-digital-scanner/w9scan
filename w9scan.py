@@ -9,6 +9,7 @@ sys.dont_write_bytecode = True  # 不生成pyc文件
 from lib.core.common import weAreFrozen
 from lib.core.common import getUnicode
 from lib.core.common import setPaths
+from lib.core.common import makeurl
 from lib.core.common import banner
 from lib.core.log import logger
 import os
@@ -58,10 +59,8 @@ def main():
         setPaths(modulePath()) # 为一些目录和文件设置了绝对路径
         banner()
 
-        # url config
         urlconfig.url = raw_input('Input url > ')
-        urlconfig.url = urlconfig.url.strip()
-        #urlconfig.url = "https://blog.hacking8.com/"
+        urlconfig.url = makeurl(urlconfig.url)
 
         urlconfig.scanport = False
         input_scanport = raw_input('Need scan all ports ?(Y/N) (default N)> ')
@@ -74,7 +73,11 @@ def main():
         e.run()
         logger.report()
     except KeyboardInterrupt:
+        e.stop()
         logger.critical("[***] User Interrupt")
+        exit()
+    except Exception as info:
+        print info
         exit()
 
 

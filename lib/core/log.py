@@ -2,6 +2,7 @@
 Mst=>libs=>color
 '''
 from os import name
+from os import linesep
 
 if name == 'nt':
     '''windows color table'''
@@ -104,12 +105,10 @@ class otcolor:
         self.color.cprint(msg, GREEN, 0)
 
     def report(self):
-        import os
-        print os.linesep
-        self.info("[***] Scan report:" + os.linesep)
+        self.info("[***] Scan report:" + linesep)
 
         for item in self.result:
-            self.info('      ' + item + os.linesep)
+            self.info('      ' + item + linesep)
         self.info("[***] Report end")
 
 logger = Logger()

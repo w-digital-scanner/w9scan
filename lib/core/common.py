@@ -6,6 +6,7 @@ import os
 from lib.core.settings import INVALID_UNICODE_CHAR_FORMAT
 from lib.core.settings import banner as banner1
 from lib.core.log import logger
+import urlparse
 """
 Copyright (c) 2006-2017 sqlmap developers (http://sqlmap.org/)
 See the file 'doc/COPYING' for copying permission
@@ -79,6 +80,14 @@ def setPaths(rootPath):
 
 def banner():
     print banner1
+
+def makeurl(url):
+    prox = "http://"
+    if (url.startswith("https://")):
+        prox = "https://"
+    url_info = urlparse.urlparse(url)
+    url = prox + url_info.netloc + "/"
+    return url
 
 def Get_lineNumber_fileName():
     File_Obj = sys._getframe().f_back
