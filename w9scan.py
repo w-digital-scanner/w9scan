@@ -67,6 +67,10 @@ def main():
         if input_scanport.lower() in ("y","yes"):
             urlconfig.scanport = True
 
+        
+        urlconfig.threadNum = raw_input('You need start number of thread(Recommendation number is 15) > ')
+        urlconfig.threadNum = int(urlconfig.threadNum)
+
         e = Exploit_run()
         print '[***] ScanStart Target:%s' % urlconfig.url
         e.load_modules("www",urlconfig.url)
