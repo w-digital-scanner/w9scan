@@ -8,5 +8,8 @@ from thirdparty import ThreadPool
 def security_hole(msg):
     print msg
 
+def security_info(msg):
+    print msg
+    
 ThreadPool = ThreadPool.ThreadPool
 curl = miniCurl.Curl()

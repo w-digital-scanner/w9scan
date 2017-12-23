@@ -30,7 +30,7 @@ def builtwith(url, headers=None, html=None, user_agent='builtwith'):
     # download content
     if None in (headers, html):
         try:
-            request = urllib2.Request(url, None, {'User-Agent': user_agent})
+            request = urllib2.Request(url, None, {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'})
             if html:
                 # already have HTML so just need to make HEAD request for headers
                 request.get_method = lambda: 'HEAD'
@@ -120,7 +120,7 @@ def contains_dict(d1, d2):
     return True
 
 
-def load_apps(filename='apps.json.py'):
+def load_apps():
     """Load apps from Wappalyzer JSON (https://github.com/ElbertF/Wappalyzer)
     """
     # get the path of this filename relative to the current script
@@ -7848,7 +7848,9 @@ def load_apps(filename='apps.json.py'):
 		"51": "landing-page-builders"
 	}
 }
+
     return filename
+
 data = load_apps()
 
 def assign(service, arg):
@@ -7857,10 +7859,10 @@ def assign(service, arg):
 
 def audit(arg):
     results = builtwith(arg)
-    security_info(str(results))
-
+    if len(results):
+        security_info(str(results))
 
 if __name__ == '__main__':
-    url = "http://www.baidu.com/"
-    results = builtwith(url)
-    print results
+    from dummy import *
+    url = "http://www.adfun.cn/"
+    audit(url)
