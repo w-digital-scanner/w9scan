@@ -9,6 +9,7 @@ def assign(service, arg):
         return True, hostname
 
 def audit(arg):
+    security_info("IP:" + arg)
     task_push("ip",arg)
 
 if __name__ == "__main__":
