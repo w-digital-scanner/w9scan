@@ -39,3 +39,4 @@ python w9scan.py
 
 ## Thx
 - 感谢一位网友提供了部分bugscan代码
+- [hackhttp](https://github.com/BugScanTeam/hackhttp/)
