@@ -5,7 +5,7 @@
 # References : http://sebug.net/vuldb/ssvid-19058
 
 def assign(service, arg):
-    if "phpcms" == service:
+    if service == "phpcms" :
         return True, arg
 
 def audit(arg):

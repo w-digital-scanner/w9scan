@@ -8,6 +8,7 @@
 
 ## 升级记录
 - 接下来要做的: 爬虫模块(信息收集，XSS探测，SQL注入,敏感文件/备份文件探测) WAF/CDN探测模块 子域名爆破/探测并加入扫描 bug反馈机制
+- 1.3.2 分类了exp文件夹，使整理更方便
 - 1.3.1 部分插件加入了线程池，使速度更快了 添加了部分插件
 - 1.3 加入线程池，使速度更快了  内置buildtwitch分析网站结构
 - 1.2 加入了IP端口服务识别，对IP开放端口定向识别并破解
@@ -28,11 +29,11 @@ w9scan扫描器项目仅用于学习，禁止用于其他用途。
 
 ## 运行测试
 ### Linux 
-![](https://github.com/boy-hack/w9scan/blob/master/linux1.png)
-![](https://github.com/boy-hack/w9scan/blob/master/linux2.png)
+![](https://github.com/boy-hack/w9scan/blob/master/images/linux1.png)
+![](https://github.com/boy-hack/w9scan/blob/master/images/linux2.png)
 ### Win
-![](https://github.com/boy-hack/w9scan/blob/master/win1.png)
-![](https://github.com/boy-hack/w9scan/blob/master/win2.png)
+![](https://github.com/boy-hack/w9scan/blob/master/images/win1.png)
+![](https://github.com/boy-hack/w9scan/blob/master/images/win2.png)
 ## Useage
 python w9scan.py
 
