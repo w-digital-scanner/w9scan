@@ -86,12 +86,12 @@ def check(ip, port, timeout = 10):
                 sleep(2)
                 check_result = urllib2.urlopen("http://%s:8088/%s" %(server_ip, test_str), timeout=timeout).read()
                 if "YES" in check_result:
-                    security_hole(arg + ' has CVE-2017-10271. ')
+                    security_hole(ip + ' has CVE-2017-10271. ')
         else:
             pass
             
 def audit(arg):
-    check()
+    check(arg,80)
     
 if __name__ == '__main__':
     from dummy import *
