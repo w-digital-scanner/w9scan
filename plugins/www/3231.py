@@ -437,27 +437,11 @@ def audit(arg):
     else:
         arg=arg.rstrip('/')
         payload=payload.splitlines()
-        for p in payload:
-            links.put(arg + p)
         
-        Thread_Pool_Obj = ThreadPool(10)
-        while True:
-            Busy = Thread_Pool_Obj.busy()  # 繁忙
-
-            if links.qsize():
-                for x in range(min(Thread_Pool_Obj.idel(), links.qsize())):
-
-                    try:
-                        target = links.get_nowait()
-                        Thread_Pool_Obj.push(shock_check, target)
-
-                    except Exception as error_info:
-                        print "[!!!] queue error:>>> ", error_info
-
-            elif Busy == 0:
-                break
-            Thread_Pool_Obj.wait_for_idel(5)
-        Thread_Pool_Obj.wait()
+        Thread_Pool_Obj = ThreadPool(3,shock_check)
+        for p in payload:
+            Thread_Pool_Obj.push(arg + p)
+        Thread_Pool_Obj.run()
 
 if __name__ == "__main__":
     from dummy import *

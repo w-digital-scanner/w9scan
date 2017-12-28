@@ -68,7 +68,7 @@ def main():
             urlconfig.scanport = True
 
         
-        urlconfig.threadNum = raw_input('You need start number of thread(Recommendation number is 15) > ')
+        urlconfig.threadNum = raw_input('You need start number of thread(Recommendation number is 5) > ')
         urlconfig.threadNum = int(urlconfig.threadNum)
 
         e = Exploit_run()
