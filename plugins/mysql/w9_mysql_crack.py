@@ -413,7 +413,7 @@ o00O = None
 i1Ii1i1I11Iii = None
 
 
-def I1i1i1(arg):
+def craft(arg):
     global i1Ii1i1I11Iii
     global o00O
     OoO0O00O0oo0O, I1IiI11, iI1iiiiIii, iIiIiIiI, i11OOoo = arg
@@ -452,16 +452,16 @@ def audit(arg):
 
     if not i1iI1:
         return
-    OoO0O00O0oo0O = threadpool.ThreadPool(10)
+    OoO0O00O0oo0O = ThreadPool(10,craft)
     o00o0 = util.load_password_dict(I1IiI11, "database/mysql_user.txt", "database/mysql_pass.txt")
     for II1I in o00o0:
-        OoO0O00O0oo0O.push(I1i1i1, (OoO0O00O0oo0O,
+        OoO0O00O0oo0O.push((OoO0O00O0oo0O,
                                     I1IiI11,
                                     iI1iiiiIii,
                                     II1I[0],
                                     II1I[1]))
 
-    OoO0O00O0oo0O.wait()
+    OoO0O00O0oo0O.run()
     if o00O:
         security_hole("%s:%d mysql password is %s/%s" % (I1IiI11, iI1iiiiIii, o00O, i1Ii1i1I11Iii))
 

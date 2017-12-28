@@ -43,7 +43,11 @@ class w8_threadpool:
                 time.sleep(0.01)
             else:
                 break
-
+    def stop(self):
+        self.load_lock.acquire()
+        self.isContinue = False
+        self.load_lock.release()
+        
     def scan(self):
         while 1:
             self.load_lock.acquire()

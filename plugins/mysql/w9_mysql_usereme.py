@@ -31,7 +31,7 @@ def work_fun(arg):
 def audit(arg):
     ip, port = arg
     works = []
-    thread = threadpool.ThreadPool(10)
+    thread = ThreadPool(10,work_fun)
     work_list = util.load_password_dict(ip, "database/mysql_user.txt", None)
     for work in work_list:
         if work[0] not in works:
@@ -41,7 +41,7 @@ def audit(arg):
     for thread_work in works:
         thread.push(work_fun, (ip, port, thread_work, reData))
 
-    thread.wait()
+    thread.run()
     if reData:
         security_note(",".join(reData))
 

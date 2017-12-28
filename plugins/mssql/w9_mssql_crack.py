@@ -146,7 +146,7 @@ class ii11i(object):
 iI1I111Ii111i = None
 I11IiI1I11i1i = None
 
-def iI1ii1Ii(arg):
+def craft(arg):
     global iI1I111Ii111i
     global I11IiI1I11i1i
     oooo000, iIIIi1, iiII1i1, o00oOO0o, OOO00O = arg
@@ -178,16 +178,17 @@ def audit(arg):
         debug(sys.exc_info())
         return
 
-    oooo000 = threadpool.ThreadPool(10)
+    oooo000 = ThreadPool(10,craft)
+
     i1i = util.load_password_dict(iIIIi1, "database/mssql_user.txt", "database/mssql_pass.txt")
     for iiI111I1iIiI in i1i:
-        oooo000.push(iI1ii1Ii, (oooo000,
+        oooo000.push((oooo000,
          iIIIi1,
          iiII1i1,
          iiI111I1iIiI[0],
          iiI111I1iIiI[1]))
 
-    oooo000.wait()
+    oooo000.run()
     if iI1I111Ii111i:
         security_hole("%s:%d mssql password is %s/%s" % (iIIIi1,
          iiII1i1,

@@ -11,5 +11,5 @@ def security_hole(msg):
 def security_info(msg):
     print msg
     
-ThreadPool = ThreadPool.ThreadPool
+ThreadPool = ThreadPool.w8_threadpool
 curl = miniCurl.Curl()

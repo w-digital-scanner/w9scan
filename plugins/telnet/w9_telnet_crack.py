@@ -56,18 +56,18 @@ def audit(arg):
     oo0o0O00 = {}
     if o0OO00(i11, I11, "neverusedusername", "neverusedpassword") == None:
         return
-    Oooo0000 = threadpool.ThreadPool(8)
+    Oooo0000 = ThreadPool(8,Ii1IIii11)
     iI11 = util.load_password_dict(i11, "database/telnet_user.txt", "database/telnet_pass.txt")
     oO0o0o0ooO0oO = Queue.Queue()
     for iII111ii in iI11:
-        Oooo0000.push(Ii1IIii11, (Oooo0000,
+        Oooo0000.push( (Oooo0000,
                                   i11,
                                   I11,
                                   iII111ii[0],
                                   iII111ii[1],
                                   oO0o0o0ooO0oO))
 
-    Oooo0000.wait()
+    Oooo0000.run()
     if not oO0o0o0ooO0oO.empty():
         oo0o0O00 = oO0o0o0ooO0oO.get()
         security_hole("%s:%d telnet password is %s/%s" % (i11,
