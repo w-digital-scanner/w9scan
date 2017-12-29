@@ -61,11 +61,13 @@ class w8_threadpool:
             try:
                 # POC在执行时报错如果不被处理，线程框架会停止并退出
                 self.func_scan(payload)
-
+            except KeyboardInterrupt:
+                self.isContinue = False
+                raise KeyboardInterrupt
             except Exception:
                 errmsg = traceback.format_exc()
-                print errmsg
                 self.isContinue = False
+
             self.changeScanCount(-1)
         self.changeThreadCount(-1)
 

@@ -18,6 +18,7 @@ from distutils.version import LooseVersion
 from lib.core.settings import VERSION
 from lib.core.data import urlconfig
 from lib.core.exploit import Exploit_run
+from lib.utils import crawler
 
 def modulePath():
     """
@@ -71,13 +72,15 @@ def main():
         urlconfig.threadNum = raw_input('You need start number of thread(Recommendation number is 5) > ')
         urlconfig.threadNum = int(urlconfig.threadNum)
 
-        e = Exploit_run()
+        e = Exploit_run(urlconfig.threadNum)
         print '[***] ScanStart Target:%s' % urlconfig.url
-        e.load_modules("www",urlconfig.url)
-        e.run()
+        # e.load_modules("www",urlconfig.url)
+        # e.run()
+        e.init_spider()
+        s = crawler.SpiderMain(urlconfig.url)
+        s.craw()
         logger.report()
     except KeyboardInterrupt:
-        e.stop()
         logger.critical("[***] User Interrupt")
         exit()
     except Exception as info:

@@ -4,6 +4,8 @@
 
 from thirdparty import miniCurl
 from thirdparty import ThreadPool
+from thirdparty import hackhttp
+from lib.utils import until
 
 def security_hole(msg):
     print msg
@@ -13,3 +15,5 @@ def security_info(msg):
     
 ThreadPool = ThreadPool.w8_threadpool
 curl = miniCurl.Curl()
+hackhttp = hackhttp.hackhttp()
+util = until

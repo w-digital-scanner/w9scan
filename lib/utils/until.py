@@ -12931,6 +12931,21 @@ def str_ratio(exemplar_str, sig_str, small_sig_size=100, medium_sig_size=2000):
     else:
         return 0.0
 
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        pass
+
+    try:
+        import unicodedata
+        unicodedata.numeric(s)
+        return True
+    except (TypeError, ValueError):
+        pass
+
+    return False
 
 def html2text(body, head=''):
     """

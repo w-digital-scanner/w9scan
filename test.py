@@ -1,17 +1,16 @@
 # coding:utf-8
 
-import random
-from dummy import *
+import urlparse
 
-if __name__ == '__main__':
-    def calucator(num):
-        i = random.randint(1, 100)
-        u = num
-        a = i * u
-        print a
+u = "http://testphp.vulnweb.com/listproducts.php?artist=1&asfss=www"
+parse = urlparse.urlparse(u)
+print parse
+if not parse.query:
+    pass
 
-    p = ThreadPool(3, calucator)
-    for i in range(100):
-        p.push(i)
-    p.run()
 
+
+
+for i in parse.query.split('&'):
+    k,v = i.split('=')
+    print k,is_number(v)
