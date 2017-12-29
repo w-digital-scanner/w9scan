@@ -28,7 +28,6 @@ def audit(url,html):
             res_md5_1 = md5(html)
             url_1 = url.replace("%s=%s"%(k,v),"%s=%s"%(k,urlencode(v+'+1')))
             url_2 = url.replace("%s=%s"%(k,v),"%s=%s"%(k,urlencode(v+'+1-1')))
-            print url_1,url_2
             try:
                 code, head, html, redirect_url, log = hackhttp.http(url_1)
                 res_md5_2 = md5(html)

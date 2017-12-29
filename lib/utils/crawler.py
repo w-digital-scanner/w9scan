@@ -121,7 +121,7 @@ def check_end():
             if(service == "spider_end"):
                 pluginObj.audit()
         except Exception as errinfo:
-            print errinfo
+            print k," ",errinfo
 
 if __name__ == '__main__':
     u = "http://testphp.vulnweb.com/index.php"
