@@ -74,8 +74,8 @@ def main():
 
         e = Exploit_run(urlconfig.threadNum)
         print '[***] ScanStart Target:%s' % urlconfig.url
-        # e.load_modules("www",urlconfig.url)
-        # e.run()
+        e.load_modules("www",urlconfig.url)
+        e.run()
         e.init_spider()
         s = crawler.SpiderMain(urlconfig.url)
         s.craw()
