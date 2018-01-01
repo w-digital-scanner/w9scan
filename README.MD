@@ -7,8 +7,9 @@
 - 支持Windos/Linux  win10 Ubuntu 测试成功
 
 ## 升级记录
-- 接下来要做的: 爬虫模块(信息收集，XSS探测，SQL注入,敏感文件/备份文件探测) WAF/CDN探测模块 子域名爆破/探测并加入扫描 bug反馈机制
+- 接下来要做的: 爬虫模块(敏感文件/备份文件探测) WAF/CDN探测模块 子域名爆破/探测并加入扫描 bug反馈机制
 
+- 1.4.1 完成了爬虫的`信息收集`模块和`XSS`扫描模块 ，SQL注入以及XSS扫描代码参考[https://github.com/youmengxuefei/web_vul_scan](https://github.com/youmengxuefei/web_vul_scan)
 - 元旦了，祝自己快乐
 - 1.4.0 完成爬虫模块[单线程] 完成`sql注入`模块 包含`int注入` `字符注入` `报错查找`
 - 1.3.3 解决了程序异常，去掉了老的线程池，改用了[POC-T](https://github.com/Xyntax/POC-T/blob/2.0/lib/controller/engine.py)的线程引擎
@@ -41,6 +42,6 @@ python w9scan.py
 
 ## Thx
 - 感谢一位网友提供了部分bugscan代码
-- 爬虫的SQL模块部分参考 [https://github.com/youmengxuefei/web_vul_scan](https://github.com/youmengxuefei/web_vul_scan)
+- 爬虫的SQL和XSS模块部分参考 [https://github.com/youmengxuefei/web_vul_scan](https://github.com/youmengxuefei/web_vul_scan)
 - 线程控制参考 [POC-T](https://github.com/Xyntax/POC-T/blob/2.0/lib/controller/engine.py)
 - 网络访问引擎 [Hackhttp](https://github.com/BugScanTeam/hackhttp/)
