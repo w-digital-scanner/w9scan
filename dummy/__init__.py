@@ -12,7 +12,10 @@ def security_hole(msg):
 
 def security_info(msg):
     print msg
-    
+
+def security_note(msg):
+    print msg
+
 ThreadPool = ThreadPool.w8_threadpool
 curl = miniCurl.Curl()
 hackhttp = hackhttp.hackhttp()
