@@ -1,16 +1,10 @@
 ## w9scan
-这款扫描器将不仅仅只能调用bugscan插件,将不断升级扫描器，结合github上各种扫描器优秀项目  
-做一个`niub`的扫描器！
+这款扫描器将不仅仅只能调用bugscan插件,将不断升级扫描器，结合github上各种扫描器优秀项目,做一个`niub`的扫描器！环境只需要python 2.7即可，且不需要安装其他第三方库，支持Windos/Linux系统。如果觉得本程序能帮助到你欢迎点个`Star`，如果不参与开发，请不要点击`Fork`。
 
 #### 目标
 - Linux/Windos通用
 - python不额外安装第三方库
-- 做开源扫描器中的Top1
-
-## Requirement
-- require python 2.7
-- 不需要安装其他第三方库
-- 支持Windos/Linux  win10 Ubuntu 测试成功
+- 做开源扫描器中的 Top1
 
 ## 升级记录
 - 接下来要做的: 子域名爆破/探测并加入扫描 bug反馈机制 生成HTML格式扫描报告 扫描器架构简介，插件编写指南
