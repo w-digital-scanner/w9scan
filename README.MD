@@ -1,6 +1,11 @@
 ## w9scan
 这款扫描器将不仅仅只能调用bugscan插件,将不断升级扫描器，结合github上各种扫描器优秀项目  
-做一个完美的扫描器！
+做一个`niub`的扫描器！
+
+#### 目标
+- Linux/Windos通用
+- python不额外安装第三方库
+- 做开源扫描器中的Top1
 
 ## Requirement
 - require python 2.7
@@ -8,9 +13,10 @@
 - 支持Windos/Linux  win10 Ubuntu 测试成功
 
 ## 升级记录
-- 接下来要做的: WAF/CDN探测模块 子域名爆破/探测并加入扫描 bug反馈机制
+- 接下来要做的: 子域名爆破/探测并加入扫描 bug反馈机制 生成HTML格式扫描报告 扫描器架构简介，插件编写指南
 
-- 1.4.2 加入爬虫的备份文件探测模块参考[bcrpscan](https://github.com/secfree/bcrpscan)
+- 1.4.3 加入了WAF/CDN探测模块`waf_identify.py` 感谢[WebEye](https://github.com/zerokeeper/WebEye/)的代码以及指纹信息
+- 1.4.2 加入爬虫的备份文件探测模块 参考[bcrpscan](https://github.com/secfree/bcrpscan)
 - 1.4.1 完成了爬虫的`信息收集`模块和`XSS`扫描模块 ，SQL注入以及XSS扫描代码参考[https://github.com/youmengxuefei/web_vul_scan](https://github.com/youmengxuefei/web_vul_scan)
 - 元旦了，祝自己快乐
 - 1.4.0 完成爬虫模块[单线程] 完成`sql注入`模块 包含`int注入` `字符注入` `报错查找`
@@ -39,7 +45,7 @@ w9scan扫描器项目仅用于学习，禁止用于其他用途。
 ![](https://github.com/boy-hack/w9scan/blob/master/images/linux1.png)
 ![](https://github.com/boy-hack/w9scan/blob/master/images/linux2.png)
 
-用`w9scan`扫描 http://testphp.vulnweb.com/ 的扫描报告：
+用`w9scan 1.4.2` 扫描 http://testphp.vulnweb.com/ 的扫描报告：
 ```
       [Note] php version:5.3.0 - current
       [Note] 存在crossdomain.xml文件发现漏洞...(信息) payload: http://testphp.vulnweb.com//crossdomain.xml
@@ -288,3 +294,4 @@ python w9scan.py
 - 线程控制参考 [POC-T](https://github.com/Xyntax/POC-T/blob/2.0/lib/controller/engine.py)
 - 网络访问引擎 [Hackhttp](https://github.com/BugScanTeam/hackhttp/)
 - 基于爬虫的备份文件查找 [bcrpscan](https://github.com/secfree/bcrpscan)
+- [WebEye](https://github.com/zerokeeper/WebEye/)
