@@ -20,9 +20,12 @@ def audit(arg):
     if jsondata['code'] == 1:
         jsondata['data'] = {'region': '', 'city': '', 'isp': ''}
     else:
-        security_info("Region:" + jsondata['data']['region'])
-        security_info("ISP:" + jsondata['data']['isp'])
-        security_info("City:" + jsondata['data']['city'])
+        if jsondata['data']['region']:
+            security_info("Region:" + jsondata['data']['region'])
+        if jsondata['data']['isp']:
+            security_info("ISP:" + jsondata['data']['isp'])
+        if jsondata['data']['city']:
+            security_info("City:" + jsondata['data']['city'])
     security_info("IP Address:" + arg)
     task_push("ip",arg)
     # Get IP Address

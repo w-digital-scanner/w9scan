@@ -54,7 +54,7 @@ class SpiderMain(object):
                 html = until.w9_get(new_url)
                 check(new_url,html)
             except Exception as errinfo:
-                print "[xxx] spider request error:",errinfo
+                print "[xxx] spider %s:%s"%(Exception,errinfo)
                 html = ''
             new_urls = self._parse(new_url, html)
             self.urls.add_new_urls(new_urls)
