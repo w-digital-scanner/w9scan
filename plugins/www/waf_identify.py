@@ -58,7 +58,7 @@ def identify(header,html):
     for mark_info in mark_list:
         name, location, key, reg = mark_info
         if location == "headers":
-            if re.search(reg, header, re.I):
+            if re.search(reg, header, re.I) and key in header:
                 security_note(name)
                 break
         if location == "index":
