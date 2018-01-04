@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+#coding:utf-8
 from lib.core.data import paths
 import sys
 import os
@@ -7,6 +7,7 @@ from lib.core.settings import INVALID_UNICODE_CHAR_FORMAT
 from lib.core.settings import banner as banner1
 from lib.core.log import logger
 import urlparse
+import urllib2
 """
 Copyright (c) 2006-2017 sqlmap developers (http://sqlmap.org/)
 See the file 'doc/COPYING' for copying permission

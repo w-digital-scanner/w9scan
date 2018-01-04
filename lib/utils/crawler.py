@@ -6,6 +6,7 @@ import urlparse
 import re
 from thirdparty import hackhttp
 from lib.core.data import w9_hash_pycode
+from lib.utils import until
 
 req = hackhttp.hackhttp()
 
@@ -50,13 +51,11 @@ class SpiderMain(object):
             new_url = self.urls.get_new_url()
             print("craw:" + new_url)
             try:
-                code, head, html, redirect_url, log = req.http(new_url)
+                html = until.w9_get(new_url)
                 check(new_url,html)
             except Exception as errinfo:
                 print "[xxx] spider request error:",errinfo
-                code = 0
                 html = ''
-            if code != 200: continue
             new_urls = self._parse(new_url, html)
             self.urls.add_new_urls(new_urls)
             self.deep = self.deep + 1
@@ -103,7 +102,7 @@ class SpiderMain(object):
                 new_urls.add(new_full_url)
         return new_urls
 
-def check(url,html):
+def check(url,html = ''):
     for k, v in w9_hash_pycode.iteritems():
         try:
             pluginObj = v["pluginObj"]

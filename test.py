@@ -1,16 +1,9 @@
 # coding:utf-8
 
 import urlparse
+from dummy import *
+import urlparse
 
-u = "http://testphp.vulnweb.com/listproducts.php?artist=1&asfss=www"
-parse = urlparse.urlparse(u)
-print parse
-if not parse.query:
-    pass
+u = "https://bbs.125.la/?post=1"
 
-
-
-
-for i in parse.query.split('&'):
-    k,v = i.split('=')
-    print k,is_number(v)
+print urlparse.urlparse(u)

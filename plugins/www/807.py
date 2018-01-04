@@ -16,7 +16,7 @@ def assign(service, arg):
 def audit(arg):
     payload = 'solr/#/'
     url = arg + payload
-    code, head, res, errcode, _ = curl.curl('"%s"' % url)
+    code, head, res, errcode, _ = curl.curl("%s" % url)
     if code == 200 and  'Apache SOLR' in res :
         security_info(url)
         

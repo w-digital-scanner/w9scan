@@ -13,7 +13,7 @@ from lib.core.common import makeurl
 from lib.core.common import banner
 from lib.core.log import logger
 import os
-import inspect
+import inspect,time
 from distutils.version import LooseVersion
 from lib.core.settings import VERSION
 from lib.core.data import urlconfig
@@ -78,13 +78,14 @@ def main():
         e.run()
         e.init_spider()
         s = crawler.SpiderMain(urlconfig.url)
+        time.sleep(0.5)
         s.craw()
         logger.report()
     except KeyboardInterrupt:
         logger.critical("[***] User Interrupt")
         exit()
     except Exception as info:
-        print "[xxx] MainError",info
+        print "[xxx] MainError",Exception,":",info
         exit()
 
 

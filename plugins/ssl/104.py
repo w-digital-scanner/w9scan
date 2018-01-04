@@ -86,7 +86,8 @@ def assign(service, arg):
 
 
 def audit(arg):
-    host, port = arg
+    host = arg
+    port = 443
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((host, port))

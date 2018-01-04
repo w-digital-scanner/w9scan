@@ -1,6 +1,11 @@
 #!/usr/bin/evn python
+# -*- coding: utf-8 -*-
 import socket
 import urlparse
+import json
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 def assign(service, arg):
     if service == 'www':
@@ -9,8 +14,20 @@ def assign(service, arg):
         return True, hostname
 
 def audit(arg):
-    security_info("IP:" + arg)
+    url = "http://ip.taobao.com/service/getIpInfo.php?ip=%s" % arg
+    s = util.w9_get(url)
+    jsondata = json.loads(s)
+    if jsondata['code'] == 1:
+        jsondata['data'] = {'region': '', 'city': '', 'isp': ''}
+    else:
+        security_info("Region:" + jsondata['data']['region'])
+        security_info("ISP:" + jsondata['data']['isp'])
+        security_info("City:" + jsondata['data']['city'])
+    security_info("IP Address:" + arg)
     task_push("ip",arg)
+    # Get IP Address
 
 if __name__ == "__main__":
-    print assign("www","https://blog.hacking8.com")
+    from dummy import *
+    # print assign("www","https://blog.hacking8.com")
+    audit("47.52.234.181")

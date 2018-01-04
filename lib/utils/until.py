@@ -16,6 +16,12 @@ _reserved = ';/?:@&=$|'
 _unreserved_marks = "-_.!~*'()"
 _safe_chars = urllib.always_safe + '%' + _reserved + _unreserved_marks
 
+def w9_get(url):
+    # w9scan function for get requests
+    req = urllib2.Request(url)
+    req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.2; rv:16.0) Gecko/20100101 Firefox/16.0')
+    s = urllib2.urlopen(req).read()
+    return s
 
 def is_ipaddr(varObj):
     """
