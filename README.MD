@@ -7,7 +7,7 @@
 - 做开源扫描器中的 Top1
 
 ## 升级记录
-- 接下来要做的: 完善报错机制 bug反馈机制 生成HTML格式扫描报告 扫描器架构简介，插件编写指南
+- 接下来要做的: 生成HTML格式扫描报告 扫描器架构简介，插件编写指南
 
 - 1.5.0 实现了子域名解析爆破(用特殊的方法10行代码完成 hO(∩_∩)Oh) 可以看文件`subdomain.py`
 - 1.4.3 加入了WAF/CDN探测模块`waf_identify.py` 感谢[WebEye](https://github.com/zerokeeper/WebEye/)的代码以及指纹信息

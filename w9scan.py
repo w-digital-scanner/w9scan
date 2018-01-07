@@ -85,7 +85,7 @@ def main():
         logger.critical("[***] User Interrupt")
         exit()
     except Exception as info:
-        print "[xxx] MainError",Exception,":",info
+        print "[xxx] MainError:",Exception," :",info
         exit()
 
 
