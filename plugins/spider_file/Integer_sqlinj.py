@@ -23,6 +23,8 @@ def audit(url,html):
         return
 
     for i in parse.query.split('&'):
+        if '=' not in i:
+            continue
         k, v = i.split('=')
         if(util.is_number(v)):
             res_md5_1 = md5(html)

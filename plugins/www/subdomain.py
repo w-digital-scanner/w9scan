@@ -3016,7 +3016,7 @@ def audit(arg):
         hostnames = hostnames.strip()
         try:
             l = socket.gethostbyname_ex(hostnames)
-            security_info(str(l))
+            security_info(str(l),'subdomain')
         except socket.error:
             pass
 

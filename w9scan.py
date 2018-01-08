@@ -74,13 +74,14 @@ def main():
 
         e = Exploit_run(urlconfig.threadNum)
         print '[***] ScanStart Target:%s' % urlconfig.url
-        e.load_modules("www",urlconfig.url)
-        e.run()
+        # e.load_modules("www",urlconfig.url)
+        # e.run()
         e.init_spider()
         s = crawler.SpiderMain(urlconfig.url)
         time.sleep(0.5)
         s.craw()
-        logger.report()
+        e.report()
+        
     except KeyboardInterrupt:
         logger.critical("[***] User Interrupt")
         exit()

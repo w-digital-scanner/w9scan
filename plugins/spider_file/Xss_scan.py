@@ -13,6 +13,8 @@ def audit(url,html):
         return
     
     for path in parse.query.split('&'):
+        if '=' not in path:
+            continue
         k, v = path.split('=')
         XSS_PAYLOAD	= [
 			'<script>alert(1);</script>',

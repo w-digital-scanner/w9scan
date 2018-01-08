@@ -110,7 +110,7 @@ def check(url,html = ''):
             if(service == "spider_file"):
                 pluginObj.audit(url,html)
         except Exception as errinfo:
-            print "[xxx] spider:",errinfo
+            print "[xxx] spider plugin:%s errinfo:%s Exception:%s url:%s"%(k,errinfo,Exception,url)
 
 def check_end():
     for k, v in w9_hash_pycode.iteritems():

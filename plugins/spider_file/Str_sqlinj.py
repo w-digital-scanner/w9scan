@@ -23,6 +23,8 @@ def audit(url,html):
         return
 
     for path in parse.query.split('&'):
+        if '=' not in path:
+            continue
         k, v = path.split('=')
         if(v.isalnum()):
             quotes = ['\'' , '"','']
@@ -48,6 +50,6 @@ def audit(url,html):
                         security_hole("[String SQL injection] url:%s log:%s"%(url,log["request"]),'String SQL injection')
 
 if __name__ == '__main__':
-    url = "http://testphp.vulnweb.com/listproducts.php?artist=1"
+    url = "https://blog.hacking8.com/?gfs"
     code, head, html, redirect_url, log = hackhttp.http(url)
     audit(url,html)
