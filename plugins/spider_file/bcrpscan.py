@@ -40,13 +40,13 @@ def probe_url(url):
                 u = '%s://%s%s%s' % (pr.scheme, pr.netloc, p[:-1], ext)
                 code, head, body, redirect, log = hackhttp.http(u)
                 if code == 200:
-                    security_note("[bcrpscan] %s" % u)
+                    security_note(u,'bcrpscan')
         else:
             for ext in FILE_PROBE_EXTS:
                 u = '%s://%s%s%s' % (pr.scheme, pr.netloc, p, ext)
                 code, head, body, redirect, log = hackhttp.http(u)
                 if code == 200:
-                    security_note("[bcrpscan] %s" % u)
+                    security_note(u,'bcrpscan')
 
 
 def get_parent_paths(path):

@@ -20,7 +20,7 @@ def fetch(url,raw):
     for r in regexs:
         rst = re.findall(r, raw)
         for i in rst:
-            security_note("Infomation Collect:" + i[0])
+            security_set("info",i[0],"Information Collect")
 
 def audit(url,html):
     fetch(url,html)

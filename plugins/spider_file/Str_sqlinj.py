@@ -45,7 +45,7 @@ def audit(url,html):
                         print e
                         res_md5_1 = res_md5_2 = res_md5_3 = 0
                     if ( res_md5_1 == res_md5_3 ) and res_md5_1 != res_md5_2:
-                        security_hole("[String SQL injection] " + url + " " + log["request"])
+                        security_hole("[String SQL injection] url:%s log:%s"%(url,log["request"]),'String SQL injection')
 
 if __name__ == '__main__':
     url = "http://testphp.vulnweb.com/listproducts.php?artist=1"

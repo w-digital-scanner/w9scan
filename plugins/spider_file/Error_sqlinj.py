@@ -50,7 +50,7 @@ def audit(url,html):
                     msg = 'A SQL error was found in the response supplied by the web application,'
                     msg += match2.group(0)  + '". The error was found '
                     #res.append( (sql_regex, match.group(0), dbms_type) )
-                    security_hole("[Error SQL Found %s] "%(dbms_type) + url + " " + match2.group(0) + log["request"])
+                    security_hole("dbms_type:%s url:%s %s log:%s"%(dbms_type,url,match2.group(0),log["request"]),'Error_sqlinj')
         except Exception,e:
             print e
             

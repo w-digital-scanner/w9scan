@@ -38,7 +38,7 @@ def audit(url,html):
                 res_md5_1 = res_md5_2 = res_md5_3 = 0
 
             if (res_md5_1 == res_md5_3) and res_md5_1 != res_md5_2:
-                security_hole("[Integer SQL injection] " + url + " " + log["request"])
+                security_hole("[Integer SQL injection] %s log:%s"%(url,log["request"]),"Integer Sql injection")
             return
 
 if __name__ == '__main__':

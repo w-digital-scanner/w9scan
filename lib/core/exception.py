@@ -9,3 +9,6 @@ class LoadPluginException(Exception):
 
 class LoadModuleException(Exception):
     pass
+
+class BuildHtmlErrorException(Exception):
+    pass
