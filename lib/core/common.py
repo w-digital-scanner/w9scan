@@ -6,8 +6,9 @@ import os
 from lib.core.settings import INVALID_UNICODE_CHAR_FORMAT
 from lib.core.settings import banner as banner1
 from lib.core.log import logger
+from thirdparty import hackhttp
 import urlparse
-import urllib2
+import urllib2,urllib
 """
 Copyright (c) 2006-2017 sqlmap developers (http://sqlmap.org/)
 See the file 'doc/COPYING' for copying permission
@@ -113,3 +114,11 @@ def Get_lineNumber_fileName():
                                f_line,
                                ff_co_name,
                                ff_line)
+
+def createIssueForBlog(errMSG):
+    """
+    Automatically create a blog comment with unhandled exception information
+    """
+    hh = hackhttp.hackhttp()
+    postData = "gid=213&pid=0&qqnum=&comname=w9scan+BugReporter&commail=buger%40hacking8.com&comurl=&private=on&comment=%5B%E7%A7%81%E5%AF%86%E8%AF%84%E8%AE%BA%5D%E6%8A%A5%E5%91%8Abug:" + errMSG
+    code, head, body, redirect, log = hh.http('https://blog.hacking8.com/index.php?action=addcom', post=postData)

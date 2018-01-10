@@ -117,3 +117,6 @@ class buildHtml(object):
         result.write(w9scan_html)
         result.close()
         print "success saved :" + filename
+    
+    def getData(self):
+        return str(self.dict)

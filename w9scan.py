@@ -20,6 +20,7 @@ from lib.core.settings import VERSION
 from lib.core.data import urlconfig
 from lib.core.exploit import Exploit_run
 from lib.utils import crawler
+from lib.core.common import createIssueForBlog
 
 def modulePath():
     """
@@ -91,9 +92,10 @@ def main():
         exit()
     except Exception as info:
         print "[xxx] MainError:",Exception," :",info
-        Get_lineNumber_fileName()
+        errinfo = Get_lineNumber_fileName()
+        errinfo = errinfo + " " + e.getData()
+        createIssueForBlog(errinfo)
         exit()
-
 
 if __name__ == '__main__':
     main()
