@@ -56,7 +56,7 @@ def isMatching(f_path, cms_name, sign, res, code, host, head):
 
     if isMatch:
         task_push(cms_name, host, target=util.get_url_host(host))
-        security_note(cms_name,'CmsName')
+        security_note(cms_name,'whatcms')
         #print "%s %s" % (cms_name, host)
         return True
 

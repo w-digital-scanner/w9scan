@@ -7,6 +7,7 @@ import urlparse
 import hashlib
 from urllib import quote as urlencode
 from urllib import unquote as urldecode
+import os
 
 def md5(src):
     m2 = hashlib.md5()
@@ -40,7 +41,7 @@ def audit(url,html):
                 res_md5_1 = res_md5_2 = res_md5_3 = 0
 
             if (res_md5_1 == res_md5_3) and res_md5_1 != res_md5_2:
-                security_hole("[Integer SQL injection] %s log:%s"%(url,log["request"]),"Integer Sql injection")
+                security_hole(log["request"].replace(os.linesep,'</br>')),"Integer Sql injection:" + url)
             return
 
 if __name__ == '__main__':

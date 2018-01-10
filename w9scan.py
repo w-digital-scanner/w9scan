@@ -11,6 +11,7 @@ from lib.core.common import getUnicode
 from lib.core.common import setPaths
 from lib.core.common import makeurl
 from lib.core.common import banner
+from lib.core.common import Get_lineNumber_fileName
 from lib.core.log import logger
 import os
 import inspect,time
@@ -72,6 +73,7 @@ def main():
         urlconfig.threadNum = raw_input('You need start number of thread(Recommendation number is 5) > ')
         urlconfig.threadNum = int(urlconfig.threadNum)
 
+        startTime = time.clock()
         e = Exploit_run(urlconfig.threadNum)
         print '[***] ScanStart Target:%s' % urlconfig.url
         e.load_modules("www",urlconfig.url)
@@ -80,6 +82,8 @@ def main():
         s = crawler.SpiderMain(urlconfig.url)
         time.sleep(0.5)
         s.craw()
+        endTime = time.clock()
+        urlconfig.runningTime = endTime - startTime
         e.report()
         
     except KeyboardInterrupt:
@@ -87,6 +91,7 @@ def main():
         exit()
     except Exception as info:
         print "[xxx] MainError:",Exception," :",info
+        Get_lineNumber_fileName()
         exit()
 
 

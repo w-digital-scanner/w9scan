@@ -12,3 +12,6 @@ class LoadModuleException(Exception):
 
 class BuildHtmlErrorException(Exception):
     pass
+
+class SaveReportException(Exception):
+    pass
