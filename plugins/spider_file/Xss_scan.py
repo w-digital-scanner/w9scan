@@ -35,4 +35,4 @@ def audit(url,html):
             url_1 = url.replace("%s=%s"%(k,v),"%s=%s"%(k,urlencode(payload)))
             code, head, html, redirect_url, log = hackhttp.http(url_1)
             if payload in html:
-                security_hole(log["request"].replace(os.linesep,'</br>'),'XSS:' + url_1)
+                security_warning(log["request"].replace(os.linesep,'</br>'),'XSS:' + url_1)

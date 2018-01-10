@@ -8,6 +8,7 @@ import hashlib
 from urllib import quote as urlencode
 from urllib import unquote as urldecode
 import re
+import os
 
 class dbms:
     DB2 = 'IBM DB2 database'
