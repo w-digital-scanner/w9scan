@@ -93,7 +93,7 @@ def main():
     except Exception as info:
         print "[xxx] MainError:",Exception," :",info
         errinfo = Get_lineNumber_fileName()
-        errinfo = errinfo + " " + e.getData()
+        errinfo = errinfo + " " + str(urlconfig) + " " + e.getData()
         createIssueForBlog(errinfo)
         exit()
 
