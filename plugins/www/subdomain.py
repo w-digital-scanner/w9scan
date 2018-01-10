@@ -5,7 +5,7 @@
 import socket
 def assign(service, arg):
     if service == 'www':
-        return False, arg
+        return True, arg
 
 def audit(arg):
     domain = util.get_domain_root(arg)
