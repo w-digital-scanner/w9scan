@@ -93,8 +93,9 @@ def main():
     except Exception as info:
         print "[xxx] MainError:",Exception," :",info
         errinfo = Get_lineNumber_fileName()
-        errinfo = errinfo + " " + str(urlconfig) + " " + e.getData()
-        createIssueForBlog(errinfo)
+        data = e.buildHtml.getData()
+        aax = "error:%s urlconfig:%s date:%s"%(errinfo,str(urlconfig),data)
+        createIssueForBlog(aax)
         exit()
 
 if __name__ == '__main__':

@@ -72,7 +72,7 @@ def createsocket(ip,port):
     
 def assign(service, arg):
     if service == "postgresql":
-        return True, arg
+        return True, arg,5432
 
 def audit(args):
     ip,port=args

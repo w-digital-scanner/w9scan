@@ -119,4 +119,7 @@ class buildHtml(object):
         print "success saved :" + filename
     
     def getData(self):
-        return str(self.dict)
+        htmlDict = dict()
+        for key,value in self.dict.items():
+            htmlDict[key] = value.getData()
+        return str(htmlDict)
