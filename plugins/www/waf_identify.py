@@ -23,6 +23,7 @@ WAF:DenyAll|headers|Set-Cookie|\Asessioncookie=
 WAF:dotDefender|headers|X-dotDefender-denied|1
 WAF:Incapsula|headers|X-CDN|Incapsula
 WAF:Jiasule|headers|Set-Cookie|jsluid=
+WAF:KSYUN|headers|Server|KSYUN ELB
 WAF:KONA|headers|Server|AkamaiGHost
 WAF:ModSecurity|headers|Server|Mod_Security|NOYB
 WAF:NetContinuum|headers|Cneonction|\Aclose
