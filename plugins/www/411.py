@@ -42,7 +42,7 @@ def audit(arg):
     "Varnish FireWall (OWASP)":["",r"X-Varnish"],
     "WebKnight Application Firewall (AQTRONIX)":["",r"WebKnight"],
     }
-    code, head, body, error, _ = curl.curl(arg)
+    code, head, body, error, _ = hackhttp.http(arg)
     for waf in wafs:
         if wafs[waf][0] in head and re.search(wafs[waf][1],head,re.IGNORECASE):
             security_note(waf)
