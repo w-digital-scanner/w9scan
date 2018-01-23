@@ -34,7 +34,10 @@
 - 一千多个脚本对目标站轮训？  
     先调用`www`服务的插件，由这些插件在调用其他插件`指纹识别` `端口服务识别`等。
 - 与w8scan的关系？  
-    为w8scan的扫描器代码探测
+    为w8scan的扫描器代码探路
+- 如何交流?  
+    ![](https://github.com/boy-hack/w9scan/blob/master/images/qqgroup.png)  
+    特意成立了QQ群用于交流，qq群仅发布在github，我想尽量维护一个交流的氛围
 
 ## 免责
 w9scan扫描器项目仅用于学习，禁止用于其他用途。
