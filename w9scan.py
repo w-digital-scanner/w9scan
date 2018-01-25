@@ -64,6 +64,10 @@ def main():
         banner()
 
         urlconfig.url = raw_input('Input url > ')
+        if urlconfig.url is '':
+            logger.critical("[xxx] You have to enter the url")
+            exit()
+
         urlconfig.url = makeurl(urlconfig.url)
         print("You can select these plugins (%s) or select all"%(' '.join(LIST_PLUGINS)))
         diyPlugin = raw_input("Please select the required plugins > ")
@@ -100,7 +104,7 @@ def main():
         logger.critical("[***] User Interrupt")
         exit()
     except Exception as info:
-        print "[xxx] MainError:",Exception," :",info
+        logger.critical("[xxx] MainError:" + Exception + " :" + info)
         errinfo = Get_lineNumber_fileName()
         data = e.buildHtml.getData()
         aax = "error:%s urlconfig:%s date:%s"%(errinfo,str(urlconfig),data)
