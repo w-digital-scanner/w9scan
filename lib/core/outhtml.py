@@ -4,6 +4,7 @@ from lib.core.exception import BuildHtmlErrorException
 from lib.core.exception import SaveReportException
 from lib.core.data import urlconfig
 from lib.core.data import paths
+from lib.core.log import logger
 from lib.core.common import runningTime
 import time,base64,os
 from lib.utils.until import get_domain_root
@@ -86,6 +87,7 @@ class buildHtml(object):
             w9scan_html = w9scan_html.replace("{{scantime}}",runningTime(urlconfig.runningTime) )
         except Exception:
             raise BuildHtmlErrorException
+            
         for key,value in self.dict.items():
             try:
                 htmlDict[key] = value.getData()
@@ -120,7 +122,7 @@ class buildHtml(object):
         result = open(filename, "w")
         result.write(w9scan_html)
         result.close()
-        print "success saved :" + filename
+        logger.info("success saved :" + filename)
     
     def getData(self):
         htmlDict = dict()
