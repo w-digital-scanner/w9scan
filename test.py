@@ -1,10 +1,13 @@
 # coding:utf-8
-from lib.core.data import urlconfig
 
-# Selectable list of plugins
-LIST_PLUGINS = ["subdomain","find_service","whatcms","struts"]
-b = ['subdomain']
-remove_plugins = list(set(LIST_PLUGINS).difference(set(b))) # b中有而a中没有的
-print remove_plugins
+time = 154.629854404
+print round(time,2)
+print round(time/60,2)
 
-print 'find_service' in remove_plugins
+def runningTime(time):
+    sTime = round(time,2)
+    mTime = round(time/60,2)
+    timeStr = "%s min / %s seconds"%(str(mTime),str(sTime))
+    return timeStr
+
+print runningTime(time)

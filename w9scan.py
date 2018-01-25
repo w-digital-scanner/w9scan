@@ -104,7 +104,7 @@ def main():
         logger.critical("[***] User Interrupt")
         exit()
     except Exception as info:
-        logger.critical("[xxx] MainError:" + Exception + " :" + info)
+        logger.critical("[xxx] MainError: %s:%s"%(str(Exception),info))
         errinfo = Get_lineNumber_fileName()
         data = e.buildHtml.getData()
         aax = "error:%s urlconfig:%s date:%s"%(errinfo,str(urlconfig),data)
