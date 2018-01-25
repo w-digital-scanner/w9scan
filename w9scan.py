@@ -17,6 +17,7 @@ import os
 import inspect,time
 from distutils.version import LooseVersion
 from lib.core.settings import VERSION
+from lib.core.settings import LIST_PLUGINS
 from lib.core.data import urlconfig
 from lib.core.exploit import Exploit_run
 from lib.utils import crawler
@@ -64,14 +65,22 @@ def main():
 
         urlconfig.url = raw_input('Input url > ')
         urlconfig.url = makeurl(urlconfig.url)
+        print("You can select these plugins (%s) or select all"%(' '.join(LIST_PLUGINS)))
+        diyPlugin = raw_input("Please select the required plugins > ")
+        if diyPlugin.lower() is 'all':
+            urlconfig.diyPlugin = LIST_PLUGINS
+        else:
+            urlconfig.diyPlugin = diyPlugin.strip().split(' ')
 
         urlconfig.scanport = False
-        input_scanport = raw_input('Need scan all ports ?(Y/N) (default N)> ')
-        if input_scanport.lower() in ("y","yes"):
-            urlconfig.scanport = True
-
+        if 'find_service' in urlconfig.diyPlugin:
+            input_scanport = raw_input('Need scan all ports ?(Y/N) (default N)> ')
+            if input_scanport.lower() in ("y","yes"):
+                urlconfig.scanport = True
         
-        urlconfig.threadNum = raw_input('You need start number of thread(Recommendation number is 5) > ')
+        urlconfig.threadNum = raw_input('You need start number of thread (default 5) > ')
+        if urlconfig.threadNum is '':
+            urlconfig.threadNum = 5
         urlconfig.threadNum = int(urlconfig.threadNum)
 
         startTime = time.clock()

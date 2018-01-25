@@ -8,8 +8,9 @@
 - 先让软件work起来，再来优化各种细节！
 
 ## 升级记录
-- 接下来要做的: 扫描器架构简介，插件编写指南 可自定义配置扫描的文件(子域名 端口 CMS识别 struts 自定义可扫描) 优化各种插件性能，效率，以及精准度
+- 接下来要做的: 扫描器架构简介，插件编写指南 优化各种插件性能，效率，以及精准度
 
+- 1.6.1 可自定义配置需要扫描的模块(子域名 端口 CMS识别 struts)
 - 1.6.0 实现了生成html格式报告(超酷的报告) html借用了 [cobra](https://github.com/wufeifei/cobra)
 - 1.5.0 实现了子域名解析爆破(用特殊的方法10行代码完成 hO(∩_∩)Oh) 可以看文件`subdomain.py`
 - 1.4.3 加入了WAF/CDN探测模块`waf_identify.py` 感谢[WebEye](https://github.com/zerokeeper/WebEye/)的代码以及指纹信息

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # w9scan version
-VERSION = "1.6.0"
+VERSION = "1.6.1"
 Site = "https://blog.hacking8.com/"
 
 # w9scan banner
@@ -23,3 +23,6 @@ banner = """
 
 # Format used for representing invalid unicode characters
 INVALID_UNICODE_CHAR_FORMAT = r"\x%02x"
+
+# Selectable list of plugins
+LIST_PLUGINS = ["subdomain","find_service","whatcms","struts"]
