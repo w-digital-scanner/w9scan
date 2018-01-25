@@ -6,6 +6,11 @@
 import sys
 
 sys.dont_write_bytecode = True  # 不生成pyc文件
+try:
+    __import__("lib.utils.versioncheck")  # this has to be the first non-standard import
+except ImportError:
+    exit("[!] wrong installation detected (missing modules). Please install python version for 2.7.x")
+
 from lib.core.common import weAreFrozen
 from lib.core.common import getUnicode
 from lib.core.common import setPaths
