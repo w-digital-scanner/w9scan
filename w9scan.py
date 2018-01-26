@@ -68,14 +68,14 @@ def main():
         setPaths(modulePath()) # 为一些目录和文件设置了绝对路径
         banner()
 
-        urlconfig.url = raw_input('Input url > ')
+        urlconfig.url = raw_input('[1] Input url > ')
         if urlconfig.url is '':
             logger.critical("[xxx] You have to enter the url")
             exit()
 
         urlconfig.url = makeurl(urlconfig.url)
-        print("You can select these plugins (%s) or select all"%(' '.join(LIST_PLUGINS)))
-        diyPlugin = raw_input("Please select the required plugins > ")
+        print("[Tips] You can select these plugins (%s) or select all"%(' '.join(LIST_PLUGINS)))
+        diyPlugin = raw_input("[2] Please select the required plugins > ")
         if diyPlugin.lower() is 'all':
             urlconfig.diyPlugin = LIST_PLUGINS
         else:
@@ -83,11 +83,11 @@ def main():
 
         urlconfig.scanport = False
         if 'find_service' in urlconfig.diyPlugin:
-            input_scanport = raw_input('Need scan all ports ?(Y/N) (default N)> ')
+            input_scanport = raw_input('[2.1] Need scan all ports ?(Y/N) (default N)> ')
             if input_scanport.lower() in ("y","yes"):
                 urlconfig.scanport = True
         
-        urlconfig.threadNum = raw_input('You need start number of thread (default 5) > ')
+        urlconfig.threadNum = raw_input('[3] You need start number of thread (default 5) > ')
         if urlconfig.threadNum is '':
             urlconfig.threadNum = 5
         urlconfig.threadNum = int(urlconfig.threadNum)
