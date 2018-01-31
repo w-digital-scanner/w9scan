@@ -5,7 +5,7 @@
 #Refer:http://www.beebeeto.com/pdb/poc-2014-0149/
 import urlparse
 def assign(service, arg):
-    if service == 'www':
+    if service == 'd-link':
         arr = urlparse.urlparse(arg)
         if arr.scheme == 'http':
             return True, '%s://%s/' % (arr.scheme, arr.netloc)

@@ -5,7 +5,7 @@
 #Refer:https://www.exploit-db.com/exploits/37516/
 import urlparse
 def assign(service, arg):
-    if service == 'www':
+    if service == 'd-link':
         arr = urlparse.urlparse(arg)
         return True, '%s://%s/' % (arr.scheme, arr.netloc)
 

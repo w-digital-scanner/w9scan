@@ -20,7 +20,7 @@ https://www.schneier.com/blog/archives/2013/10/d-link_router_b.html
 import urlparse
 import socket
 def assign(service, arg):
-    if service == 'www':
+    if service == 'd-link':
         arr = urlparse.urlparse(arg)
         if arr.scheme == 'http':
             return True, '%s://%s/' % (arr.scheme, arr.netloc)
