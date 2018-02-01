@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
-# 只寻找字符型的注入点
+# 只网址中的报错信息
 
 from dummy import *
 import re
@@ -12,8 +12,8 @@ def assign(service, arg):
 
 def audit(url,html):
     h = util.ErrorInfoSearch(html)
-    if h is not None:
-        security_note("报错信息:" + ' '.join(h),'Error_message')
+    if len(h) > 0:
+        security_note("Error_message:" + ' '.join(h),'Error_message')
     arg = urlparse.urlparse(url).scheme + '://' + urlparse.urlparse(url).netloc + urlparse.urlparse(url).path
     query = urlparse.urlparse(url).query
 
@@ -25,8 +25,8 @@ def audit(url,html):
             code, head, html, redirect_url, log = hackhttp.http(rets)
             if code == 200:
                 h = util.ErrorInfoSearch(html)
-                if h is not None:
-                    security_note("报错信息:" + ' '.join(h), 'Error_message')
+                if len(h) > 0:
+                    security_note("Error_message:" + ' '.join(h), 'Error_message')
 
 if __name__ == '__main__':
     print "1"

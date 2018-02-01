@@ -74,6 +74,7 @@ def main():
             exit()
 
         urlconfig.url = makeurl(urlconfig.url)
+        print '[***] ScanStart Target:%s' % urlconfig.url
         print("[Tips] You can select these plugins (%s) or select all"%(' '.join(LIST_PLUGINS)))
         diyPlugin = raw_input("[2] Please select the required plugins > ")
         if diyPlugin.lower() is 'all':
@@ -83,7 +84,7 @@ def main():
 
         urlconfig.scanport = False
         if 'find_service' in urlconfig.diyPlugin:
-            input_scanport = raw_input('[2.1] Need scan all ports ?(Y/N) (default N)> ')
+            input_scanport = raw_input('[2.1] Need you scan all ports ?(Y/N) (default N)> ')
             if input_scanport.lower() in ("y","yes"):
                 urlconfig.scanport = True
         
@@ -94,7 +95,6 @@ def main():
 
         startTime = time.clock()
         e = Exploit_run(urlconfig.threadNum)
-        print '[***] ScanStart Target:%s' % urlconfig.url
         e.load_modules("www",urlconfig.url)
         e.run()
         e.init_spider()

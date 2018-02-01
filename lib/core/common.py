@@ -87,8 +87,14 @@ def makeurl(url):
     prox = "http://"
     if (url.startswith("https://")):
         prox = "https://"
+    if not (url.startswith("http://") or url.startswith("https://")):
+        url = prox + url
     url_info = urlparse.urlparse(url)
-    url = prox + url_info.netloc + "/"
+    
+    if url_info.path:
+        url = prox + url_info.netloc + url_info.path
+    else:
+        url = prox + url_info.netloc + "/"
     return url
 
 def Get_lineNumber_fileName():
