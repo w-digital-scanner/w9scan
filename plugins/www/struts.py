@@ -9,8 +9,6 @@ def assign(service, arg):
         if OO0o.path.endswith(".action") or OO0o.path.endswith(".do"):
             return True, "%s://%s%s" % (OO0o.scheme, OO0o.netloc, OO0o.path)
         return True, '%s://%s' % (OO0o.scheme, OO0o.netloc)
-    elif service == "struts":
-        return True, arg
 
 
 def audit(arg):
