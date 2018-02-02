@@ -93,7 +93,6 @@ def main():
         if urlconfig.threadNum is '':
             urlconfig.threadNum = 5
         urlconfig.threadNum = int(urlconfig.threadNum)
-        exit()
         startTime = time.clock()
         e = Exploit_run(urlconfig.threadNum)
         e.load_modules("www",urlconfig.url)
