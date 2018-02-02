@@ -93,6 +93,8 @@ def makeurl(url):
     
     if url_info.path:
         url = prox + url_info.netloc + url_info.path
+        if not url.endswith("/"):
+            url = url + "/"
     else:
         url = prox + url_info.netloc + "/"
     return url
