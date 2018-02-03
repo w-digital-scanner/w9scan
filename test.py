@@ -1,8 +1,8 @@
 # coding:utf-8
 
-r = r'''
-/(<font style="COLOR: black; FONT: 8pt\/11pt verdana">\s+(\[Macromedia\]\[SQLServer\sJDBC\sDriver\]\[SQLServer\]|Syntax\serror\sin\sstring\sin\squery\sexpression\s))/,
-'''
-a = []
-a.append(r)
-print a
+List=[1,2,2,2,2,3,3,3,4,4,4,4]
+a = {}
+for i in List:
+    if List.count(i)>1:
+        a[i] = List.count(i)
+print (a)

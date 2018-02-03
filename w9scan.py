@@ -92,6 +92,7 @@ def main():
         urlconfig.threadNum = raw_input('[3] You need start number of thread (default 5) > ')
         if urlconfig.threadNum is '':
             urlconfig.threadNum = 5
+
         urlconfig.threadNum = int(urlconfig.threadNum)
         startTime = time.clock()
         e = Exploit_run(urlconfig.threadNum)
@@ -110,9 +111,8 @@ def main():
         exit()
     except Exception as info:
         logger.critical("[xxx] MainError: %s:%s"%(str(Exception),info))
-        errinfo = Get_lineNumber_fileName()
         data = e.buildHtml.getData()
-        aax = "error:%s urlconfig:%s date:%s"%(errinfo,str(urlconfig),data)
+        aax = "error:%s urlconfig:%s date:%s"%(str(Exception) + " " + str(info),str(urlconfig),data)
         createIssueForBlog(aax)
         exit()
 

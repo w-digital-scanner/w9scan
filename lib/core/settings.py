@@ -25,4 +25,4 @@ banner = """
 INVALID_UNICODE_CHAR_FORMAT = r"\x%02x"
 
 # Selectable list of plugins
-LIST_PLUGINS = ["subdomain","find_service","whatcms","struts"]
+LIST_PLUGINS = ["subdomain","find_service","whatcms","struts","fuzz"]
