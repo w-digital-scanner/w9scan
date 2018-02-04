@@ -1,5 +1,7 @@
 ## w9scan
-一款全能型的扫描器，吸收各位前辈的优秀代码。因看不惯某喷子，项目曾删除过一次，但现在觉得没有必要斤斤计较。开心就好~
+> 一款全能型的网站漏洞扫描器，借鉴了各位前辈的优秀代码。内置1200+插件可对网站进行一次规模的检测，功能包括但不限于web指纹检测、端口指纹检测、网站结构分析、各种流行的漏洞检测、爬虫以及SQL注入检测、XSS检测等等，w9scan会自动生成精美HTML格式结果报告。  
+
+[![Python 2.6|2.7](https://img.shields.io/badge/python-2.6|2.7-yellow.svg)](https://www.python.org/)  [![License](https://img.shields.io/badge/license-GPLv2-red.svg)](https://raw.githubusercontent.com/bugscanteam/hackhttp/master/GPL-2.0)
 
 #### 目标
 - Linux/Windos通用
