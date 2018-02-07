@@ -94,7 +94,7 @@ def main():
             urlconfig.threadNum = 5
 
         urlconfig.threadNum = int(urlconfig.threadNum)
-        urlconfig.deepMax = raw_input('[4] Set the depth of the crawler (default 200) > ')
+        urlconfig.deepMax = raw_input('[4] Set the depth of the crawler (default 200 | 0 don\'t use crawler ) > ')
         if urlconfig.deepMax == '':
             urlconfig.deepMax = 200
 
