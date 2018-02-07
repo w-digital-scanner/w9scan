@@ -82,7 +82,7 @@ def main():
             urlconfig.diyPlugin = LIST_PLUGINS
         else:
             urlconfig.diyPlugin = diyPlugin.strip().split(' ')
-            
+        print "[***] You select the plugins:%s"%(' '.join(urlconfig.diyPlugin))    
         urlconfig.scanport = False
         if 'find_service' in urlconfig.diyPlugin:
             input_scanport = raw_input('[2.1] Need you scan all ports ?(Y/N) (default N)> ')
@@ -90,10 +90,14 @@ def main():
                 urlconfig.scanport = True
         
         urlconfig.threadNum = raw_input('[3] You need start number of thread (default 5) > ')
-        if urlconfig.threadNum is '':
+        if urlconfig.threadNum == '':
             urlconfig.threadNum = 5
 
         urlconfig.threadNum = int(urlconfig.threadNum)
+        urlconfig.deepMax = raw_input('[4] Set the depth of the crawler (default 200) > ')
+        if urlconfig.deepMax == '':
+            urlconfig.deepMax = 200
+
         startTime = time.clock()
         e = Exploit_run(urlconfig.threadNum)
         e.load_modules("www",urlconfig.url)

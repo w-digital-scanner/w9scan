@@ -7,6 +7,7 @@ import re
 from thirdparty import hackhttp
 from lib.core.data import w9_hash_pycode
 from lib.utils import until
+from lib.core.data import urlconfig
 
 req = hackhttp.hackhttp()
 
@@ -39,7 +40,7 @@ class SpiderMain(object):
         self.urls = UrlManager()
         self.root = root
         self.deep = 0
-        self.maxdeep = 200 # Max deep
+        self.maxdeep = urlconfig.deepMax # Max deep
         self.SIMILAR_SET = set()
         self.domain = urlparse.urlparse(root).netloc
         self.IGNORE_EXT = ['css','js','jpg','png','gif','rar','pdf','doc']
