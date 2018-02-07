@@ -5,6 +5,7 @@
 
 cms_dict = {"ckfinder": [("ckfinder/ckfinder.html", "CKEditorFuncNum")],
             'adtsec_gateway': [('', 'TPN-2G')],
+            'zzcms': [('zs/zsshow.js', 'JavaScript Document')],
               'iflytek_soft': [('themes/index/css/base.css', 'color:#323232; text-decoration:none;')],
               'shopex': [('robots.txt', '/shopadmin/'), 'syssite/dfiles/alipay_1.gif', 'statics/membermain1-lm.gif'],
               'bohoog': [('JavaScript/script.js', 'myAnchors=document.all.tags("A")')],
