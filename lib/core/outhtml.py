@@ -8,6 +8,7 @@ from lib.core.log import logger
 from lib.core.common import runningTime
 import time,base64,os
 from lib.utils.until import get_domain_root
+import cgi
 
 class CollectData(object):
     def __init__(self):
@@ -49,6 +50,11 @@ class buildHtml(object):
         if level not in self.dict:
             raise BuildHtmlErrorException
         self.dict[level].add_set(k,value)
+    
+    def escape(self,html):
+        html = str(html)
+        html = cgi.escape(html)
+        return html
 
     def addbug(self,vultype, title, content):
         html = """
@@ -96,9 +102,10 @@ class buildHtml(object):
                     for k,v in htmlDict[key].items():
                         f = v
                         if isinstance(v, list):
-                            f = '</br>'.join(v)
+                            f = '[/br]'.join(v)
                         elif isinstance(v,set):
-                            f = '</br>'.join([i for i in f])
+                            f = '[/br]'.join([i for i in f])
+                        f = self.escape(f).replace('[/br]','</br>')
                         infoList.append(self.addbug(key,str(k),str(f)))
                     info_page = ''.join(infoList)
                     substr = "{{%s_content}}"%key
