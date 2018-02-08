@@ -14,5 +14,5 @@ def audit(arg):
     payload = "/crossdomain.xml"
     vulnurl = arg + payload
     code, head, html, redirect_url, log = hackhttp.http(vulnurl)
-    if r"<cross-domain-policy>" in html and r"allow-access-from" in html:
+    if 'allow-access-from domain="*"' in html:
         security_note(u"存在crossdomain.xml文件发现漏洞...(信息) payload: "+vulnurl)
