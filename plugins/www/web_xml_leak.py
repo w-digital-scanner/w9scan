@@ -9,10 +9,10 @@ def assign(service, arg):
 
 
 def audit(arg):
-    path = "/robots.txt/.php"
+    path = "/WEB-INF/web.xml"
     code, head, res, errcode, _ = curl.curl(arg + path)
-    if code == 200 and "User-agent" in res:
-        security_note("存在解析漏洞:" + arg + path)
+    if code == 200 and "<web-app" in res:
+        security_note("存在TOMCAT web.xml泄露:" + arg + path)
 
 
 if __name__ == '__main__':

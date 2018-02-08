@@ -9,10 +9,10 @@ def assign(service, arg):
 
 
 def audit(arg):
-    path = "/robots.txt/.php"
+    path = "/phpinfo.php"
     code, head, res, errcode, _ = curl.curl(arg + path)
-    if code == 200 and "User-agent" in res:
-        security_note("存在解析漏洞:" + arg + path)
+    if code == 200 and "allow_url_fopen" in res:
+        security_note("phpinfo leak:" + arg + path)
 
 
 if __name__ == '__main__':
