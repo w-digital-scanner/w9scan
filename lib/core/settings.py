@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # w9scan version
-VERSION = "1.6.6"
+VERSION = "1.7.0"
 Site = "https://blog.hacking8.com/"
 
 # w9scan banner
@@ -26,3 +26,5 @@ INVALID_UNICODE_CHAR_FORMAT = r"\x%02x"
 
 # Selectable list of plugins
 LIST_PLUGINS = ["subdomain","find_service","whatcms","struts","fuzz"]
+
+GIT_REPOSITORY = "https://github.com/boy-hack/w9scan.git"

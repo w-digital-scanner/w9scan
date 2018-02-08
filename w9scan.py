@@ -27,6 +27,8 @@ from lib.core.data import urlconfig
 from lib.core.exploit import Exploit_run
 from lib.utils import crawler
 from lib.core.common import createIssueForBlog
+from lib.core.update import updateProgram
+import argparse
 
 def modulePath():
     """
@@ -63,11 +65,19 @@ def main():
     """
     Main function of w9scan when running from command line.
     """
-    try:
-        checkEnvironment() # 检测环境
-        setPaths(modulePath()) # 为一些目录和文件设置了绝对路径
-        banner()
+    checkEnvironment() # 检测环境
+    setPaths(modulePath()) # 为一些目录和文件设置了绝对路径
+    banner()
+    
+    parser = argparse.ArgumentParser(description="w9scan scanner")
+    parser.add_argument("--update", help="update w9scan",action="store_true")
+    parser.add_argument("--guide", help="w9scan to guide",action="store_true")
+    args = parser.parse_args()
 
+    if args.update:
+        updateProgram()
+        return 0
+    try:
         urlconfig.url = raw_input('[1] Input url > ')
         if urlconfig.url is '':
             logger.critical("[xxx] You have to enter the url")

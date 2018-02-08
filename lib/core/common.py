@@ -8,7 +8,7 @@ from lib.core.settings import banner as banner1
 from lib.core.log import logger
 from thirdparty import hackhttp
 import urlparse
-import urllib2,urllib
+import urllib2,urllib,time
 """
 Copyright (c) 2006-2017 sqlmap developers (http://sqlmap.org/)
 See the file 'doc/COPYING' for copying permission
@@ -136,3 +136,53 @@ def runningTime(time):
     mTime = round(time/60,2)
     timeStr = "%s min / %s seconds"%(str(mTime),str(sTime))
     return timeStr
+
+def dataToStdout(data, forceOutput=False, bold=False, content_type=None):
+    """
+    Writes text to the stdout (console) stream
+    """
+    try:
+        sys.stdout.write(data)
+        sys.stdout.flush()
+    except IOError:
+        pass
+
+def pollProcess(process, suppress_errors=False):
+    """
+    Checks for process status (prints . if still running)
+    """
+
+    while True:
+        dataToStdout(".")
+        time.sleep(1)
+
+        returncode = process.poll()
+
+        if returncode is not None:
+            if not suppress_errors:
+                if returncode == 0:
+                    dataToStdout(" done\n")
+                elif returncode < 0:
+                    dataToStdout(" process terminated by signal %d\n" % returncode)
+                elif returncode > 0:
+                    dataToStdout(" quit unexpectedly with return code %d\n" % returncode)
+
+            break
+
+def getSafeExString(ex, encoding=None):
+    """
+    Safe way how to get the proper exception represtation as a string
+    (Note: errors to be avoided: 1) "%s" % Exception(u'\u0161') and 2) "%s" % str(Exception(u'\u0161'))
+
+    >>> getSafeExString(Exception('foobar'))
+    u'foobar'
+    """
+
+    retVal = ex
+
+    if getattr(ex, "message", None):
+        retVal = ex.message
+    elif getattr(ex, "msg", None):
+        retVal = ex.msg
+
+    return getUnicode(retVal or "", encoding=encoding).strip()
