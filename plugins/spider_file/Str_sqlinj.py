@@ -47,7 +47,7 @@ def audit(url,html):
                         print e
                         res_md5_1 = res_md5_2 = res_md5_3 = 0
                     if ( res_md5_1 == res_md5_3 ) and res_md5_1 != res_md5_2:
-                        security_hole(log["request"].replace(os.linesep,'</br>'),'String SQL injection:' + url)
+                        security_hole(log["request"].replace(os.linesep,'[/br]'),'String SQL injection:' + url)
 
 if __name__ == '__main__':
     url = "https://blog.hacking8.com/?gfs"
