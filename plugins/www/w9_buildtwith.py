@@ -7860,7 +7860,7 @@ def assign(service, arg):
 def audit(arg):
     results = builtwith(arg)
     if len(results):
-        security_info(str(results))
+        security_info(str(results),"WebStruct")
 
 if __name__ == '__main__':
     from dummy import *

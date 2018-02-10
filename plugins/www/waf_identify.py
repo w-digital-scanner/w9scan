@@ -75,9 +75,12 @@ def assign(service, arg):
 def audit(arg):
     code, head, body, redirect, log = hackhttp.http(arg)
     identify(head, body)
+    m = re.search('<title>(.*)?<\/title>', body)
+    if m:
+        security_info(m.group(1),'title')
 
 if __name__ == '__main__':
-    audit('http://125.la/')
+    audit('http://127.0.0.1/')
 
 
 

@@ -48,7 +48,7 @@ class SpiderMain(object):
 
     def craw(self):
         self.urls.add_new_url(self.root)
-        while self.urls.has_new_url() and self.maxdeep>self.deep:
+        while self.urls.has_new_url() and self.maxdeep>self.deep and self.maxdeep > 0:
             new_url = self.urls.get_new_url()
             print("craw:" + new_url)
             try:

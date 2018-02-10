@@ -78,13 +78,30 @@ def main():
         updateProgram()
         return 0
     try:
-        urlconfig.url = raw_input('[1] Input url > ')
-        if urlconfig.url is '':
+        inputUrl = raw_input('[1] Input url > ')
+        urlconfig.mutiurl = False
+        if inputUrl is '':
             logger.critical("[xxx] You have to enter the url")
             exit()
 
-        urlconfig.url = makeurl(urlconfig.url)
-        print '[***] ScanStart Target:%s' % urlconfig.url
+        urlconfig.url = []
+        if inputUrl.startswith("@"):
+            urlconfig.mutiurl = True
+            fileName = inputUrl[1:]
+            try:
+                o = open(fileName,"r").readlines()
+                for url in o:
+                    urlconfig.url.append(makeurl(url.strip()))
+            except IOError as error:
+                logger.critical("Filename:'%s' open faild"%fileName)
+                exit()
+            if len(o) == 0:
+                logger.critical("[xxx] The target address is empty")
+                exit()
+            print urlconfig.url
+        else:
+            urlconfig.url.append(makeurl(inputUrl))
+        print '[***] URL has been loaded:%d' % len(urlconfig.url)
         print("[Tips] You can select these plugins (%s) or select all"%(' '.join(LIST_PLUGINS)))
         diyPlugin = raw_input("[2] Please select the required plugins > ")
 
@@ -106,22 +123,25 @@ def main():
         urlconfig.threadNum = int(urlconfig.threadNum)
         urlconfig.deepMax = raw_input('[4] Set the depth of the crawler (default 200 | 0 don\'t use crawler ) > ')
         if urlconfig.deepMax == '':
-            urlconfig.deepMax = 200
+            urlconfig.deepMax = 100
 
         startTime = time.clock()
         e = Exploit_run(urlconfig.threadNum)
-        e.load_modules("www",urlconfig.url)
-        e.run()
-        e.init_spider()
-        s = crawler.SpiderMain(urlconfig.url)
-        time.sleep(0.5)
-        s.craw()
+        for url in urlconfig.url:
+            print '[***] ScanStart Target:%s' % url
+            e.setCurrentUrl(url)
+            e.load_modules("www",url)
+            e.run()
+            e.init_spider()
+            s = crawler.SpiderMain(url)
+            s.craw()
+            time.sleep(0.5)
         endTime = time.clock()
         urlconfig.runningTime = endTime - startTime
         e.report()
         
     except KeyboardInterrupt:
-        logger.critical("[***] User Interrupt")
+        print("[***] User Interrupt")
         exit()
     except Exception as info:
         logger.critical("[xxx] MainError: %s:%s"%(str(Exception),info))
