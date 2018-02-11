@@ -28,7 +28,7 @@ from lib.core.exploit import Exploit_run
 from lib.utils import crawler
 from lib.core.common import createIssueForBlog
 from lib.core.update import updateProgram
-import argparse
+import argparse,multiprocessing
 
 def modulePath():
     """
@@ -111,7 +111,9 @@ def main():
             urlconfig.diyPlugin = diyPlugin.strip().split(' ')
         print "[***] You select the plugins:%s"%(' '.join(urlconfig.diyPlugin))    
         urlconfig.scanport = False
+        urlconfig.find_service = False
         if 'find_service' in urlconfig.diyPlugin:
+            urlconfig.find_service = True
             input_scanport = raw_input('[2.1] Need you scan all ports ?(Y/N) (default N)> ')
             if input_scanport.lower() in ("y","yes"):
                 urlconfig.scanport = True
@@ -127,15 +129,18 @@ def main():
 
         startTime = time.clock()
         e = Exploit_run(urlconfig.threadNum)
+
         for url in urlconfig.url:
             print '[***] ScanStart Target:%s' % url
             e.setCurrentUrl(url)
             e.load_modules("www",url)
             e.run()
-            e.init_spider()
-            s = crawler.SpiderMain(url)
-            s.craw()
-            time.sleep(0.5)
+            if urlconfig.mutiurl:
+                e.init_spider()
+                s = crawler.SpiderMain(url)
+                s.craw()
+            time.sleep(0.01)
+
         endTime = time.clock()
         urlconfig.runningTime = endTime - startTime
         e.report()

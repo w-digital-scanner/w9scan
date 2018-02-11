@@ -8,7 +8,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 def assign(service, arg):
-    if service == 'www':
+    if service == 'www' and _G["find_service"]:
         url_info = urlparse.urlparse(arg)
         hostname = socket.gethostbyname(url_info.netloc)
         return True, hostname

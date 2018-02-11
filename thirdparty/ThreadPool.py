@@ -33,16 +33,21 @@ class w8_threadpool:
         self.thread_count_lock.release()
 
     def run(self):
+        th = []
         for i in range(self.thread_nums):
             t = threading.Thread(target=self.scan, name=str(i))
             t.setDaemon(True)
             t.start()
+            th.append(t)
+        
+        for tt in th:
+            tt.join()
             # It can quit with Ctrl-C
-        while 1:
-            if self.thread_count > 0 and self.isContinue:
-                time.sleep(0.01)
-            else:
-                break
+        # while 1:
+        #     if self.thread_count > 0 and self.isContinue:
+        #         time.sleep(0.01)
+        #     else:
+        #         break
     def stop(self):
         self.load_lock.acquire()
         self.isContinue = False

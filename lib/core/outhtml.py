@@ -111,18 +111,20 @@ class buildHtml(object):
 
                 title = ""
                 server = ""
-                if "title" in htmlDict[url]["info"]:
-                    title = htmlDict[url]["info"]["title"]
-                if "WebStruct" in htmlDict[url]["info"]:
-                    server = htmlDict[url]["info"]["WebStruct"]
 
                 for key, value in content.items():
                     htmlDict[url][key] = value.getData()
+
                     if len(htmlDict[url][key]):
                         infoList = list()
                         if key == "info":
-                            htmlDict[url][key].pop("WebStruct")
-                            htmlDict[url][key].pop("title")
+                            if "title" in htmlDict[url][key]:
+                                title = htmlDict[url][key]["title"]
+                                htmlDict[url][key].pop("title")
+                            if "WebStruct" in htmlDict[url][key]:
+                                server = htmlDict[url][key]["WebStruct"]
+                                htmlDict[url][key].pop("WebStruct")
+                            
                         for k, v in htmlDict[url][key].items():
                             f = v
                             if isinstance(v, list):
@@ -134,12 +136,13 @@ class buildHtml(object):
                         info_page = ''.join(infoList)
                     else:
                         info_page = ""
-                    Total[key] = info_page
+                    Total[key] = self.escape(info_page)
                 
                 tr = "<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>  %s</td><td>%s</td><td>%s</td></tr>"%(index,url,title,server,Total["info"],Total["note"],Total["warning"],Total["hole"])
                 full.append(tr)
         except Exception as err:
-            print err
+            print Exception,err
+            exit()
 
         w9scan_html = w9scan_html.replace("{{content}}", ' '.join(full))
         filename = os.path.join(paths.w9scan_ROOT_PATH, "BatchScanning" + "_" + str(int(time.time())) + ".html")
