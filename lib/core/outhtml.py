@@ -85,14 +85,14 @@ class buildHtml(object):
         return html
     
     def addmutibug(self,title,content):
-        return "%s:%s"%(title,content)
+        return "%s:%s[/br]"%(title,content)
 
     def mutiBuild(self):
         # build base info
         versionPlace = VERSION
         reportTime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         selectPlugin = ' '.join(urlconfig.diyPlugin)
-        w9scan_html = "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KICAgIDxtZXRhIGh0dHAtZXF1aXY9IlgtVUEtQ29tcGF0aWJsZSIgY29udGVudD0iSUU9ZWRnZSI+CiAgICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEiPgoKICAgIDx0aXRsZT53OXNjYW4g5om56YeP5ryP5rSe5omr5o+P5oql5ZGKPC90aXRsZT4KCiAgICA8bWV0YSBuYW1lPSJkZXNjcmlwdGlvbiIgY29udGVudD0iU291cmNlIGNvZGUgZ2VuZXJhdGVkIHVzaW5nIGxheW91dGl0LmNvbSI+CiAgICA8bWV0YSBuYW1lPSJhdXRob3IiIGNvbnRlbnQ9IkxheW91dEl0ISI+CgogICAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJodHRwOi8vY2RuLmJvb3Rjc3MuY29tL2Jvb3RzdHJhcC8zLjMuMC9jc3MvYm9vdHN0cmFwLm1pbi5jc3MiPiAKICAgIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cDovL2Nkbi5ib290Y3NzLmNvbS9mb250LWF3ZXNvbWUvNC4yLjAvY3NzL2ZvbnQtYXdlc29tZS5taW4uY3NzIj4gCgogIDwvaGVhZD4KICA8Ym9keT4KCiAgICA8ZGl2IGNsYXNzPSJjb250YWluZXItZmx1aWQiPgoJPGRpdiBjbGFzcz0icm93Ij4KCQk8ZGl2IGNsYXNzPSJjb2wtbWQtMTIiPgoJCQk8ZGl2IGNsYXNzPSJwYWdlLWhlYWRlciI+CgkJCQk8aDE+CgkJCQkJdzlzY2Fu5om56YeP5omr5o+P5oql5ZGKICA8c21hbGw+dnt7dmVyc2lvbn19PC9zbWFsbD4KCQkJCTwvaDE+CgkJCTwvZGl2PiA8c3BhbiBjbGFzcz0ibGFiZWwgbGFiZWwtcHJpbWFyeSI+55Sf5oiQ5pe26Ze077yae3tyZXBvcnRUaW1lfX08L3NwYW4+CiAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJsYWJlbCBsYWJlbC1zdWNjZXNzIj7pgInmi6nmj5Lku7bvvJp7e3NlbGVjdFBsdWdpbn19PC9zcGFuPgogICAgICAgICAgICA8c3BhbiBjbGFzcz0ibGFiZWwgbGFiZWwtZGFuZ2VyIj5TY2FuIHRpbWUJe3tzY2FudGltZX19PC9zcGFuPgogICAgICAgICAgICA8L2JyPjwvYnI+CgkJCTx0YWJsZSBjbGFzcz0idGFibGUiPgoJCQkJPHRoZWFkPgoJCQkJCTx0cj4KICAgIDx0aD4jPC90aD4KICAgIDx0aD5Vcmw8L3RoPgogICAgPHRoPlRpdGxlPC90aD4KICAgIDx0aD5TZXJ2ZXI8L3RoPgogICAgPHRoPkluZm88L3RoPgogICAgPHRoPk5vdGU8L3RoPgogICAgPHRoPldhcm5pbmc8L3RoPgogICAgPHRoPkhvbGU8L3RoPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC90cj4KCQkJCTwvdGhlYWQ+CiAgICAgICAgICAgICAgICAKCQkJCTx0Ym9keT4KICAgICAgICAgICAgICAgICAgICB7e2NvbnRlbnR9fQoJCQkJPC90Ym9keT4KCQkJPC90YWJsZT4KCQk8L2Rpdj4KCTwvZGl2Pgo8L2Rpdj4KICA8L2JvZHk+CjwvaHRtbD4="
+        w9scan_html = "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KICAgIDxtZXRhIGh0dHAtZXF1aXY9IlgtVUEtQ29tcGF0aWJsZSIgY29udGVudD0iSUU9ZWRnZSI+CiAgICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEiPgoKICAgIDx0aXRsZT53OXNjYW4g5om56YeP5ryP5rSe5omr5o+P5oql5ZGKPC90aXRsZT4KCiAgICA8bWV0YSBuYW1lPSJkZXNjcmlwdGlvbiIgY29udGVudD0iU291cmNlIGNvZGUgZ2VuZXJhdGVkIHVzaW5nIGxheW91dGl0LmNvbSI+CiAgICA8bWV0YSBuYW1lPSJhdXRob3IiIGNvbnRlbnQ9IkxheW91dEl0ISI+CgogICAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJodHRwOi8vY2RuLmJvb3Rjc3MuY29tL2Jvb3RzdHJhcC8zLjMuMC9jc3MvYm9vdHN0cmFwLm1pbi5jc3MiPiAKICAgIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cDovL2Nkbi5ib290Y3NzLmNvbS9mb250LWF3ZXNvbWUvNC4yLjAvY3NzL2ZvbnQtYXdlc29tZS5taW4uY3NzIj4gCgogIDwvaGVhZD4KICA8Ym9keT4KCiAgICA8ZGl2IGNsYXNzPSJjb250YWluZXItZmx1aWQiPgoJPGRpdiBjbGFzcz0icm93Ij4KCQk8ZGl2IGNsYXNzPSJjb2wtbWQtMTIiPgoJCQk8ZGl2IGNsYXNzPSJwYWdlLWhlYWRlciI+CgkJCQk8aDE+CgkJCQkJdzlzY2Fu5om56YeP5omr5o+P5oql5ZGKICA8c21hbGw+dnt7dmVyc2lvbn19PC9zbWFsbD4KCQkJCTwvaDE+CgkJCTwvZGl2PiA8c3BhbiBjbGFzcz0ibGFiZWwgbGFiZWwtcHJpbWFyeSI+55Sf5oiQ5pe26Ze077yae3tyZXBvcnRUaW1lfX08L3NwYW4+CiAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJsYWJlbCBsYWJlbC1zdWNjZXNzIj7pgInmi6nmj5Lku7bvvJp7e3NlbGVjdFBsdWdpbn19PC9zcGFuPgogICAgICAgICAgICA8c3BhbiBjbGFzcz0ibGFiZWwgbGFiZWwtZGFuZ2VyIj5TY2FuIHRpbWUJe3tzY2FudGltZX19PC9zcGFuPgogICAgICAgICAgICA8L2JyPjwvYnI+CgkJCTx0YWJsZSBjbGFzcz0idGFibGUiPgoJCQkJPHRoZWFkPgoJCQkJCTx0cj4KICAgIDx0aD4jPC90aD4KICAgIDx0aD5Vcmw8L3RoPgogICAgPHRoPlRpdGxlPC90aD4KICAgIDx0aD5CdWlsZHdpdGg8L3RoPgogICAgPHRoPkluZm88L3RoPgogICAgPHRoPk5vdGU8L3RoPgogICAgPHRoPldhcm5pbmc8L3RoPgogICAgPHRoPkhvbGU8L3RoPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC90cj4KCQkJCTwvdGhlYWQ+CiAgICAgICAgICAgICAgICAKCQkJCTx0Ym9keT4KICAgICAgICAgICAgICAgICAgICB7e2NvbnRlbnR9fQoJCQkJPC90Ym9keT4KCQkJPC90YWJsZT4KCQk8L2Rpdj4KCTwvZGl2Pgo8L2Rpdj4KICA8L2JvZHk+CjwvaHRtbD4="
 
         w9scan_html = base64.b64decode(w9scan_html)
         w9scan_html = w9scan_html.replace("{{version}}", str(versionPlace))
@@ -120,6 +120,8 @@ class buildHtml(object):
                         if key == "info":
                             if "title" in htmlDict[url][key]:
                                 title = htmlDict[url][key]["title"]
+                                if isinstance(title, list):
+                                    title = ''.join(title)
                                 htmlDict[url][key].pop("title")
                             if "WebStruct" in htmlDict[url][key]:
                                 server = htmlDict[url][key]["WebStruct"]
@@ -136,7 +138,7 @@ class buildHtml(object):
                         info_page = ''.join(infoList)
                     else:
                         info_page = ""
-                    Total[key] = self.escape(info_page)
+                    Total[key] = info_page.replace('[/br]', '</br>')
                 
                 tr = "<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>  %s</td><td>%s</td><td>%s</td></tr>"%(index,url,title,server,Total["info"],Total["note"],Total["warning"],Total["hole"])
                 full.append(tr)

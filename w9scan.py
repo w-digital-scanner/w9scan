@@ -135,7 +135,7 @@ def main():
             e.setCurrentUrl(url)
             e.load_modules("www",url)
             e.run()
-            if urlconfig.mutiurl:
+            if not urlconfig.mutiurl:
                 e.init_spider()
                 s = crawler.SpiderMain(url)
                 s.craw()
