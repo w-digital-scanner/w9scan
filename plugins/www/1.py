@@ -54,7 +54,10 @@ def audit(arg):
             "/fckeditor/editor/filemanager/upload/test.html",
             "/fckeditor/editor/filemanager/connectors/test.html",
             "/fckeditor/editor/filemanager/connectors/uploadtest.html"]
-
+    
+    code, head, res, errcode, _ = curl.curl(url + "/fckeditor/")
+    if code == 404:
+        return
     for x in urls:
         code, head, res, errcode, _ = curl.curl(url + x)
         if code == 200:

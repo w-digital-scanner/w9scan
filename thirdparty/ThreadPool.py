@@ -42,7 +42,7 @@ class w8_threadpool:
         
         for tt in th:
             tt.join()
-            # It can quit with Ctrl-C
+        # It can quit with Ctrl-C
         # while 1:
         #     if self.thread_count > 0 and self.isContinue:
         #         time.sleep(0.01)
