@@ -78,17 +78,18 @@ class w8_threadpool:
 
 
 if __name__ == '__main__':
-    def calucator(num):
-        i = random.randint(1, 100)
-        u = num
-        a = i * u
-        if (a % 6 == 0):
-            for x in range(5):
-                print "new thread"
-                p.push(x)
+    # def calucator(num):
+    #     i = random.randint(1, 100)
+    #     u = num
+    #     a = i * u
+    #     if (a % 6 == 0):
+    #         for x in range(5):
+    #             print "new thread"
+    #             p.push(x)
 
-    p = w8_threadpool(3, calucator)
-    for i in range(100000):
-        p.push(i)
-    p.run()
+    # p = w8_threadpool(3, calucator)
+    # for i in range(100000):
+    #     p.push(i)
+    # p.run()
+    pass
 

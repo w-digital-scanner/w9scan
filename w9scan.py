@@ -131,7 +131,7 @@ def main():
         e = Exploit_run(urlconfig.threadNum)
 
         for url in urlconfig.url:
-            print '[***] ScanStart Target:%s' % url
+            print('[***] ScanStart Target:%s' % url)
             e.setCurrentUrl(url)
             e.load_modules("www",url)
             e.run()
