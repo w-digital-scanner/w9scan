@@ -72,19 +72,40 @@ def main():
     parser = argparse.ArgumentParser(description="w9scan scanner")
     parser.add_argument("--update", help="update w9scan",action="store_true")
     parser.add_argument("--guide", help="w9scan to guide",action="store_true")
+    parser.add_argument("-u", help="url")
+    parser.add_argument("-p","--plugin", help="plugins")
+    
     args = parser.parse_args()
-
+    urlconfig.mutiurl = False
+    urlconfig.url = []
     if args.update:
         updateProgram()
         return 0
+    if args.u and args.plugin:
+        url = args.u
+        urlconfig.url.append(makeurl(url))
+        urlconfig.scanport = False
+        urlconfig.find_service = False
+        urlconfig.threadNum = 5
+        urlconfig.deepMax = 100
+        urlconfig.diyPlugin = LIST_PLUGINS
+        startTime = time.clock()
+        e = Exploit_run(urlconfig.threadNum)
+        print('[***] ScanStart Target:%s' % url)
+        e.setCurrentUrl(url)
+        e.load_modules(args.plugin,url)
+        e.run()
+        time.sleep(0.01)
+        endTime = time.clock()
+        urlconfig.runningTime = endTime - startTime
+        e.report()
+        return 0
     try:
         inputUrl = raw_input('[1] Input url > ')
-        urlconfig.mutiurl = False
+        
         if inputUrl is '':
             logger.critical("[xxx] You have to enter the url")
             exit()
-
-        urlconfig.url = []
         if inputUrl.startswith("@"):
             urlconfig.mutiurl = True
             fileName = inputUrl[1:]

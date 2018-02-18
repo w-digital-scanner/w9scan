@@ -15,6 +15,7 @@
     - [ ] 爬虫模块表单检测
     - [ ] 识别waf后自动延时扫描
     - [ ] 编纂扫描器介绍/使用指南
+- 1.8.1 大年初三，w9scan支持指定插件扫描 eg:`python w9scan.py -u "https://blog.hacking8.com/" -p emlog`
 - 大年三十了 春节快乐，w9scan可能会放一段时间，w10scan将出现了
 - 1.8.0 跨时代意义，w9scan可扫描多个url，`用法: @1.txt`
 - 1.7.0 新增命令操作 --update，可更新程序到最新版本
