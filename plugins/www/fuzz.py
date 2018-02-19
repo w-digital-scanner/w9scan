@@ -4647,7 +4647,7 @@ zplug/ajax_asyn_link.old.php?url=../admin/opacadminpwd.php
         try:
             code, head, body, redirect, log = hackhttp.http(target_url)
 
-            if code != 404:
+            if code != 404 and code != 400:
                 dictpayload =dict()
                 dictpayload["code"] = code
                 dictpayload["url"] = target_url
@@ -4673,6 +4673,7 @@ zplug/ajax_asyn_link.old.php?url=../admin/opacadminpwd.php
             max = v
             maxK = k
     newlist = []
+    
     for i in newT:
         if i["len"] == maxK:
             continue
