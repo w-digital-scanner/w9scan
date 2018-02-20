@@ -7,38 +7,19 @@
 - Linux/Windos通用
 - python不额外安装第三方库
 - 做开源扫描器中的 Top1
-- 先让软件work起来，再来优化各种细节！
+- 先让软件work起来，再来优化各种细节
+- [版本升级记录](./UPDATELOG)
 
-## 升级记录
-- 接下来要做的:  
-    - [ ] 可选子域名加入扫描选项
-    - [ ] 爬虫模块表单检测
-    - [ ] 识别waf后自动延时扫描
-    - [ ] 编纂扫描器介绍/使用指南   
-- 1.8.1 大年初三，w9scan支持指定插件扫描 eg:`python w9scan.py -u "https://blog.hacking8.com/" -p emlog`
-- 大年三十了 春节快乐，w9scan可能会放一段时间，w10scan将出现了
-- 1.8.0 跨时代意义，w9scan可扫描多个url，`用法: @1.txt`
-- 1.7.0 新增命令操作 --update，可更新程序到最新版本
-- 1.6.6 加入ZZCMS POC,可自定义爬虫深度，转义了报告中的HTML字符
-- 1.6.5 加入renrensao路径fuzz脚本 可选插件
-- 1.6.4 完成了网页错误收集插件，爬虫系统可以检测网页中各式各样的报错了
-- 听说今天会有一辈子见不到一次的月全食？
-- 1.6.3 完成基于域名的备份检测插件,此插件会根据域名生成备份文件名探测
-- 1.6.2 对主程序逻辑优化，优化时间计算，去除了`www`分类下不必要的插件
-- 1.6.1 可自定义配置需要扫描的模块(子域名 端口 CMS识别 struts)
-- 1.6.0 实现了生成html格式报告(超酷的报告) html借用了 [cobra](https://github.com/wufeifei/cobra)
-- 1.5.0 实现了子域名解析爆破(用特殊的方法10行代码完成 hO(∩_∩)Oh) 可以看文件`subdomain.py`
-- 1.4.3 加入了WAF/CDN探测模块`waf_identify.py` 感谢[WebEye](https://github.com/zerokeeper/WebEye/)的代码以及指纹信息
-- 1.4.2 加入爬虫的备份文件探测模块 参考[bcrpscan](https://github.com/secfree/bcrpscan)
-- 1.4.1 完成了爬虫的`信息收集`模块和`XSS`扫描模块 ，SQL注入以及XSS扫描代码参考[https://github.com/youmengxuefei/web_vul_scan](https://github.com/youmengxuefei/web_vul_scan)
-- 元旦了，祝自己快乐
-- 1.4.0 完成爬虫模块[单线程] 完成`sql注入`模块 包含`int注入` `字符注入` `报错查找`
-- 1.3.3 解决了程序异常，去掉了老的线程池，改用了[POC-T](https://github.com/Xyntax/POC-T/blob/2.0/lib/controller/engine.py)的线程引擎
-- 1.3.2 分类了exp文件夹，使整理更方便
-- 1.3.1 部分插件加入了线程池，使速度更快了 添加了部分插件
-- 1.3 加入线程池，使速度更快了  内置`buildtwitch`分析网站结构
-- 1.2 加入了IP端口服务识别，对IP开放端口定向识别并破解
-- 1.1 扫描器雏形，指纹识别雏形
+### Useage
+- `python w9scan.py --update` 更新程序
+- `python w9scan.py --guide` 向导模式启动w9scan
+- `python w9scan.py -u "https://blog.hacking8.com/" -p emlog` 指定插件扫描网站
+- `python w9scan.py -u "@1.txt" -p emlog` 指定插件批量扫描网站
+
+#### TIPS
+- 本人并不崇尚命令行哲学，对于这个是能简则简
+- 直接使用`python w9scan.py`即可使用向导模式使用w9scan
+- 向导模式中输入URL时可以输入类似`@1.txt`,代表批量扫描1.txt内的URL
 
 ## FAQ
 - 兼容bugscan插件？  
@@ -62,10 +43,6 @@ w9scan扫描器项目仅用于学习，禁止用于其他用途。
 
 用`w9scan 1.6.0` 扫描 http://testphp.vulnweb.com/ 的扫描报告生成在`vulnweb.com_1515587017.html`可自行查看
 ![](https://github.com/boy-hack/w9scan/blob/master/images/report.png)
-
-
-## Useage
-python w9scan.py --guide
 
 ## Thx
 - 感谢一位网友提供了部分bugscan代码

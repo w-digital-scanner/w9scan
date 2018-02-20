@@ -83,7 +83,23 @@ def main():
         return 0
     if args.u and args.plugin:
         url = args.u
-        urlconfig.url.append(makeurl(url))
+        if url.startswith("@"):
+            urlconfig.mutiurl = True
+            fileName = url[1:]
+            try:
+                o = open(fileName,"r").readlines()
+                for u in o:
+                    urlconfig.url.append(makeurl(u.strip()))
+            except IOError as error:
+                logger.critical("Filename:'%s' open faild"%fileName)
+                exit()
+            if len(o) == 0:
+                logger.critical("[xxx] The target address is empty")
+                exit()
+            print urlconfig.url
+        else:
+            urlconfig.url.append(makeurl(url))
+        
         urlconfig.scanport = False
         urlconfig.find_service = False
         urlconfig.threadNum = 5
@@ -91,11 +107,12 @@ def main():
         urlconfig.diyPlugin = LIST_PLUGINS
         startTime = time.clock()
         e = Exploit_run(urlconfig.threadNum)
-        print('[***] ScanStart Target:%s' % url)
-        e.setCurrentUrl(url)
-        e.load_modules(args.plugin,url)
-        e.run()
-        time.sleep(0.01)
+        for u in urlconfig.url:
+            print('[***] ScanStart Target:%s' % u)
+            e.setCurrentUrl(u)
+            e.load_modules(args.plugin,u)
+            e.run()
+            time.sleep(0.01)
         endTime = time.clock()
         urlconfig.runningTime = endTime - startTime
         e.report()
