@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # w9scan version
-VERSION = "1.8.2"
+VERSION = "1.8.3"
 Site = "https://blog.hacking8.com/"
 
 # w9scan banner

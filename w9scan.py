@@ -25,6 +25,7 @@ from lib.core.settings import VERSION
 from lib.core.settings import LIST_PLUGINS
 from lib.core.data import urlconfig
 from lib.core.exploit import Exploit_run
+from lib.core.exploit import getPluginNum
 from lib.utils import crawler
 from lib.core.common import createIssueForBlog
 from lib.core.update import updateProgram
@@ -74,12 +75,16 @@ def main():
     parser.add_argument("--guide", help="w9scan to guide",action="store_true")
     parser.add_argument("-u", help="url")
     parser.add_argument("-p","--plugin", help="plugins")
+    parser.add_argument("-s","--search",help="find infomation of plugin")
     
     args = parser.parse_args()
     urlconfig.mutiurl = False
     urlconfig.url = []
     if args.update:
         updateProgram()
+        return 0
+    if args.search:
+        print(getPluginNum(args.search))
         return 0
     if args.u and args.plugin:
         url = args.u

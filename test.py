@@ -1,4 +1,7 @@
 import argparse
+from lib.core.exploit import getPluginNum
+from lib.core.common import setPaths
+from w9scan import checkEnvironment,modulePath
 
 if __name__ == "__main__":
     # parser = argparse.ArgumentParser(description="w9scan scanner")
@@ -16,8 +19,6 @@ if __name__ == "__main__":
     #
     # args = parser.parse_args()
     # print args
-    d = dict()
-    d["a"] = 3
-    d["aa"] = dict()
-    d["aa"]["bb"] = 1
-    print d
+    checkEnvironment()
+    setPaths(modulePath())
+    print getPluginNum('1')

@@ -15,6 +15,7 @@
 - `python w9scan.py --guide` 向导模式启动w9scan
 - `python w9scan.py -u "https://blog.hacking8.com/" -p emlog` 指定插件扫描网站
 - `python w9scan.py -u "@1.txt" -p emlog` 指定插件批量扫描网站
+- `python w9scan.py -s emlog` 搜索插件是否存在
 
 #### TIPS
 - 本人并不崇尚命令行哲学，对于这个是能简则简
