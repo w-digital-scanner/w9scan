@@ -1,0 +1,14 @@
+*.DS_Store
+*.egg-info
+*.log
+*.lprof
+*.py[cod]
+*.swp
+*.conf
+*.idea
+.coverage
+.svn
+.tox
+.idea
+output
+data
