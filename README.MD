@@ -34,8 +34,9 @@
 - 与w8scan的关系？  
     为w8scan的扫描器代码探路
 - 如何交流?  
-    ![](https://github.com/boy-hack/w9scan/blob/master/images/qqgroup.png)  
-    特意成立了QQ群用于交流，qq群仅发布在github，我想尽量维护一个交流的氛围
+    email或者开issue都可以，如果想研究代码可以参考下面文章
+    1. [http://www.freebuf.com/sectool/162120.html](http://www.freebuf.com/sectool/162120.html)
+    2. [https://blog.hacking8.com/?tag=w9scan](https://blog.hacking8.com/?tag=w9scan)
 
 ## 免责
 w9scan扫描器项目仅用于学习，禁止用于其他用途。
