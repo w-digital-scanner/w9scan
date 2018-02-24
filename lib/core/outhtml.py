@@ -210,7 +210,9 @@ class buildHtml(object):
             w9scan_html = w9scan_html.replace("{{total_Info}}", Total["info"])
 
 
-            filename = os.path.join(paths.w9scan_ROOT_PATH,DomainRoot + "_" + str(int(time.time())) + ".html")
+            filename = DomainRoot + "_" + str(int(time.time())) + ".html"
+            filename.replace(":","_")
+            filename = os.path.join(paths.w9scan_ROOT_PATH,filename)
             result = open(filename, "w")
             result.write(w9scan_html)
             result.close()
