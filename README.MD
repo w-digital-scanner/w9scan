@@ -21,6 +21,7 @@
 - 本人并不崇尚命令行哲学，对于这个是能简则简
 - 直接使用`python w9scan.py`即可使用向导模式使用w9scan
 - 向导模式中输入URL时可以输入类似`@1.txt`,代表批量扫描1.txt内的URL
+- 好多人给我点赞了，受宠若惊，谢谢大家的star，代码说实话有点"丑"，但我会继续学习Python来完善它的
 
 ## FAQ
 - 兼容bugscan插件？  
@@ -40,11 +41,6 @@
 
 ## 免责
 w9scan扫描器项目仅用于学习，禁止用于其他用途。
-
-## 运行测试
-
-用`w9scan 1.6.0` 扫描 http://testphp.vulnweb.com/ 的扫描报告生成在`vulnweb.com_1515587017.html`可自行查看
-![](https://github.com/boy-hack/w9scan/blob/master/images/report.png)
 
 ## Thx
 - 感谢一位网友提供了部分bugscan代码
