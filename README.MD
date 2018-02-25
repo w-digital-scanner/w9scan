@@ -5,7 +5,7 @@
 
 #### 目标
 - Linux/Windos通用
-- python不额外安装第三方库
+- Python 2 不额外安装第三方库
 - 做开源扫描器中的 Top1
 - 先让软件work起来，再来优化各种细节
 - [版本升级记录](./UPDATELOG)
