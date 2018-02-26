@@ -1,102 +1,75 @@
-'''
-Mst=>libs=>color
-'''
-from os import name
-from os import linesep
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# project = https://github.com/Xyntax/POC-T
+# author = i@cdxy.me
 
-if name == 'nt':
-    '''windows color table'''
-    # global BLACK,BLUE,GREEN,CYAN,RED,PURPLE,YELLOW,WHITE,GREY
-    BLACK = 0x0
-    BLUE = 0x01
-    GREEN = 0x02
-    CYAN = 0x03
-    RED = 0x04
-    PURPLE = 0x05
-    YELLOW = 0x06
-    WHITE = 0x07
-    GREY = 0x08
-else:
-    '''other os color table'''
-    # global BLACK,BLUE,GREEN,CYAN,RED,PURPLE,YELLOW,WHITE,GREY
-    BLACK = '\033[0m'
-    BLUE = '\033[34m'
-    GREEN = '\033[32m'
-    CYAN = '\033[36m'
-    RED = '\033[31m'
-    PURPLE = '\033[35m'
-    YELLOW = '\033[33m'
-    WHITE = '\033[37m'
-    GREY = '\033[38m'
+import logging
+import sys
+from lib.core.enums import CUSTOM_LOGGING
 
+logging.addLevelName(CUSTOM_LOGGING.SYSINFO, "*")
+logging.addLevelName(CUSTOM_LOGGING.SUCCESS, "+")
+logging.addLevelName(CUSTOM_LOGGING.ERROR, "-")
+logging.addLevelName(CUSTOM_LOGGING.WARNING, "!")
 
-class Logger:
+LOGGER = logging.getLogger("w9scan")
 
-    def __init__(self):
-        wincode = """
-class ntcolor:
-    '''windows cmd color'''
+LOGGER_HANDLER = None
+try:
+    from thirdparty.ansistrm.ansistrm import ColorizingStreamHandler
+
     try:
-        STD_INPUT_HANDLE = -10
-        STD_OUTPUT_HANDLE= -11
-        STD_ERROR_HANDLE = -12
-        import ctypes
-        std_out_handle = ctypes.windll.kernel32.GetStdHandle(STD_OUTPUT_HANDLE)
-        def set_cmd_text_color(self,color, handle=std_out_handle):
-            '''set color'''
-            bool = self.ctypes.windll.kernel32.SetConsoleTextAttribute(handle, color)
-            return bool
-        def resetColor(self):
-            '''reset color'''
-            self.set_cmd_text_color(RED|GREEN|BLUE)
-        def cprint(self,msg,color=BLACK,enter=1):
-            '''print color message'''
-            self.set_cmd_text_color(color|color|color)
-            if enter == 1:
-                print msg
-            else:
-                print msg,
-            self.resetColor()
-    except:
-        pass
-        """
-        otcode = """
-class otcolor:
-    '''other os terminal color'''
-    def cprint(self,msg,color=BLACK,enter=1):
-        '''print color message'''
-        if enter == 1:
-            print color+msg+BLACK
-        else:
-            print color+msg+BLACK
-        """
+        LOGGER_HANDLER = ColorizingStreamHandler(sys.stdout)
+        LOGGER_HANDLER.level_map[logging.getLevelName("*")] = (None, "cyan", False)
+        LOGGER_HANDLER.level_map[logging.getLevelName("+")] = (None, "green", False)
+        LOGGER_HANDLER.level_map[logging.getLevelName("-")] = (None, "red", False)
+        LOGGER_HANDLER.level_map[logging.getLevelName("!")] = (None, "yellow", False)
+    except Exception:
+        LOGGER_HANDLER = logging.StreamHandler(sys.stdout)
 
-        if name == 'nt':
-            exec(wincode)
-            self.color = ntcolor()
-        else:
-            exec(otcode)
-            self.color = otcolor()
+except ImportError:
+    LOGGER_HANDLER = logging.StreamHandler(sys.stdout)
 
-    def _print(self,msg,color):
-        self.color.cprint(msg, color, 0)
+FORMATTER = logging.Formatter("\r[%(levelname)s] %(message)s", "%H:%M:%S")
 
-    def info(self,msg):
-        self.color.cprint(msg, GREEN, 0)
+LOGGER_HANDLER.setFormatter(FORMATTER)
+LOGGER.addHandler(LOGGER_HANDLER)
+LOGGER.setLevel(CUSTOM_LOGGING.WARNING)
 
-    def critical(self,msg):
-        self.color.cprint(msg, RED, 0)
+
+class MY_LOGGER:
+    @staticmethod
+    def success(msg):
+        return LOGGER.log(CUSTOM_LOGGING.SUCCESS, msg)
+
+    @staticmethod
+    def info(msg):
+        return LOGGER.log(CUSTOM_LOGGING.SYSINFO, msg)
+
+    @staticmethod
+    def warning(msg):
+        return LOGGER.log(CUSTOM_LOGGING.WARNING, msg)
+
+    @staticmethod
+    def error(msg):
+        return LOGGER.log(CUSTOM_LOGGING.ERROR, msg)
+
+    @staticmethod
+    def critical(msg):
+        return LOGGER.log(CUSTOM_LOGGING.ERROR, msg)
+
+    @staticmethod
+    def security_note(msg,k=''):
+        MY_LOGGER.info(msg)
     
-    def security_note(self,msg,k=''):
-        self.color.cprint(msg, CYAN, 0)
+    @staticmethod
+    def security_warning(msg,k=''):
+        MY_LOGGER.info(msg)
     
-    def security_warning(self,msg,k=''):
-        self.color.cprint(msg, YELLOW, 0)
+    @staticmethod
+    def security_hole(msg,k=''):
+        MY_LOGGER.info(msg)
     
-    def security_hole(self,msg,k=''):
-        self.color.cprint(msg, RED, 0)
-    
-    def security_info(self,msg,k=''):
-        self.color.cprint(msg, GREEN, 0)
-
-logger = Logger()
+    @staticmethod
+    def security_info(msg,k=''):
+        MY_LOGGER.info(msg)

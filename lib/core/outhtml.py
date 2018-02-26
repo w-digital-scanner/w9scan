@@ -3,15 +3,12 @@
 from lib.core.exception import BuildHtmlErrorException
 from lib.core.exception import SaveReportException
 from lib.core.data import urlconfig
-from lib.core.data import paths
-from lib.core.log import logger
+from lib.core.data import paths,logger
 from lib.core.common import runningTime
 import time,base64,os
 from lib.utils.until import get_domain_root
 import cgi
 from lib.core.settings import VERSION
-
-from lib.core.common import Get_lineNumber_fileName
 
 class CollectData(object):
     def __init__(self):

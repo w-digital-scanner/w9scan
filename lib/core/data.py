@@ -6,6 +6,9 @@ See the file 'doc/COPYING' for copying permission
 """
 
 from lib.core.datatype import AttribDict
+from lib.core.log import MY_LOGGER
+
+logger = MY_LOGGER
 
 # w9scan paths
 paths = AttribDict()

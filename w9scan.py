@@ -15,17 +15,15 @@ from lib.core.common import weAreFrozen
 from lib.core.common import getUnicode
 from lib.core.common import setPaths
 from lib.core.common import makeurl
-from lib.core.common import banner
-from lib.core.common import Get_lineNumber_fileName
-from lib.core.log import logger
+from lib.core.common import Banner
 import os
 import inspect,time
 from distutils.version import LooseVersion
-from lib.core.settings import VERSION
-from lib.core.settings import LIST_PLUGINS
-from lib.core.data import urlconfig
+from lib.core.settings import VERSION,LIST_PLUGINS,IS_WIN
+from lib.core.data import urlconfig,logger
 from lib.core.exploit import Exploit_run
 from lib.core.exploit import getPluginNum
+from thirdparty.colorama.initialise import init as winowsColorInit
 from lib.utils import crawler
 from lib.core.common import createIssueForBlog
 from lib.core.update import updateProgram
@@ -68,7 +66,7 @@ def main():
     """
     checkEnvironment() # 检测环境
     setPaths(modulePath()) # 为一些目录和文件设置了绝对路径
-    banner()
+    
     
     parser = argparse.ArgumentParser(description="w9scan scanner")
     parser.add_argument("--update", help="update w9scan",action="store_true")
@@ -78,8 +76,14 @@ def main():
     parser.add_argument("-s","--search",help="find infomation of plugin")
     
     args = parser.parse_args()
+
     urlconfig.mutiurl = False
     urlconfig.url = []
+
+    Banner()
+    if IS_WIN:
+        winowsColorInit()
+
     if args.update:
         updateProgram()
         return 0

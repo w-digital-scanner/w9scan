@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 
+import subprocess
+
 # w9scan version
 VERSION = "1.8.3"
 Site = "https://github.com/boy-hack/w9scan"
 AUTHOR = "w8ay"
 MAIL = "master@hacking8.com"
 
+IS_WIN = subprocess.mswindows
 # w9scan banner
 banner = """\033[01;34m
            ____                       \033[01;31m__/\033[01;34m
@@ -20,6 +23,8 @@ banner = """\033[01;34m
 
 # Format used for representing invalid unicode characters
 INVALID_UNICODE_CHAR_FORMAT = r"\x%02x"
+# Encoding used for Unicode data
+UNICODE_ENCODING = "utf-8"
 
 # Selectable list of plugins
 LIST_PLUGINS = ["subdomain","find_service","whatcms","struts","fuzz"]

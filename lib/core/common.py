@@ -2,13 +2,16 @@
 #coding:utf-8
 from lib.core.data import paths
 import sys
-import os
+import os,re
 from lib.core.settings import INVALID_UNICODE_CHAR_FORMAT
-from lib.core.settings import banner as banner1
-from lib.core.log import logger
+from lib.core.settings import banner
 from thirdparty import hackhttp
+from lib.core.log import LOGGER_HANDLER
 import urlparse
 import urllib2,urllib,time
+from thirdparty.termcolor.termcolor import colored
+from lib.core.convert import stdoutencode
+
 """
 Copyright (c) 2006-2017 sqlmap developers (http://sqlmap.org/)
 See the file 'doc/COPYING' for copying permission
@@ -81,8 +84,14 @@ def setPaths(rootPath):
     paths.w9scan_Plugin_Path = os.path.join(paths.w9scan_ROOT_PATH, "plugins")
     paths.w9scan_Output_Path = os.path.join(paths.w9scan_ROOT_PATH, "output")
 
-def banner():
-    print banner1
+def Banner():
+    """
+    Function prints banner with its version
+    """
+    _ = banner
+    if not getattr(LOGGER_HANDLER, "is_tty", False):
+        _ = re.sub("\033.+?m", "", _)
+    dataToStdout(_)
 
 def makeurl(url):
     prox = "http://"
@@ -99,30 +108,6 @@ def makeurl(url):
     else:
         url = prox + url_info.netloc + "/"
     return url
-
-def Get_lineNumber_fileName():
-    File_Obj = sys._getframe().f_back
-
-    f_line = File_Obj.f_lineno  # get code line
-    f_co_name = File_Obj.f_code.co_name  # get code function
-
-    try:
-        ff_line = File_Obj.f_back.f_lineno
-        ff_co_name = File_Obj.f_back.f_code.co_name
-
-    except:
-        ff_co_name = File_Obj.f_code.co_filename
-        ff_line = f_line
-
-    logger.info('%s:%d <= %s:%d' % (f_co_name,
-                                     f_line,
-                                     ff_co_name,
-                                     ff_line))
-
-    return '%s:%d <= %s:%d' % (f_co_name,
-                               f_line,
-                               ff_co_name,
-                               ff_line)
 
 def createIssueForBlog(errMSG):
     """
@@ -142,12 +127,24 @@ def dataToStdout(data, forceOutput=False, bold=False, content_type=None):
     """
     Writes text to the stdout (console) stream
     """
+    if isinstance(data, unicode):
+        message = stdoutencode(data)
+    else:
+        message = data
+    sys.stdout.write(setColor(message, bold))
     try:
-        sys.stdout.write(data)
         sys.stdout.flush()
     except IOError:
         pass
 
+def setColor(message, bold=False):
+    retVal = message
+
+    if message and getattr(LOGGER_HANDLER, "is_tty", False):  # colorizing handler
+        if bold:
+            retVal = colored(message, color=None, on_color=None, attrs=("bold",))
+
+    return retVal
 def pollProcess(process, suppress_errors=False):
     """
     Checks for process status (prints . if still running)

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import os
-from lib.core.data import paths
-from lib.core.log import logger
+from lib.core.data import paths,logger
 from lib.core.common import dataToStdout,pollProcess,getSafeExString
 from lib.core.settings import GIT_REPOSITORY
 import time
