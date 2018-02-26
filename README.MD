@@ -45,7 +45,7 @@ w9scan扫描器项目仅用于学习，禁止用于其他用途。
 ## Thx
 - 感谢一位网友提供了部分bugscan代码
 - 爬虫的SQL和XSS模块部分参考 [https://github.com/youmengxuefei/web_vul_scan](https://github.com/youmengxuefei/web_vul_scan)
-- 线程控制参考 [POC-T](https://github.com/Xyntax/POC-T/blob/2.0/lib/controller/engine.py)
+- 仿照 [POC-T](https://github.com/Xyntax/POC-T/) 代码结构
 - 网络访问引擎 [Hackhttp](https://github.com/BugScanTeam/hackhttp/)
 - 基于爬虫的备份文件查找 [bcrpscan](https://github.com/secfree/bcrpscan)
 - [WebEye](https://github.com/zerokeeper/WebEye/)
