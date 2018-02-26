@@ -147,7 +147,7 @@ class buildHtml(object):
             exit()
 
         w9scan_html = w9scan_html.replace("{{content}}", ' '.join(full))
-        filename = os.path.join(paths.w9scan_ROOT_PATH, "BatchScanning" + "_" + str(int(time.time())) + ".html")
+        filename = os.path.join(paths.w9scan_Output_Path, "BatchScanning" + "_" + str(int(time.time())) + ".html")
         result = open(filename, "w")
         result.write(w9scan_html)
         result.close()
@@ -212,7 +212,7 @@ class buildHtml(object):
 
             filename = DomainRoot + "_" + str(int(time.time())) + ".html"
             filename.replace(":","_")
-            filename = os.path.join(paths.w9scan_ROOT_PATH,filename)
+            filename = os.path.join(paths.w9scan_Output_Path,filename)
             result = open(filename, "w")
             result.write(w9scan_html)
             result.close()

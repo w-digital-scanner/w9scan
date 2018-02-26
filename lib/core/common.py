@@ -77,8 +77,9 @@ def setPaths(rootPath):
 
     paths.w9scan_ROOT_PATH = rootPath
 
-    # sqlmap paths
+    # w9scan paths
     paths.w9scan_Plugin_Path = os.path.join(paths.w9scan_ROOT_PATH, "plugins")
+    paths.w9scan_Output_Path = os.path.join(paths.w9scan_ROOT_PATH, "output")
 
 def banner():
     print banner1
