@@ -14,20 +14,23 @@ except ImportError:
 from lib.core.common import weAreFrozen
 from lib.core.common import getUnicode
 from lib.core.common import setPaths
-from lib.core.common import makeurl
-from lib.core.common import Banner
+from lib.core.common import Banner,makeurl
 import os
 import inspect,time
 from distutils.version import LooseVersion
 from lib.core.settings import VERSION,LIST_PLUGINS,IS_WIN
 from lib.core.data import urlconfig,logger
 from lib.core.exploit import Exploit_run
-from lib.core.exploit import getPluginNum
+from lib.core.option import initOption
 from thirdparty.colorama.initialise import init as winowsColorInit
 from lib.utils import crawler
-from lib.core.common import createIssueForBlog
-from lib.core.update import updateProgram
+from lib.core.common import createIssueForBlog,systemQuit,printMessage
+from lib.core.exception import ToolkitUserQuitException
+from lib.core.exception import ToolkitMissingPrivileges
+from lib.core.exception import ToolkitSystemException
+
 import argparse,multiprocessing
+from lib.core.enums import EXIT_STATUS
 
 def modulePath():
     """
@@ -67,65 +70,20 @@ def main():
     checkEnvironment() # 检测环境
     setPaths(modulePath()) # 为一些目录和文件设置了绝对路径
     
-    
     parser = argparse.ArgumentParser(description="w9scan scanner")
     parser.add_argument("--update", help="update w9scan",action="store_true")
     parser.add_argument("--guide", help="w9scan to guide",action="store_true")
     parser.add_argument("-u", help="url")
     parser.add_argument("-p","--plugin", help="plugins")
     parser.add_argument("-s","--search",help="find infomation of plugin")
-    
     args = parser.parse_args()
-
-    urlconfig.mutiurl = False
-    urlconfig.url = []
+    
+    initOption(args)
 
     Banner()
     if IS_WIN:
         winowsColorInit()
-
-    if args.update:
-        updateProgram()
-        return 0
-    if args.search:
-        print(getPluginNum(args.search))
-        return 0
-    if args.u and args.plugin:
-        url = args.u
-        if url.startswith("@"):
-            urlconfig.mutiurl = True
-            fileName = url[1:]
-            try:
-                o = open(fileName,"r").readlines()
-                for u in o:
-                    urlconfig.url.append(makeurl(u.strip()))
-            except IOError as error:
-                logger.critical("Filename:'%s' open faild"%fileName)
-                exit()
-            if len(o) == 0:
-                logger.critical("[xxx] The target address is empty")
-                exit()
-            print urlconfig.url
-        else:
-            urlconfig.url.append(makeurl(url))
         
-        urlconfig.scanport = False
-        urlconfig.find_service = False
-        urlconfig.threadNum = 5
-        urlconfig.deepMax = 100
-        urlconfig.diyPlugin = LIST_PLUGINS
-        startTime = time.clock()
-        e = Exploit_run(urlconfig.threadNum)
-        for u in urlconfig.url:
-            print('[***] ScanStart Target:%s' % u)
-            e.setCurrentUrl(u)
-            e.load_modules(args.plugin,u)
-            e.run()
-            time.sleep(0.01)
-        endTime = time.clock()
-        urlconfig.runningTime = endTime - startTime
-        e.report()
-        return 0
     try:
         inputUrl = raw_input('[1] Input url > ')
         
@@ -191,16 +149,26 @@ def main():
         endTime = time.clock()
         urlconfig.runningTime = endTime - startTime
         e.report()
-        
+    
+    except ToolkitMissingPrivileges, e:
+        logger.error(e)
+        systemQuit(EXIT_STATUS.ERROR_EXIT)
+
+    except ToolkitSystemException, e:
+        logger.error(e)
+        systemQuit(EXIT_STATUS.ERROR_EXIT)
+
+    except ToolkitUserQuitException:
+        systemQuit(EXIT_STATUS.USER_QUIT)
+
     except KeyboardInterrupt:
-        print("[***] User Interrupt")
-        exit()
+        systemQuit(EXIT_STATUS.USER_QUIT)
+
     except Exception as info:
-        logger.critical("[xxx] MainError: %s:%s"%(str(Exception),info))
+        logger.warning('It seems like you reached a unhandled exception, please report it to author\'s mail:<master@hacking8.com> or raise a issue via:<https://github.com/boy-hacl/w9scan/issues/new>.')
         data = e.buildHtml.getData()
-        aax = "error:%s urlconfig:%s date:%s"%(str(Exception) + " " + str(info),str(urlconfig),data)
-        createIssueForBlog(aax)
-        exit()
+        comment = "error:%s urlconfig:%s date:%s"%(str(Exception) + " " + str(info),str(urlconfig),data)
+        createIssueForBlog(comment)
 
 if __name__ == '__main__':
     main()

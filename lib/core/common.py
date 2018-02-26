@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #coding:utf-8
-from lib.core.data import paths
+from lib.core.data import paths,logger
 import sys
 import os,re
 from lib.core.settings import INVALID_UNICODE_CHAR_FORMAT
@@ -11,6 +11,7 @@ import urlparse
 import urllib2,urllib,time
 from thirdparty.termcolor.termcolor import colored
 from lib.core.convert import stdoutencode
+from lib.core.enums import EXIT_STATUS
 
 """
 Copyright (c) 2006-2017 sqlmap developers (http://sqlmap.org/)
@@ -184,3 +185,15 @@ def getSafeExString(ex, encoding=None):
         retVal = ex.msg
 
     return getUnicode(retVal or "", encoding=encoding).strip()
+
+def systemQuit(status=EXIT_STATUS.SYSETM_EXIT):
+    if status == EXIT_STATUS.SYSETM_EXIT:
+        logger.info('System exit.')
+    elif status == EXIT_STATUS.USER_QUIT:
+        logger.error('User quit!')
+    elif status == EXIT_STATUS.ERROR_EXIT:
+        logger.error('System exit.')
+    sys.exit(0)
+
+def printMessage(msg):
+    dataToStdout('\r' + msg + '\n\r')

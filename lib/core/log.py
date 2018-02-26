@@ -73,3 +73,5 @@ class MY_LOGGER:
     @staticmethod
     def security_info(msg,k=''):
         MY_LOGGER.info(msg)
+    
+    
