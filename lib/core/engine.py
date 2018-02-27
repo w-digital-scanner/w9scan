@@ -7,6 +7,7 @@ import time,sys
 from lib.core.exploit import Exploit_run
 from lib.core.settings import LIST_PLUGINS
 from lib.core.common import printMessage
+from lib.utils import crawler
 
 def pluginScan():
     if not urlconfig.mutiurl:
@@ -28,3 +29,22 @@ def pluginScan():
     urlconfig.runningTime = endTime - startTime
     e.report()
     sys.exit()
+
+def webScan():
+    startTime = time.clock()
+    e = Exploit_run(urlconfig.threadNum)
+
+    for url in urlconfig.url:
+        printMessage('[***] ScanStart Target:%s' % url)
+        e.setCurrentUrl(url)
+        e.load_modules("www",url)
+        e.run()
+        if not urlconfig.mutiurl:
+            e.init_spider()
+            s = crawler.SpiderMain(url)
+            s.craw()
+        time.sleep(0.01)
+
+    endTime = time.clock()
+    urlconfig.runningTime = endTime - startTime
+    e.report()

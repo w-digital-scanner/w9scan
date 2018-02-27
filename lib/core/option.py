@@ -6,6 +6,7 @@ from lib.core.update import updateProgram
 import sys,os
 from lib.core.data import paths,logger,urlconfig
 from lib.core.common import makeurl,printMessage
+from lib.core.settings import LIST_PLUGINS
 from lib.core.exception import ToolkitUserQuitException
 from lib.core.exception import ToolkitMissingPrivileges
 from lib.core.exception import ToolkitSystemException
@@ -14,9 +15,10 @@ def initOption(args):
     urlconfig.mutiurl = False
     urlconfig.url = []
 
-    checkUpdate(args)
-    searchPlguin(args)
-    pluginScanRegister(args)
+    checkUpdate(args)  # 检测更新
+    searchPlguin(args) # 查找插件
+    pluginScanRegister(args) # 使用插件扫描
+    guideRegister(args) # 向导模式
 
 def checkUpdate(args):
     if args.update:
@@ -58,3 +60,47 @@ def pluginScanRegister(args):
             printMessage(urlconfig.url)
         else:
             urlconfig.url.append(makeurl(url))
+
+def guideRegister(args):
+    inputUrl = raw_input('[1] Input url > ')
+    if inputUrl is '':
+        raise ToolkitSystemException("You have to enter the url")
+    if inputUrl.startswith("@"):
+        urlconfig.mutiurl = True
+        fileName = inputUrl[1:]
+        try:
+            o = open(fileName,"r").readlines()
+            for url in o:
+                urlconfig.url.append(makeurl(url.strip()))
+        except IOError:
+            raise ToolkitSystemException("Filename:'%s' open faild"%fileName)
+        if len(o) == 0:
+            raise ToolkitSystemException("The target address is empty")
+    else:
+        urlconfig.url.append(makeurl(inputUrl))
+    printMessage('[Tips] URL has been loaded:%d' % len(urlconfig.url))
+    printMessage("[Tips] You can select these plugins (%s) or select all"%(' '.join(LIST_PLUGINS)))
+    diyPlugin = raw_input("[2] Please select the required plugins > ")
+
+    if diyPlugin.lower() == 'all':
+        urlconfig.diyPlugin = LIST_PLUGINS
+    else:
+        urlconfig.diyPlugin = diyPlugin.strip().split(' ')
+        
+    printMessage("[***] You select the plugins:%s"%(' '.join(urlconfig.diyPlugin)))
+    urlconfig.scanport = False
+    urlconfig.find_service = False
+    if 'find_service' in urlconfig.diyPlugin:
+        urlconfig.find_service = True
+        input_scanport = raw_input('[2.1] Need you scan all ports ?(Y/N) (default N)> ')
+        if input_scanport.lower() in ("y","yes"):
+            urlconfig.scanport = True
+    
+    urlconfig.threadNum = raw_input('[3] You need start number of thread (default 5) > ')
+    if urlconfig.threadNum == '':
+        urlconfig.threadNum = 5
+
+    urlconfig.threadNum = int(urlconfig.threadNum)
+    urlconfig.deepMax = raw_input('[4] Set the depth of the crawler (default 200 | 0 don\'t use crawler ) > ')
+    if urlconfig.deepMax == '':
+        urlconfig.deepMax = 100

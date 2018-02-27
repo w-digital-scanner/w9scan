@@ -23,9 +23,8 @@ from lib.core.data import urlconfig,logger
 from lib.core.exploit import Exploit_run
 from lib.core.option import initOption
 from thirdparty.colorama.initialise import init as winowsColorInit
-from lib.utils import crawler
 from lib.core.common import createIssueForBlog,systemQuit,printMessage
-from lib.core.engine import pluginScan
+from lib.core.engine import pluginScan,webScan
 from lib.core.exception import ToolkitUserQuitException
 from lib.core.exception import ToolkitMissingPrivileges
 from lib.core.exception import ToolkitSystemException
@@ -79,78 +78,15 @@ def main():
     parser.add_argument("-s","--search",help="find infomation of plugin")
     args = parser.parse_args()
     
-    initOption(args)
-
     if IS_WIN:
         winowsColorInit()
     Banner()
-    pluginScan()
-    try:
-        inputUrl = raw_input('[1] Input url > ')
-        
-        if inputUrl is '':
-            logger.critical("[xxx] You have to enter the url")
-            exit()
-        if inputUrl.startswith("@"):
-            urlconfig.mutiurl = True
-            fileName = inputUrl[1:]
-            try:
-                o = open(fileName,"r").readlines()
-                for url in o:
-                    urlconfig.url.append(makeurl(url.strip()))
-            except IOError as error:
-                logger.critical("Filename:'%s' open faild"%fileName)
-                exit()
-            if len(o) == 0:
-                logger.critical("[xxx] The target address is empty")
-                exit()
-            print urlconfig.url
-        else:
-            urlconfig.url.append(makeurl(inputUrl))
-        print '[***] URL has been loaded:%d' % len(urlconfig.url)
-        print("[Tips] You can select these plugins (%s) or select all"%(' '.join(LIST_PLUGINS)))
-        diyPlugin = raw_input("[2] Please select the required plugins > ")
-
-        if diyPlugin.lower() == 'all':
-            urlconfig.diyPlugin = LIST_PLUGINS
-        else:
-            urlconfig.diyPlugin = diyPlugin.strip().split(' ')
-        print "[***] You select the plugins:%s"%(' '.join(urlconfig.diyPlugin))    
-        urlconfig.scanport = False
-        urlconfig.find_service = False
-        if 'find_service' in urlconfig.diyPlugin:
-            urlconfig.find_service = True
-            input_scanport = raw_input('[2.1] Need you scan all ports ?(Y/N) (default N)> ')
-            if input_scanport.lower() in ("y","yes"):
-                urlconfig.scanport = True
-        
-        urlconfig.threadNum = raw_input('[3] You need start number of thread (default 5) > ')
-        if urlconfig.threadNum == '':
-            urlconfig.threadNum = 5
-
-        urlconfig.threadNum = int(urlconfig.threadNum)
-        urlconfig.deepMax = raw_input('[4] Set the depth of the crawler (default 200 | 0 don\'t use crawler ) > ')
-        if urlconfig.deepMax == '':
-            urlconfig.deepMax = 100
-
-        startTime = time.clock()
-        e = Exploit_run(urlconfig.threadNum)
-
-        for url in urlconfig.url:
-            print('[***] ScanStart Target:%s' % url)
-            e.setCurrentUrl(url)
-            e.load_modules("www",url)
-            e.run()
-            if not urlconfig.mutiurl:
-                e.init_spider()
-                s = crawler.SpiderMain(url)
-                s.craw()
-            time.sleep(0.01)
-
-        endTime = time.clock()
-        urlconfig.runningTime = endTime - startTime
-        e.report()
+    initOption(args)
     
+    try:
+        pluginScan()
+        webScan()
+
     except ToolkitMissingPrivileges, e:
         logger.error(e)
         systemQuit(EXIT_STATUS.ERROR_EXIT)
