@@ -22,7 +22,8 @@ def initOption(args):
     guideRegister(args) # 向导模式
 
 def bannerOutput(args):
-    sys.exit(0)
+    if args.banner:
+        sys.exit(0)
 def checkUpdate(args):
     if args.update:
         updateProgram()
