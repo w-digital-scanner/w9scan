@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from lib.core.exception import BuildHtmlErrorException
-from lib.core.exception import SaveReportException
+from lib.core.exception import ToolkitMissingPrivileges
 from lib.core.data import urlconfig
 from lib.core.data import paths,logger
 from lib.core.common import runningTime
@@ -45,7 +44,7 @@ class buildHtml(object):
             self.dict[domain]["hole"] = CollectData()
 
         if level not in self.dict[domain]:
-            raise BuildHtmlErrorException
+            raise ToolkitMissingPrivileges("Building error:level not in dict")
 
         self.dict[domain][level].add_list(k,value)
 
@@ -57,7 +56,7 @@ class buildHtml(object):
             self.dict[domain]["warning"] = CollectData()
             self.dict[domain]["hole"] = CollectData()
         if level not in self.dict[domain]:
-            raise BuildHtmlErrorException
+            raise ToolkitMissingPrivileges("Building error:level not in dict")
         self.dict[domain][level].add_set(k,value)
     
     def escape(self,html):
@@ -140,8 +139,7 @@ class buildHtml(object):
                 tr = "<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>  %s</td><td>%s</td><td>%s</td></tr>"%(index,url,title,server,Total["info"],Total["note"],Total["warning"],Total["hole"])
                 full.append(tr)
         except Exception as err:
-            print Exception,err
-            exit()
+            raise ToolkitMissingPrivileges("Building result faild!")
 
         w9scan_html = w9scan_html.replace("{{content}}", ' '.join(full))
         filename = os.path.join(paths.w9scan_Output_Path, "BatchScanning" + "_" + str(int(time.time())) + ".html")
@@ -171,7 +169,7 @@ class buildHtml(object):
             w9scan_html = w9scan_html.replace("{{reportTime}}", str(reportTime))
             w9scan_html = w9scan_html.replace("{{scantime}}",runningTime(urlconfig.runningTime) )
         except Exception:
-            print "BuildHtmlErrorException"
+            raise ToolkitMissingPrivileges("BuildHtml Error Exception")
 
         try:
             for url,content in self.dict.items():
@@ -197,9 +195,8 @@ class buildHtml(object):
                             w9scan_html = w9scan_html.replace(substr,'')
 
                         Total[key] = str(len(value.getData()))
-                    except Exception as error:
-                        print error
-                        raise SaveReportException
+                    except Exception:
+                        raise ToolkitMissingPrivileges("Save Report Exception")
 
             w9scan_html = w9scan_html.replace("{{total_Hole}}", Total["hole"])
             w9scan_html = w9scan_html.replace("{{total_Note}}", Total["note"])
@@ -216,7 +213,7 @@ class buildHtml(object):
             logger.info("success saved :" + filename)
 
         except Exception as err:
-            print err
+            raise ToolkitMissingPrivileges("Sava Faild! error:" + err)
     
     def getData(self):
         htmlDict = dict()
