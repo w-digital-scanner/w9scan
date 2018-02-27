@@ -25,6 +25,7 @@ from lib.core.option import initOption
 from thirdparty.colorama.initialise import init as winowsColorInit
 from lib.utils import crawler
 from lib.core.common import createIssueForBlog,systemQuit,printMessage
+from lib.core.engine import pluginScan
 from lib.core.exception import ToolkitUserQuitException
 from lib.core.exception import ToolkitMissingPrivileges
 from lib.core.exception import ToolkitSystemException
@@ -80,10 +81,10 @@ def main():
     
     initOption(args)
 
-    Banner()
     if IS_WIN:
         winowsColorInit()
-        
+    Banner()
+    pluginScan()
     try:
         inputUrl = raw_input('[1] Input url > ')
         

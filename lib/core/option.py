@@ -42,9 +42,10 @@ def searchPlguin(args):
 def pluginScanRegister(args):
     if args.u and args.plugin:
         url = args.u
+        urlconfig.mutiurl = True
+        urlconfig.plugin = args.plugin
+        
         if url.startswith("@"):
-            urlconfig.mutiurl = True
-            urlconfig.plugin = args.plugin
             fileName = url[1:]
             try:
                 o = open(fileName,"r").readlines()
