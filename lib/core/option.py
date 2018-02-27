@@ -14,12 +14,15 @@ from lib.core.exception import ToolkitSystemException
 def initOption(args):
     urlconfig.mutiurl = False
     urlconfig.url = []
-
+    
+    bannerOutput(args)
     checkUpdate(args)  # 检测更新
     searchPlguin(args) # 查找插件
     pluginScanRegister(args) # 使用插件扫描
     guideRegister(args) # 向导模式
 
+def bannerOutput(args):
+    sys.exit(0)
 def checkUpdate(args):
     if args.update:
         updateProgram()
@@ -86,7 +89,7 @@ def guideRegister(args):
         urlconfig.diyPlugin = LIST_PLUGINS
     else:
         urlconfig.diyPlugin = diyPlugin.strip().split(' ')
-        
+
     printMessage("[***] You select the plugins:%s"%(' '.join(urlconfig.diyPlugin)))
     urlconfig.scanport = False
     urlconfig.find_service = False

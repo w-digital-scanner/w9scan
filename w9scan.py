@@ -73,6 +73,7 @@ def main():
     parser = argparse.ArgumentParser(description="w9scan scanner")
     parser.add_argument("--update", help="update w9scan",action="store_true")
     parser.add_argument("--guide", help="w9scan to guide",action="store_true")
+    parser.add_argument("--banner", help="output the banner",action="store_true")
     parser.add_argument("-u", help="url")
     parser.add_argument("-p","--plugin", help="plugins")
     parser.add_argument("-s","--search",help="find infomation of plugin")
