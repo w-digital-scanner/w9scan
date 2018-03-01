@@ -27,11 +27,12 @@ def initOption(args):
 def setLoggingLevel(args):
     # Set FileHandler
     filename = os.path.join(paths.w9scan_Output_Path, "log" + "_" + str(int(time.time())) + ".txt")
+    logger.info("The log file will be saved on: '%s'"%filename)
     FILE_HANDLER = logging.FileHandler(filename)   
     FORMATTER = logging.Formatter("\r[%(asctime)s] [%(levelname)s] %(message)s", "%H:%M:%S")
     FILE_HANDLER.setFormatter(FORMATTER)
     LOGGER.addHandler(FILE_HANDLER)
-    logger.info("The log file will be saved on: '%s'"%filename)
+    
     if args.debug:
         LOGGER.setLevel(CUSTOM_LOGGING.DEBUG)
 
