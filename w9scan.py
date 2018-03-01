@@ -27,7 +27,7 @@ from lib.core.common import createIssueForBlog,systemQuit,printMessage
 from lib.core.engine import pluginScan,webScan
 from lib.core.exception import ToolkitUserQuitException
 from lib.core.exception import ToolkitMissingPrivileges
-from lib.core.exception import ToolkitSystemException
+from lib.core.exception import ToolkitSystemException,ToolkitPluginException
 
 import argparse,multiprocessing
 from lib.core.enums import EXIT_STATUS
@@ -100,16 +100,16 @@ def main():
     except ToolkitUserQuitException:
         systemQuit(EXIT_STATUS.USER_QUIT)
 
+    except ToolkitPluginException,e:
+        createIssueForBlog(e)
+        logger.warning('It seems like you reached a unhandled exception, We have automatically uploaded the exception information, please wait for a later update.')
+
     except KeyboardInterrupt:
         systemQuit(EXIT_STATUS.USER_QUIT)
 
     except Exception as info:
         logger.warning("error:%s "%(str(Exception) + " " + str(info)))
         logger.warning('It seems like you reached a unhandled exception, please report it to author\'s mail:<master@hacking8.com> or raise a issue via:<https://github.com/boy-hacl/w9scan/issues/new>.')
-
-        # data = e.buildHtml.getData()
-        # comment = "error:%s urlconfig:%s date:%s"%(str(Exception) + " " + str(info),str(urlconfig),data)
-        # createIssueForBlog(comment)
 
 if __name__ == '__main__':
     main()

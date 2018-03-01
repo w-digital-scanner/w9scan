@@ -20,7 +20,7 @@ def pluginScan():
     startTime = time.clock()
     e = Exploit_run(urlconfig.threadNum)
     for u in urlconfig.url:
-        printMessage('[***] ScanStart Target:%s' % u)
+        logger.info('ScanStart Target:%s' % u)
         e.setCurrentUrl(u)
         e.load_modules(urlconfig.plugin,u)
         e.run()
@@ -35,7 +35,7 @@ def webScan():
     e = Exploit_run(urlconfig.threadNum)
 
     for url in urlconfig.url:
-        printMessage('[***] ScanStart Target:%s' % url)
+        logger.info('ScanStart Target:%s' % url)
         e.setCurrentUrl(url)
         e.load_modules("www",url)
         e.run()

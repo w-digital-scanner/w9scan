@@ -3,7 +3,7 @@
 # project = https://github.com/boy-hack/w9scan
 # author = w8ay
 from lib.core.update import updateProgram
-import sys,os
+import sys,os,logging,time
 from lib.core.data import paths,logger,urlconfig
 from lib.core.common import makeurl,printMessage
 from lib.core.settings import LIST_PLUGINS
@@ -17,14 +17,21 @@ def initOption(args):
     urlconfig.mutiurl = False
     urlconfig.url = []
     
-    setLoggingLevel(args)
     bannerOutput(args)
+    setLoggingLevel(args)
     checkUpdate(args)  # 检测更新
     searchPlguin(args) # 查找插件
     pluginScanRegister(args) # 使用插件扫描
     guideRegister(args) # 向导模式
 
 def setLoggingLevel(args):
+    # Set FileHandler
+    filename = os.path.join(paths.w9scan_Output_Path, "log" + "_" + str(int(time.time())) + ".txt")
+    FILE_HANDLER = logging.FileHandler(filename)   
+    FORMATTER = logging.Formatter("\r[%(asctime)s] [%(levelname)s] %(message)s", "%H:%M:%S")
+    FILE_HANDLER.setFormatter(FORMATTER)
+    LOGGER.addHandler(FILE_HANDLER)
+    logger.info("The log file will be saved on: '%s'"%filename)
     if args.debug:
         LOGGER.setLevel(CUSTOM_LOGGING.DEBUG)
 
