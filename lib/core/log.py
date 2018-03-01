@@ -11,7 +11,7 @@ logging.addLevelName(CUSTOM_LOGGING.SYSINFO, "*")
 logging.addLevelName(CUSTOM_LOGGING.SUCCESS, "+")
 logging.addLevelName(CUSTOM_LOGGING.ERROR, "-")
 logging.addLevelName(CUSTOM_LOGGING.WARNING, "!")
-
+logging.addLevelName(CUSTOM_LOGGING.DEBUG, "DEBUG")
 LOGGER = logging.getLogger("w9scan")
 
 LOGGER_HANDLER = None
@@ -24,6 +24,7 @@ try:
         LOGGER_HANDLER.level_map[logging.getLevelName("+")] = (None, "green", False)
         LOGGER_HANDLER.level_map[logging.getLevelName("-")] = (None, "red", False)
         LOGGER_HANDLER.level_map[logging.getLevelName("!")] = (None, "yellow", False)
+        LOGGER_HANDLER.level_map[logging.getLevelName("DEBUG")] = (None, "white", False)
     except Exception:
         LOGGER_HANDLER = logging.StreamHandler(sys.stdout)
 
@@ -57,6 +58,10 @@ class MY_LOGGER:
     @staticmethod
     def critical(msg):
         return LOGGER.log(CUSTOM_LOGGING.ERROR, msg)
+    
+    @staticmethod
+    def debug(msg):
+        return LOGGER.log(CUSTOM_LOGGING.DEBUG, msg)
 
     @staticmethod
     def security_note(msg,k=''):
@@ -64,11 +69,11 @@ class MY_LOGGER:
     
     @staticmethod
     def security_warning(msg,k=''):
-        MY_LOGGER.info(msg)
+        MY_LOGGER.warning(msg)
     
     @staticmethod
     def security_hole(msg,k=''):
-        MY_LOGGER.info(msg)
+        MY_LOGGER.success(msg)
     
     @staticmethod
     def security_info(msg,k=''):

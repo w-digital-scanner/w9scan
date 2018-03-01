@@ -6,6 +6,7 @@ class CUSTOM_LOGGING:
     SUCCESS = 8
     ERROR = 7
     WARNING = 6
+    DEBUG = 5
 
 class EXIT_STATUS:
     SYSETM_EXIT = 0

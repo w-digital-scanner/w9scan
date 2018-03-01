@@ -4,6 +4,7 @@
 import threading
 import time
 import traceback
+from lib.core.data import logger
 import Queue
 import random
 
@@ -72,6 +73,7 @@ class w8_threadpool:
             except Exception:
                 errmsg = traceback.format_exc()
                 self.isContinue = False
+                logger.error(errmsg)
 
             self.changeScanCount(-1)
         self.changeThreadCount(-1)
