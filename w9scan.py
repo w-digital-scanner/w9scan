@@ -77,8 +77,9 @@ def main():
     parser.add_argument("-u", help="url")
     parser.add_argument("-p","--plugin", help="plugins")
     parser.add_argument("-s","--search",help="find infomation of plugin")
+    parser.add_argument("--debug",help="output debug info",action="store_true",default = False)
     args = parser.parse_args()
-    
+
     if IS_WIN:
         winowsColorInit()
     Banner()

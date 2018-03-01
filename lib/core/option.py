@@ -7,6 +7,8 @@ import sys,os
 from lib.core.data import paths,logger,urlconfig
 from lib.core.common import makeurl,printMessage
 from lib.core.settings import LIST_PLUGINS
+from lib.core.enums import CUSTOM_LOGGING
+from lib.core.log import LOGGER
 from lib.core.exception import ToolkitUserQuitException
 from lib.core.exception import ToolkitMissingPrivileges
 from lib.core.exception import ToolkitSystemException
@@ -15,11 +17,16 @@ def initOption(args):
     urlconfig.mutiurl = False
     urlconfig.url = []
     
+    setLoggingLevel(args)
     bannerOutput(args)
     checkUpdate(args)  # 检测更新
     searchPlguin(args) # 查找插件
     pluginScanRegister(args) # 使用插件扫描
     guideRegister(args) # 向导模式
+
+def setLoggingLevel(args):
+    if args.debug:
+        LOGGER.setLevel(CUSTOM_LOGGING.DEBUG)
 
 def bannerOutput(args):
     if args.banner:
@@ -82,8 +89,8 @@ def guideRegister(args):
             raise ToolkitSystemException("The target address is empty")
     else:
         urlconfig.url.append(makeurl(inputUrl))
-    printMessage('[Tips] URL has been loaded:%d' % len(urlconfig.url))
-    printMessage("[Tips] You can select these plugins (%s) or select all"%(' '.join(LIST_PLUGINS)))
+    printMessage('[Prompt] URL has been loaded:%d' % len(urlconfig.url))
+    printMessage("[Prompt] You can select these plugins (%s) or select all"%(' '.join(LIST_PLUGINS)))
     diyPlugin = raw_input("[2] Please select the required plugins > ")
 
     if diyPlugin.lower() == 'all':
@@ -91,7 +98,7 @@ def guideRegister(args):
     else:
         urlconfig.diyPlugin = diyPlugin.strip().split(' ')
 
-    printMessage("[***] You select the plugins:%s"%(' '.join(urlconfig.diyPlugin)))
+    printMessage("[Prompt] You select the plugins:%s"%(' '.join(urlconfig.diyPlugin)))
     urlconfig.scanport = False
     urlconfig.find_service = False
     if 'find_service' in urlconfig.diyPlugin:
@@ -105,6 +112,6 @@ def guideRegister(args):
         urlconfig.threadNum = 5
 
     urlconfig.threadNum = int(urlconfig.threadNum)
-    urlconfig.deepMax = raw_input('[4] Set the depth of the crawler (default 200 | 0 don\'t use crawler ) > ')
+    urlconfig.deepMax = raw_input('[4] Set the depth of the crawler (default 100 | 0 don\'t use crawler ) > ')
     if urlconfig.deepMax == '':
         urlconfig.deepMax = 100
