@@ -16,6 +16,9 @@ def security_info(msg,k = ''):
 def security_note(msg,k = ''):
     print k,msg
 
+def security_warning(msg,k = ''):
+    print k,msg
+
 ThreadPool = ThreadPool.w8_threadpool
 curl = miniCurl.Curl()
 hackhttp = hackhttp.hackhttp()
