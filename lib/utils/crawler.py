@@ -5,7 +5,7 @@
 import urlparse
 import re
 from thirdparty import hackhttp
-from lib.core.data import w9_hash_pycode
+from lib.core.data import w9_hash_pycode,logger
 from lib.utils import until
 from lib.core.data import urlconfig
 
@@ -50,12 +50,11 @@ class SpiderMain(object):
         self.urls.add_new_url(self.root)
         while self.urls.has_new_url() and self.maxdeep>self.deep and self.maxdeep > 0:
             new_url = self.urls.get_new_url()
-            print("craw:" + new_url)
+            logger.debug("craw:" + new_url)
             try:
                 html = until.w9_get(new_url)
                 check(new_url,html)
-            except Exception as errinfo:
-                print "[xxx] spider %s:%s"%(Exception,errinfo)
+            except:
                 html = ''
             new_urls = self._parse(new_url, html)
             self.urls.add_new_urls(new_urls)
@@ -111,7 +110,7 @@ def check(url,html = ''):
             if(service == "spider_file"):
                 pluginObj.audit(url,html)
         except Exception as errinfo:
-            print "[xxx] spider plugin:%s errinfo:%s Exception:%s url:%s"%(k,errinfo,Exception,url)
+            logger.error("spider plugin:%s errinfo:%s url:%s"%(k,errinfo,url))
 
 def check_end():
     for k, v in w9_hash_pycode.iteritems():
@@ -120,8 +119,8 @@ def check_end():
             service = v["service"]
             if(service == "spider_end"):
                 pluginObj.audit()
-        except Exception as errinfo:
-            print k," ",errinfo
+        except:
+            pass
 
 if __name__ == '__main__':
     u = "http://testphp.vulnweb.com/index.php"
