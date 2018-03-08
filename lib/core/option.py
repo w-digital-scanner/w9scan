@@ -16,6 +16,7 @@ from lib.core.exception import ToolkitSystemException
 def initOption(args):
     urlconfig.mutiurl = False
     urlconfig.url = []
+    urlconfig.search = False
     
     bannerOutput(args)
     setLoggingLevel(args)
@@ -46,6 +47,7 @@ def checkUpdate(args):
 
 def searchPlguin(args):
     if args.search:
+        urlconfig.search = True
         name = args.search
         path = paths.w9scan_Plugin_Path
         plugins = os.listdir(path)
