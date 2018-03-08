@@ -8,7 +8,7 @@
 - Python 2 不额外安装第三方库
 - 做开源扫描器中的 Top1
 - 先让软件work起来，再来优化各种细节
-- [版本升级记录](./UPDATELOG)
+- [版本升级记录](./UPDATELOG.MD)
 
 ### Useage
 - `python w9scan.py --update` 更新程序
