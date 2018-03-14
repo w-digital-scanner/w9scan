@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 #coding:utf-8
 from lib.core.data import paths,logger
-import sys
+import sys,random
 import os,re
 from lib.core.settings import INVALID_UNICODE_CHAR_FORMAT
-from lib.core.settings import banner
+from lib.core.settings import banners
 from thirdparty import hackhttp
 from lib.core.log import LOGGER_HANDLER
 import urlparse
@@ -89,7 +89,8 @@ def Banner():
     """
     Function prints banner with its version
     """
-    _ = banner
+    _ = banners[random.randint(0,4)]
+
     if not getattr(LOGGER_HANDLER, "is_tty", False):
         _ = re.sub("\033.+?m", "", _)
     dataToStdout(_)

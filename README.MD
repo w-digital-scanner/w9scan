@@ -52,3 +52,4 @@ w9scan扫描器项目仅用于学习，禁止用于其他用途。
 - 基于爬虫的备份文件查找 [bcrpscan](https://github.com/secfree/bcrpscan)
 - [WebEye](https://github.com/zerokeeper/WebEye/)
 - [cobra](https://github.com/wufeifei/cobra)
+- [s7scan](https://github.com/jiangsir404/S7scan)
