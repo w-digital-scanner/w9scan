@@ -4,19 +4,6 @@
 
 import urlparse
 
-# 12.#domain#.rar  代表当前扫描的域名 比如设置为 #domain#.rar 则实际扫描的是www.baidu.com.rar
-# 13.#domain#.zip  代表当前扫描的域名 比如设置为 #domain#.rar 则实际扫描的是www.baidu.com.zip
-# 14.#domainnopoint#.rar  代表当前扫描的域名，但是要去掉域名中的点“.” 比如 wwwbaiducom.rar
-# 15.#domainnopoint#.zip  代表当前扫描的域名，但是要去掉域名中的点“.” 比如 wwwbaiducom.zip
-# 16.#topdomain#.rar      代表当前扫描的域名取顶级域名比如 baidu.com.rar
-# 17.#topdomain#.zip      代表当前扫描的域名取顶级域名比如 baidu.com.zip
-# 18.#domaincenter#.rar   代表当前扫描的域名的中间部分 比如 baidu.rar
-# 19.#domaincenter#.zip   代表当前扫描的域名的中间部分 比如 baidu.zip
-# 20.#topdomainunderline#.rar 代表当前扫描的域名取顶级域名并去掉点加下划线 比如 www_baidu_com.rar - 低调求发展* k# T5 L9 E6 d( @/ [
-# 21.#topdomainunderline#.zip 代表当前扫描的域名取顶级域名并去掉点加下划线 比如 www_baidu_com.zip; t; I6 q# q3 ~  ?
-# 22.#underlinedomain#.rar    代表当前扫描的域名取顶级域名并去掉点加下划线 比如 baidu_com.rar
-# 23.#underlinedomain#.zip    代表当前扫描的域名取顶级域名并去掉点加下划线 比如 baidu_com.zip
-
 def assign(service, arg):
     if service == "www":
         return True,arg
@@ -74,12 +61,23 @@ flashfxp.tar.gz
         listFile.append(new)
         new = "%s.tar" % (i)
         listFile.append(new)
+
+    warning_list = []
     for payload in listFile:
         loads = url + payload
-        code, head, html, redirect_url, log = hackhttp.http(loads)
+        try:
+            code, head, html, redirect_url, log = hackhttp.http(loads)
+        except:
+            code = 0
+            head = ""
         if code == 200 and 'Content-Type: application' in head:
-            security_hole('可能的源代码泄露 URL:%s'%loads)
+            warning_list.append(loads)
+    # In order to  solve the misreport
+    if len(warning_list) > 5:
+        return False
+    for u in warning_list:
+        security_hole('可能的源代码泄露 URL:%s' % u)
 
 if __name__ == '__main__':
     from dummy import *
-    audit("http://blog.hacking8.com/")
+    audit("https://www.youka.la/")
