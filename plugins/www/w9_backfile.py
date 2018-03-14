@@ -76,7 +76,7 @@ flashfxp.tar.gz
     if len(warning_list) > 5:
         return False
     for u in warning_list:
-        security_hole('可能的源代码泄露 URL:%s' % u)
+        security_warning('可能的源代码泄露 URL:%s' % u)
 
 if __name__ == '__main__':
     from dummy import *
