@@ -4652,12 +4652,12 @@ zplug/ajax_asyn_link.old.php?url=../admin/opacadminpwd.php
                 dictpayload["code"] = code
                 dictpayload["url"] = target_url
                 dictpayload["len"] = len(body)
-                print "[renrensaoFuzz] code:%d url:%s len:%d"%(code,target_url,len(body))
+                debug("[renrensaoFuzz] code:%d url:%s len:%d"%(code,target_url,len(body)))
                 lenCount.append(dictpayload["len"])
 
                 ditPayload.append(dictpayload)
         except Exception as info_error:
-            print info_error
+            pass
     # sort
     newT = sorted(ditPayload, key=lambda s: s["len"],reverse=False)
 
