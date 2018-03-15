@@ -93,11 +93,19 @@ class SpiderMain(object):
             return True
         return False
 
+    def check_url(self, url):
+        """check url"""
+        url = url.replace("&amp;", "&")
+        url = url.replace("#", "")
+        url = url.replace(" ", "+")
+        return url
+
     def _get_new_urls(self, page_url, links):
         new_urls = set()
         for link in links:
             new_url = link
             new_full_url = urlparse.urljoin(page_url, new_url)
+            new_full_url = self.check_url(new_full_url)
             if (self._judge(new_full_url)):
                 new_urls.add(new_full_url)
         return new_urls
