@@ -36,19 +36,19 @@ class w8_threadpool:
     def run(self):
         th = []
         for i in range(self.thread_nums):
-            t = threading.Thread(target=self.scan, name=str(i))
+            t = threading.Thread(target=self.scan)
             t.setDaemon(True)
             t.start()
             th.append(t)
         
-        for tt in th:
-            tt.join()
+        # for tt in th:
+        #     tt.join()
         # It can quit with Ctrl-C
-        # while 1:
-        #     if self.thread_count > 0 and self.isContinue:
-        #         time.sleep(0.01)
-        #     else:
-        #         break
+        while 1:
+            if self.thread_count > 0 and self.isContinue:
+                time.sleep(0.01)
+            else:
+                break
     def stop(self):
         self.load_lock.acquire()
         self.isContinue = False
@@ -75,23 +75,23 @@ class w8_threadpool:
                 self.isContinue = False
                 logger.error(errmsg)
 
-            self.changeScanCount(-1)
+            # self.changeScanCount(-1)
         self.changeThreadCount(-1)
 
 
 if __name__ == '__main__':
-    # def calucator(num):
-    #     i = random.randint(1, 100)
-    #     u = num
-    #     a = i * u
-    #     if (a % 6 == 0):
-    #         for x in range(5):
-    #             print "new thread"
-    #             p.push(x)
+    def calucator(num):
+        i = random.randint(1, 100)
+        u = num
+        a = i * u
+        if (a % 6 == 0):
+            for x in range(5):
+                print "new thread"
+                # p.push(x)
 
-    # p = w8_threadpool(3, calucator)
-    # for i in range(100000):
-    #     p.push(i)
-    # p.run()
-    pass
+    p = w8_threadpool(3, calucator)
+    for i in range(100000):
+        p.push(i)
+    p.run()
+
 
