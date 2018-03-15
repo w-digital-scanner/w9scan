@@ -38,15 +38,21 @@ def probe_url(url):
         if p[-1] == '/':
             for ext in DIR_PROBE_EXTS:
                 u = '%s://%s%s%s' % (pr.scheme, pr.netloc, p[:-1], ext)
-                code, head, body, redirect, log = hackhttp.http(u)
-                if code == 200:
-                    security_note(u,'bcrpscan')
+                try:
+                    code, head, body, redirect, log = hackhttp.http(u)
+                    if code == 200:
+                        security_note(u,'bcrpscan')
+                except:
+                    pass
         else:
             for ext in FILE_PROBE_EXTS:
                 u = '%s://%s%s%s' % (pr.scheme, pr.netloc, p, ext)
-                code, head, body, redirect, log = hackhttp.http(u)
-                if code == 200:
-                    security_note(u,'bcrpscan')
+                try:
+                    code, head, body, redirect, log = hackhttp.http(u)
+                    if code == 200:
+                        security_note(u,'bcrpscan')
+                except:
+                    pass
 
 
 def get_parent_paths(path):
