@@ -23,26 +23,62 @@
 - 本人并不崇尚命令行哲学，对于这个是能简则简
 - 直接使用`python w9scan.py`即可使用向导模式使用w9scan
 - 向导模式中输入URL时可以输入类似`@1.txt`,代表批量扫描1.txt内的URL
-- 好多人给我点赞了，受宠若惊，谢谢大家的star，代码说实话有点"丑"，但我会继续学习Python来完善它的
+
+## Features
+
+- __指纹检测__
+	+ 可识别常见网站CMS指纹 (`300`+)
+	+ 可识别常见网站框架
+	+ 识别常用端口服务指纹  
+	+ 检测网站脚本语言
+	+ 检测网站防火墙 (WAF)
+
+- __攻击参数__
+	+ SQL注入 (基于爬虫)
+    + XSS注入 (基于爬虫)
+    + 大量Fuzz参数扫描
+    + CVE 漏洞
+    + `1200+` 指定插件定向攻击，插件支持参见[https://github.com/boy-hack/w9scan/tree/master/plugins](https://github.com/boy-hack/w9scan/tree/master/plugins)
+    + `struts` 漏洞集合
+    + Shellshock cgi test
+    + `heartbeat` 心脏出血
+    + IIS解析漏洞
+    + IIS Put 漏洞
+
+- __暴力破解__
+	+ 备份文件以及目录 (基于爬虫)
+	+ 备份文件以及目录 (基于域名)
+	+ 常见目录
+	+ 常见文件
+    + 子域名暴力解析
+    + `fckeditor`路径枚举
+    + 常见`mdb`数据库枚举
+    + `git` `svn` 泄露识别
+    + `TOMCAT web.xml` 泄露
+
+- __信息收集__
+	+ Emails (基于爬虫)
+	+ 私有IP (基于爬虫)
+	+ E-mail (基于爬虫)
+	+ 检测 Warnings,Fatal Error,...
+    + PHP 版本识别
+    + IIS 信息泄露
+    + IP地址归属地
+    + 集成`Wappalyzer`识别脚本
+    + `robots.txt` 解析
 
 ## FAQ
 - 兼容bugscan插件？  
     程序设计就是通过调用bugscan插件运行的，bugscan插件均为网上收集
 - 插件内置吗？  
-    内置1000+插件，不断更新中
-- 感觉没有想象中的好用啊  
-    倒是说说你想怎么好用呀？
-- 一千多个脚本对目标站轮训？  
-    先调用`www`服务的插件，由这些插件在调用其他插件`指纹识别` `端口服务识别`等。
-- 与w8scan的关系？  
-    为w8scan的扫描器代码探路
+    内置1300+插件，不断更新中
 - 如何交流?  
     email或者开issue都可以，如果想研究代码可以参考下面文章
     1. [http://www.freebuf.com/sectool/162120.html](http://www.freebuf.com/sectool/162120.html)
     2. [https://blog.hacking8.com/?tag=w9scan](https://blog.hacking8.com/?tag=w9scan)
 
 ## 免责
-w9scan扫描器项目仅用于学习，禁止用于其他用途。
+w9scan扫描器项目仅用于学习，自检网络安全，禁止用于其他用途。
 
 ## Thx
 - 感谢一位网友提供了部分bugscan代码
