@@ -89,7 +89,7 @@ def Banner():
     """
     Function prints banner with its version
     """
-    _ = banners[random.randint(0,4)]
+    _ = banners[random.randint(0,3)]
 
     if not getattr(LOGGER_HANDLER, "is_tty", False):
         _ = re.sub("\033.+?m", "", _)

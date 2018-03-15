@@ -3,7 +3,26 @@
 # @Author: w8ay
 # @Date:   2017年12月17日 19:21:35
 
+import argparse
+import inspect
+import multiprocessing
+import os
 import sys
+import time
+from distutils.version import LooseVersion
+
+from lib.core.common import (Banner, createIssueForBlog, getUnicode, makeurl,
+                             printMessage, setPaths, systemQuit, weAreFrozen)
+from lib.core.data import logger, urlconfig
+from lib.core.engine import pluginScan, webScan
+from lib.core.enums import EXIT_STATUS
+from lib.core.exception import (ToolkitMissingPrivileges,
+                                ToolkitPluginException, ToolkitSystemException,
+                                ToolkitUserQuitException)
+from lib.core.exploit import Exploit_run
+from lib.core.option import initOption
+from lib.core.settings import IS_WIN, LIST_PLUGINS, VERSION
+from thirdparty.colorama.initialise import init as winowsColorInit
 
 sys.dont_write_bytecode = True  # 不生成pyc文件
 try:
@@ -11,26 +30,7 @@ try:
 except ImportError:
     exit("[!] wrong installation detected (missing modules). Please install python version for 2.7.x")
 
-from lib.core.common import weAreFrozen
-from lib.core.common import getUnicode
-from lib.core.common import setPaths
-from lib.core.common import Banner,makeurl
-import os
-import inspect,time
-from distutils.version import LooseVersion
-from lib.core.settings import VERSION,LIST_PLUGINS,IS_WIN
-from lib.core.data import urlconfig,logger
-from lib.core.exploit import Exploit_run
-from lib.core.option import initOption
-from thirdparty.colorama.initialise import init as winowsColorInit
-from lib.core.common import createIssueForBlog,systemQuit,printMessage
-from lib.core.engine import pluginScan,webScan
-from lib.core.exception import ToolkitUserQuitException
-from lib.core.exception import ToolkitMissingPrivileges
-from lib.core.exception import ToolkitSystemException,ToolkitPluginException
 
-import argparse,multiprocessing
-from lib.core.enums import EXIT_STATUS
 
 def modulePath():
     """
@@ -83,9 +83,10 @@ def main():
     if IS_WIN:
         winowsColorInit()
     Banner()
-    initOption(args)
+    
     
     try:
+        initOption(args)
         pluginScan()
         webScan()
 
