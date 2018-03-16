@@ -17,7 +17,9 @@
 - `python w9scan.py -u "@1.txt" -p emlog` 指定插件批量扫描网站
 - `python w9scan.py -s emlog` 搜索插件是否存在
 - `--banner` 输出banner
-- `--debug` 输出调试信息
+- `--debug` 输出调试信息  
+
+[![asciicast](https://asciinema.org/a/4WhO54hcf43fySjxJOLyjczSm.png)](https://asciinema.org/a/4WhO54hcf43fySjxJOLyjczSm)
 
 #### TIPS
 - 本人并不崇尚命令行哲学，对于这个是能简则简
