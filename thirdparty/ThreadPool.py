@@ -67,6 +67,7 @@ class w8_threadpool:
             try:
                 # POC在执行时报错如果不被处理，线程框架会停止并退出
                 self.func_scan(payload)
+                time.sleep(0.3)
             except KeyboardInterrupt:
                 self.isContinue = False
                 raise KeyboardInterrupt
