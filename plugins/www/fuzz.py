@@ -5,8 +5,8 @@ import urlparse
 import time
 
 def assign(service, arg):
-    h = urlparse.urlparse(arg)
     if service == "www":
+        h = urlparse.urlparse(arg)
         return True,"%s://%s/"%(h.scheme,h.netloc)
 
 def audit(arg):
