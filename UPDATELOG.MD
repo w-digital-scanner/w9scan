@@ -2,6 +2,7 @@
 
 - 接下来要做的:  
     - [ ] 最近看了POC-T的代码颇有感悟，学习poc-t的代码
+- 1.8.6 参考[WAScan](https://github.com/m4ll0k/WAScan) 1.增加phpinfo泄露路径  2.增加框架识别功能 3.header cookie报告 4.检测Cross Site Tracing
 - 1.8.5 增加debug命令系统，增加日志记录系统,增加了随机banner（参见s7san）
 - 1.8.4 仿照POC-T框架的代码结构优化，优化至插件扫描项，剩下的下个版本优化
 - 1.8.3 增加`search`命令搜索插件
