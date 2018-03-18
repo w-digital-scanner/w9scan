@@ -10,8 +10,6 @@ from lib.core.common import printMessage
 from lib.utils import crawler
 
 def pluginScan():
-    if not urlconfig.search:
-        return False
     if not urlconfig.mutiurl:
         return False
     urlconfig.scanport = False

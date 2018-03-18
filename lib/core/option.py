@@ -83,6 +83,8 @@ def pluginScanRegister(args):
             urlconfig.url.append(makeurl(url))
 
 def guideRegister(args):
+    if args.plugin and args.u:
+        return False
     inputUrl = raw_input('[1] Input url > ')
     if inputUrl is '':
         raise ToolkitSystemException("You have to enter the url")
