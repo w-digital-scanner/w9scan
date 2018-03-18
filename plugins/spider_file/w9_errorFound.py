@@ -13,7 +13,7 @@ def assign(service, arg):
 def audit(url,html):
     h = util.ErrorInfoSearch(html)
     if len(h) > 0:
-        security_note("Error_message:" + ' '.join(h),'Error_message')
+        security_note("Found %s exist error message:%s"%(url,' '.join(h)),'Craw Found Error_message')
     arg = urlparse.urlparse(url).scheme + '://' + urlparse.urlparse(url).netloc + urlparse.urlparse(url).path
     query = urlparse.urlparse(url).query
 
@@ -26,7 +26,7 @@ def audit(url,html):
             if code == 200:
                 h = util.ErrorInfoSearch(html)
                 if len(h) > 0:
-                    security_note("Error_message:" + ' '.join(h), 'Error_message')
+                    security_note("Found %s exist error message:%s"%(rets,' '.join(h)),'Craw Found Error_message')
 
 if __name__ == '__main__':
     print "1"
