@@ -12,7 +12,10 @@ def audit(arg):
     # headers 
     headers = {'Fuck':'hello_word'}
     # send request 
-    code, head, body, redirect, log = hackhttp.http(arg, headers=headers)
+    try:
+        code, head, body, redirect, log = hackhttp.http(arg, headers=headers)
+    except:
+        return False
     # 
     regexp = r"hello_word"
     if 'Fuck' in head or 'fuck' in head:
