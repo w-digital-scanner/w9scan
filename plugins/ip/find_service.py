@@ -843,7 +843,8 @@ def audit(arg):
             task_push("ssl", "https://%s/" % host)
         elif serverInfo == "www":
             if port != 80:
-                task_push("www", "http://%s:%d/" % (host, port))
+                pass
+                # task_push("www", "http://%s:%d/" % (host, port))
         if serverInfo == "www":
             task_push("http", (host, port))
         else:
