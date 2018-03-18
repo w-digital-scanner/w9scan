@@ -13199,6 +13199,14 @@ def ErrorInfoSearch(body):
             errerInfo.append(m.group())
     return errerInfo
 
+def makeurl(url):
+    prox = "http://"
+    if(url.startswith("https://")):
+        prox = "https://"
+    url_info = urlparse.urlparse(url)
+    u = prox + url_info.netloc + "/"
+    return u
+
 def html2text(body, head=''):
     """
     html 转 text
