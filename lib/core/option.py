@@ -17,6 +17,7 @@ def initOption(args):
     urlconfig.mutiurl = False
     urlconfig.url = []
     urlconfig.search = False
+    urlconfig.usePlugin = False
     
     bannerOutput(args)
     setLoggingLevel(args)
@@ -65,20 +66,22 @@ def searchPlguin(args):
 def pluginScanRegister(args):
     if args.u and args.plugin:
         url = args.u
-        urlconfig.mutiurl = True
+        urlconfig.usePlugin = True
         urlconfig.plugin = args.plugin
         
         if url.startswith("@"):
+            urlconfig.mutiurl = True
             fileName = url[1:]
             try:
                 o = open(fileName,"r").readlines()
                 for u in o:
-                    urlconfig.url.append(makeurl(u.strip()))
+                    u = makeurl(u.strip())
+                    urlconfig.url.append(u)
+                    printMessage(u)
             except IOError:
                 raise ToolkitMissingPrivileges("Filename:'%s' open faild"%fileName)
             if len(o) == 0:
                 raise ToolkitMissingPrivileges("The target address is empty")
-            printMessage(urlconfig.url)
         else:
             urlconfig.url.append(makeurl(url))
 

@@ -10,7 +10,7 @@ from lib.core.common import printMessage
 from lib.utils import crawler
 
 def pluginScan():
-    if not urlconfig.mutiurl:
+    if not urlconfig.usePlugin:
         return False
     urlconfig.scanport = False
     urlconfig.find_service = False
@@ -43,7 +43,7 @@ def webScan():
             e.init_spider()
             s = crawler.SpiderMain(url)
             s.craw()
-        time.sleep(0.01)
+        time.sleep(0.1)
 
     endTime = time.clock()
     urlconfig.runningTime = endTime - startTime
