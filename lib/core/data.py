@@ -18,6 +18,7 @@ cmdLineOptions = AttribDict()
 
 # w9scan urlconfig
 urlconfig = AttribDict()
+w9config = AttribDict()
 
 # w9scan plugins pycode hash
 w9_hash_pycode = dict()

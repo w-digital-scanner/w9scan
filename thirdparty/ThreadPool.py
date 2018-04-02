@@ -10,7 +10,7 @@ import random
 
 class w8_threadpool:
 
-    def __init__(self,threadnum,func_scan):
+    def __init__(self,threadnum,func_scan,Isjoin = False):
         self.thread_count = self.thread_nums = threadnum
         self.scan_count_lock = threading.Lock()
         self.thread_count_lock = threading.Lock()
@@ -19,6 +19,7 @@ class w8_threadpool:
         self.isContinue = True
         self.func_scan = func_scan
         self.queue = Queue.Queue()
+        self.isjoin = Isjoin
 
     def push(self,payload):
         self.queue.put(payload)
@@ -41,14 +42,17 @@ class w8_threadpool:
             t.start()
             th.append(t)
         
-        # for tt in th:
-        #     tt.join()
         # It can quit with Ctrl-C
-        while 1:
-            if self.thread_count > 0 and self.isContinue:
-                time.sleep(0.01)
-            else:
-                break
+        if self.isjoin:
+            for tt in th:
+                tt.join()
+        else:
+            while 1:
+                if self.thread_count > 0 and self.isContinue:
+                    time.sleep(0.01)
+                else:
+                    break
+                    
     def stop(self):
         self.load_lock.acquire()
         self.isContinue = False
