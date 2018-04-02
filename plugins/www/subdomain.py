@@ -12,16 +12,17 @@ def audit(arg):
     
     tlds = util.list_from_file("database/sub_domain.txt")
 
-    unable_pro = "sbsbsbsbforw9scanunable_pro"
+    unable_pro = "sbsbsbsbforw9scanunablepro"
     hostnames = unable_pro + "." + domain
     hostnames = hostnames.strip()
     try:
         l = socket.gethostbyname_ex(hostnames)
     except socket.error:
-        pass
-    if l:
-        security_info("域名存在泛解析 %s"%("*." + domain),'subdomain')
-        return 
+        l = 0
+    if l != 0:
+        security_info("域名存在泛解析 %s" % ("*." + domain), 'subdomain')
+        return
+
     for pro in tlds:
         hostnames = pro + "." + domain
         hostnames = hostnames.strip()
@@ -34,4 +35,4 @@ def audit(arg):
 if __name__ == '__main__':
     from dummy import *
 
-    audit("https://bbs.125.la/aaaaaaa")
+    audit("http://blog.hacking8.com/")
