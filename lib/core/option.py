@@ -68,6 +68,7 @@ def pluginScanRegister(args):
         url = args.u
         urlconfig.usePlugin = True
         urlconfig.plugin = args.plugin
+        urlconfig.diyPlugin = [urlconfig.plugin]
         
         if url.startswith("@"):
             urlconfig.mutiurl = True
