@@ -3,6 +3,8 @@
 # author:w8ay
 
 import socket
+import time
+
 def assign(service, arg):
     if service == 'www':
         return True, arg
@@ -29,6 +31,7 @@ def audit(arg):
         try:
             l = socket.gethostbyname_ex(hostnames)
             security_info(str(l),'subdomain')
+            time.sleep(0.01)
         except socket.error:
             pass
 
