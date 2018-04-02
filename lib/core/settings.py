@@ -3,7 +3,7 @@
 import subprocess
 
 # w9scan version
-VERSION = "1.8.6"
+VERSION = "1.8.7"
 Site = "https://github.com/boy-hack/w9scan"
 AUTHOR = "w8ay"
 MAIL = "master@hacking8.com"
