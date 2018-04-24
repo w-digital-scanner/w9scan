@@ -4,7 +4,6 @@
 *.lprof
 *.py[cod]
 *.swp
-*.conf
 *.idea
 .coverage
 .svn
