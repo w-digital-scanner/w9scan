@@ -13,7 +13,7 @@ from distutils.version import LooseVersion
 
 from lib.core.common import (Banner, createIssueForBlog, getUnicode, makeurl,
                              printMessage, setPaths, systemQuit, weAreFrozen)
-from lib.core.data import logger, urlconfig
+from lib.core.data import logger, urlconfig,paths
 from lib.core.engine import pluginScan, webScan
 from lib.core.enums import EXIT_STATUS
 from lib.core.exception import (ToolkitMissingPrivileges,
@@ -84,9 +84,9 @@ def main():
     if IS_WIN:
         winowsColorInit()
     Banner()
-    configFileParser("config.conf")
     
     try:
+        configFileParser(os.path.join(paths.w9scan_ROOT_PATH,"config.conf"))
         initOption(args)
         pluginScan()
         webScan()
