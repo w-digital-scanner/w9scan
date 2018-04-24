@@ -22,6 +22,7 @@ from lib.core.exception import (ToolkitMissingPrivileges,
 from lib.core.exploit import Exploit_run
 from lib.core.option import initOption
 from lib.core.settings import IS_WIN, LIST_PLUGINS, VERSION
+from lib.utils.configfile import configFileParser
 from thirdparty.colorama.initialise import init as winowsColorInit
 
 sys.dont_write_bytecode = True  # 不生成pyc文件
@@ -83,7 +84,7 @@ def main():
     if IS_WIN:
         winowsColorInit()
     Banner()
-    
+    configFileParser("config.conf")
     
     try:
         initOption(args)

@@ -151,12 +151,14 @@ class httpconpool():
 
 class hackhttp():
 
-    def __init__(self, conpool=None, cookie_str=None, throw_exception=True):
+    def __init__(self, conpool=None, cookie_str=None, throw_exception=True,user_agent = None,headers=None):
         """conpool: 创建的连接池最大数量，类型为 int，默认为 10
 
             cookie_str: 用户自己定义的 Cookie，类型为 String
 
             throw_exception: 是否抛出遇到的异常，类型为 bool，默认为 True
+
+            为了全局配置useragent header 这里加入相关选项
         """
         self.throw_exception = throw_exception
         if conpool is None:
@@ -173,6 +175,8 @@ class hackhttp():
                     cookiekey, cookievalue = cookiepart.split("=", 1)
                     self.initcookie[cookiekey.strip()] = cookievalue.strip()
         self.cookiepool = {}
+        self.user_agent = user_agent
+        self.headers = headers
 
     def _get_urlinfo(self, url):
         p = urlparse.urlparse(url)
@@ -330,6 +334,12 @@ class hackhttp():
         cookcookie = kwargs.get('cookcookie', True)
         location = kwargs.get('location', True)
         throw_exception = kwargs.get('throw_exception', self.throw_exception)
+
+        if not headers and self.headers:
+            headers = self.headers
+            
+        if self.user_agent is not None and kwargs.get('user_agent', None) is None:
+            kwargs["user_agent"] = self.user_agent
 
         if headers and (isinstance(headers, str) or isinstance(headers, unicode)):
             headers = httpheader(StringIO.StringIO(headers), 0).dict

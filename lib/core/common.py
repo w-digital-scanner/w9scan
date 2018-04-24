@@ -39,6 +39,40 @@ def isListLike(value):
 
     return isinstance(value, (list, tuple, set))
 
+def flattenValue(value):
+    """
+    Returns an iterator representing flat representation of a given value
+
+    >>> [_ for _ in flattenValue([[u'1'], [[u'2'], u'3']])]
+    [u'1', u'2', u'3']
+    """
+
+    for i in iter(value):
+        if isListLike(i):
+            for j in flattenValue(i):
+                yield j
+        else:
+            yield i
+            
+def unArrayizeValue(value):
+    """
+    Makes a value out of iterable if it is a list or tuple itself
+
+    >>> unArrayizeValue([u'1'])
+    u'1'
+    """
+
+    if isListLike(value):
+        if not value:
+            value = None
+        elif len(value) == 1 and not isListLike(value[0]):
+            value = value[0]
+        else:
+            _ = filter(lambda _: _ is not None, (_ for _ in flattenValue(value)))
+            value = _[0] if len(_) > 0 else None
+
+    return value
+
 def getUnicode(value, encoding=None, noneToNull=False):
     """
     Return the unicode representation of the supplied value:

@@ -12,3 +12,9 @@ class EXIT_STATUS:
     SYSETM_EXIT = 0
     ERROR_EXIT = 1
     USER_QUIT = 2
+
+class OPTION_TYPE:
+    BOOLEAN = "boolean"
+    INTEGER = "integer"
+    FLOAT = "float"
+    STRING = "string"

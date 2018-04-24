@@ -25,6 +25,7 @@
 - 本人并不崇尚命令行哲学，对于这个是能简则简
 - 直接使用`python w9scan.py`即可使用向导模式使用w9scan
 - 向导模式中输入URL时可以输入类似`@1.txt`,代表批量扫描1.txt内的URL
+- 有关配置线程，超时时间，header头等等参数可以打开config.conf配置
 
 ## Features
 

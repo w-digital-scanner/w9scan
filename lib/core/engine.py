@@ -14,8 +14,6 @@ def pluginScan():
         return False
     urlconfig.scanport = False
     urlconfig.find_service = False
-    urlconfig.threadNum = 5
-    urlconfig.deepMax = 100
     urlconfig.diyPlugin = LIST_PLUGINS
     startTime = time.clock()
     e = Exploit_run(urlconfig.threadNum)

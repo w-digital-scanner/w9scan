@@ -4,7 +4,7 @@
 # author = w8ay
 from lib.core.update import updateProgram
 import sys,os,logging,time
-from lib.core.data import paths,logger,urlconfig
+from lib.core.data import paths,logger,urlconfig,w9config
 from lib.core.common import makeurl,printMessage
 from lib.core.settings import LIST_PLUGINS
 from lib.core.enums import CUSTOM_LOGGING
@@ -19,6 +19,17 @@ def initOption(args):
     urlconfig.search = False
     urlconfig.usePlugin = False
     
+    # 这里初始化配置文件的选项
+    urlconfig.threadNum = w9config.thread
+    if urlconfig.threadNum is None:
+        urlconfig.threadNum = 5
+    urlconfig.deepMax = w9config.crawlerDeep
+    if urlconfig.deepMax is None:
+        urlconfig.deepMax = 100
+
+    urlconfig.threadNum = int(urlconfig.threadNum)
+    urlconfig.deepMax = int(urlconfig.deepMax)
+
     bannerOutput(args)
     setLoggingLevel(args)
     checkUpdate(args)  # 检测更新
@@ -122,12 +133,3 @@ def guideRegister(args):
         input_scanport = raw_input('[2.1] Need you scan all ports ?(Y/N) (default N)> ')
         if input_scanport.lower() in ("y","yes"):
             urlconfig.scanport = True
-    
-    urlconfig.threadNum = raw_input('[3] You need start number of thread (default 5) > ')
-    if urlconfig.threadNum == '':
-        urlconfig.threadNum = 5
-
-    urlconfig.threadNum = int(urlconfig.threadNum)
-    urlconfig.deepMax = raw_input('[4] Set the depth of the crawler (default 100 | 0 don\'t use crawler ) > ')
-    if urlconfig.deepMax == '':
-        urlconfig.deepMax = 100
