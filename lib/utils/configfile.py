@@ -22,7 +22,8 @@ optDict = {
         "TimeOut":           "integer",
         "UserAgent":          "string",
         "Cookie":       "string",
-        "headers":       "string"
+        "headers":       "string",
+        "Sleep":        "integer"
     }
 }                             
 
