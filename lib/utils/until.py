@@ -12756,9 +12756,10 @@ def load_password_dict(hostname, userfile=None, passfile=None, userlist=None, pa
 
     keys = []
     if is_ipaddr(hostname):
-        if hostname in _G['kv']:
-            for host in _G['kv'][hostname]:
-                keys += get_host_keys(host)
+        # if hostname in _G['kv']:
+        #     for host in _G['kv'][hostname]:
+        #         keys += get_host_keys(host)
+        keys += [hostname]
 
     else:
         keys += get_host_keys(hostname)
