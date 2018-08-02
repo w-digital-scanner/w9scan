@@ -43,8 +43,8 @@ class SpiderMain(object):
         self.maxdeep = urlconfig.deepMax # Max deep
         self.SIMILAR_SET = set()
         self.domain = urlparse.urlparse(root).netloc
-        self.IGNORE_EXT = ['css','js','jpg','png','gif','rar','pdf','doc']
-#不期待的文件后缀
+        self.IGNORE_EXT = ['jpg','png','gif','rar','pdf','doc']
+        #不期待的文件后缀
 
     def craw(self):
         self.urls.add_new_url(self.root)
