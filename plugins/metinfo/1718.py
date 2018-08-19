@@ -4,6 +4,7 @@
 #name: MetInfo V5.3.1 sql注入(管理员密码重置)
 #author: yichin
 #refer: https://beehive.nsfocus.com/bbforum/topic/308/
+import time
 
 def assign(service, arg):
     if service == 'metinfo':
