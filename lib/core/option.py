@@ -98,10 +98,19 @@ def pluginScanRegister(args):
             urlconfig.url.append(makeurl(url))
 
 def guideRegister(args):
-    if args.plugin and args.u:
+    if args.u and not args.plugin:
+        inputUrl = args.u
+        urlconfig.url.append(makeurl(inputUrl))
+        printMessage('[Prompt] URL has been loaded:%d' % len(urlconfig.url))
+        urlconfig.diyPlugin = ["find_service","whatcms"]
+        printMessage("[Prompt] You select the plugins:%s"%(' '.join(urlconfig.diyPlugin)))
+        urlconfig.scanport = False
+        urlconfig.find_service = True
+        return True
+    if args.u and args.plugin:
         return False
     inputUrl = raw_input('[1] Input url > ')
-    if inputUrl is '':
+    if inputUrl == '':
         raise ToolkitSystemException("You have to enter the url")
     if inputUrl.startswith("@"):
         urlconfig.mutiurl = True

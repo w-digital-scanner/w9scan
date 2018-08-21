@@ -13,6 +13,7 @@
 ### Useage
 - `python w9scan.py --update` 更新程序
 - `python w9scan.py --guide` 向导模式启动w9scan
+- `python w9scan.py -u "https://x.hacking8.com" ` 快速扫描网站
 - `python w9scan.py -u "https://blog.hacking8.com/" -p emlog` 指定插件扫描网站
 - `python w9scan.py -u "@1.txt" -p emlog` 指定插件批量扫描网站
 - `python w9scan.py -s emlog` 搜索插件是否存在
@@ -26,6 +27,7 @@
 - 直接使用`python w9scan.py`即可使用向导模式使用w9scan
 - 向导模式中输入URL时可以输入类似`@1.txt`,代表批量扫描1.txt内的URL
 - 有关配置线程，超时时间，header头等等参数可以打开config.conf配置
+- 使用`-u`参数默认加载`指纹识别` `服务发现`模块，不启用`fuzz` `子域名爆破`等
 
 ## Features
 
