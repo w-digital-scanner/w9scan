@@ -29,8 +29,9 @@ def audit(url, body):
     webreg = re.compile('''<a[^>]+href=["\'](.*?)["\']''', re.IGNORECASE)
     urls = webreg.findall(body)
     struts_urls = _get_new_urls(arg, urls)
-    security_info("struts2 framework")
+    
     for struts_url in struts_urls:
+        security_info("struts2 framework:" + struts_url)
         task_push('struts', struts_url)
 
 
