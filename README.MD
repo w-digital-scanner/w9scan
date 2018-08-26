@@ -44,8 +44,8 @@
     + XSS注入 (基于爬虫)
     + 大量Fuzz参数扫描
     + CVE 漏洞
-    + `1200+` 指定插件定向攻击，插件支持参见[https://github.com/boy-hack/w9scan/tree/master/plugins](https://github.com/boy-hack/w9scan/tree/master/plugins)
-    + `struts` 漏洞集合
+    + `1200+` 指定插件定向验证攻击，插件支持参见[https://github.com/boy-hack/w9scan/tree/master/plugins](https://github.com/boy-hack/w9scan/tree/master/plugins)
+    + `struts` 漏洞集合(含自动检测)
     + Shellshock cgi test
     + `heartbeat` 心脏出血
     + IIS解析漏洞
@@ -89,7 +89,7 @@
 w9scan扫描器项目仅用于学习，自检网络安全，禁止用于其他用途。
 
 ## Thx
-- 感谢一位网友提供了部分bugscan代码
+- 感谢四叶草授权的bugscan代码
 - 爬虫的SQL和XSS模块部分参考 [https://github.com/youmengxuefei/web_vul_scan](https://github.com/youmengxuefei/web_vul_scan)
 - 仿照 [POC-T](https://github.com/Xyntax/POC-T/) 代码结构
 - 网络访问引擎 [Hackhttp](https://github.com/BugScanTeam/hackhttp/)
