@@ -16,7 +16,7 @@ INVALID_UNICODE_CHAR_FORMAT = r"\x%02x"
 UNICODE_ENCODING = "utf-8"
 
 # Selectable list of plugins
-LIST_PLUGINS = ["subdomain","find_service","whatcms","struts","fuzz"]
+LIST_PLUGINS = ["subdomain","find_service","whatcms","fuzz"]
 
 GIT_REPOSITORY = "https://github.com/boy-hack/w9scan.git"
 

