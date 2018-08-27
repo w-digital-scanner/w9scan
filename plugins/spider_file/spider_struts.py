@@ -25,13 +25,12 @@ def _get_new_urls(page_url, links):
 
 def audit(url, body):
     p = urlparse.urlparse(url)
-    arg = "%s://%s/"%(p.scheme,p.netloc)
+    arg = "%s://%s/" % (p.scheme, p.netloc)
     webreg = re.compile('''<a[^>]+href=["\'](.*?)["\']''', re.IGNORECASE)
     urls = webreg.findall(body)
     struts_urls = _get_new_urls(arg, urls)
-    
+
     for struts_url in struts_urls:
-        security_info("struts2 framework:" + struts_url)
         task_push('struts', struts_url)
 
 
