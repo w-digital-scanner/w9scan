@@ -89,7 +89,7 @@
 w9scan扫描器项目仅用于学习，自检网络安全，禁止用于其他用途。
 
 ## Thx
-- 感谢四叶草授权的bugscan代码
+- 感谢一位朋友提供&四叶草授权的bugscan代码
 - 爬虫的SQL和XSS模块部分参考 [https://github.com/youmengxuefei/web_vul_scan](https://github.com/youmengxuefei/web_vul_scan)
 - 仿照 [POC-T](https://github.com/Xyntax/POC-T/) 代码结构
 - 网络访问引擎 [Hackhttp](https://github.com/BugScanTeam/hackhttp/)
