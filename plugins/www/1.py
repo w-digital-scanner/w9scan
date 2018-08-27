@@ -61,9 +61,8 @@ def audit(arg):
     for x in urls:
         code, head, res, errcode, _ = curl.curl(url + x)
         if code == 200:
-            m = re.search(r'edit', res)
-            if m:
-                security_info(m.group(1))
+            if "edit" in res:
+                security_info(url + x)
 
 
 if __name__ == '__main__':

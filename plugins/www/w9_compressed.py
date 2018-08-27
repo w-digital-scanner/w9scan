@@ -18,7 +18,8 @@ def assign(service, arg):
     else:
         for path_n in range(1, path_num - 1):
             path_x = "/".join(url_paths[1:path_n + 1])
-            new_url = "%s://%s/%s/" % (url_info.scheme, url_info.netloc, path_x)
+            new_url = "%s://%s/%s/" % (url_info.scheme,
+                                       url_info.netloc, path_x)
 
             if "." not in path_x:
                 url_list.append(new_url)
@@ -55,7 +56,8 @@ def getCompressed(url_dir, name):
     for postfix in postfix_list:
         url = "%s%s.%s" % (url_dir, name, postfix)
 
-        status_code, header, body, errcode, _ = curl.curl("-I --retry 3 " + url)
+        status_code, header, body, errcode, _ = curl.curl(
+            "-I --retry 3 " + url)
 
         debug("[%d] %s", status_code, url)
 
