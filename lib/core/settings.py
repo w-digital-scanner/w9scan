@@ -16,9 +16,11 @@ INVALID_UNICODE_CHAR_FORMAT = r"\x%02x"
 UNICODE_ENCODING = "utf-8"
 
 # Selectable list of plugins
-LIST_PLUGINS = ["subdomain","find_service","whatcms","fuzz"]
+LIST_PLUGINS = ["subdomain", "find_service", "whatcms", "fuzz"]
 
 GIT_REPOSITORY = "https://github.com/boy-hack/w9scan.git"
+
+ESSENTIAL_MODULE_METHODS = ["assign", "audit"]
 
 # Select random banner
 
@@ -72,6 +74,6 @@ _____________________________
    /'\_   _/`\\
    \___)=(___/
 
-"""% (VERSION, AUTHOR)
+""" % (VERSION, AUTHOR)
 
-banners = [banner_0,banner_1,banner_2,banner_3]
+banners = [banner_0, banner_1, banner_2, banner_3]
