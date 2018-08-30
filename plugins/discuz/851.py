@@ -1,15 +1,15 @@
 # !/usr/bin/dev python
 # -*- coding:utf-8 -*-
 #_Author_= dannis
-#_PlugName_ = Disucz X3.2 多处反射型XSS漏洞
-#_FileName_ = disuczX32recv.py
+#_PlugName_ = Discuz X3.2 多处反射型XSS漏洞
+#_FileName_ = discuzX32recv.py
 
 import re
 import time
 import math
 
 def assign(service, arg):
-    if service == "disucz":
+    if service == "discuz":
         return True, arg
 
 def audit(args):
@@ -28,4 +28,4 @@ def audit(args):
     
 if __name__ == '__main__':
     from dummy import *
-    audit(assign('disucz', 'http://www.example.com/')[1])
+    audit(assign('discuz', 'http://www.example.com/')[1])
