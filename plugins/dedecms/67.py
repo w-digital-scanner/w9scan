@@ -9,7 +9,7 @@ def assign(service, arg):
 def audit(arg):
     url = arg + 'data/mysql_error_trace.inc'
     _, _, body, _, _ = curl.curl(url)
-    if body and body.find('<?php  exit();') != -1:
+    if body and '<?php  exit();' in body:
         security_note(url)
 
 if __name__ == '__main__':
