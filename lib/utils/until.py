@@ -12776,8 +12776,6 @@ def load_password_dict(hostname, userfile=None, passfile=None, userlist=None, pa
     pass_list = list_from_file('database/password.txt')
     if passfile:
         pass_list = pass_list + list_from_file(passfile)
-    if _G.get('pass_dict'):
-        pass_list = pass_list + load_remote_dict(_G['pass_dict'])
     if passlist:
         pass_list = pass_list + passlist
 
