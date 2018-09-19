@@ -114,6 +114,7 @@ def pluginScanRegister(args):
 
 def guideRegister(args):
     if args.u and not args.plugin:
+        # for params -u
         inputUrl = args.u
         urlconfig.url.append(makeurl(inputUrl))
         printMessage('[Prompt] URL has been loaded:%d' % len(urlconfig.url))
