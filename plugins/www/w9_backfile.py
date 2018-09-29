@@ -4,13 +4,15 @@
 
 import urlparse
 
+
 def assign(service, arg):
     if service == "www":
-        return True,arg
+        return True, arg
+
 
 def audit(arg):
     parse = urlparse.urlparse(arg)
-    url = "%s://%s/"%(parse.scheme,parse.netloc)
+    url = "%s://%s/" % (parse.scheme, parse.netloc)
     arg = parse.netloc
     dirs = '''wwwroot.rar
 wwwroot.zip
@@ -50,10 +52,10 @@ flashfxp.tar.gz
             host_keys.remove(key)
             continue
         if '.' in key:
-            new = key.replace('.',"_")
+            new = key.replace('.', "_")
             host_keys.append(new)
     for i in host_keys:
-        new = "%s.rar"%(i)
+        new = "%s.rar" % (i)
         listFile.append(new)
         new = "%s.zip" % (i)
         listFile.append(new)
@@ -70,13 +72,14 @@ flashfxp.tar.gz
         except:
             code = 0
             head = ""
-        if code == 200 and 'Content-Type: application' in head:
-            warning_list.append(loads)
+        if code == 200 and 'Content-Type: application' in head and len(html) > 0:
+            warning_list.append("url:%s len:%d" % (loads, len(html)))
     # In order to  solve the misreport
     if len(warning_list) > 5:
         return False
     for u in warning_list:
         security_warning('可能的源代码泄露 URL:%s' % u)
+
 
 if __name__ == '__main__':
     from dummy import *
