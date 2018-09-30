@@ -98,3 +98,4 @@ w9scan扫描器项目仅用于学习，自检网络安全，禁止用于其他�
 - [cobra](https://github.com/wufeifei/cobra)
 - [s7scan](https://github.com/jiangsir404/S7scan)
 - [WAScan](https://github.com/m4ll0k/WAScan)
+- [ctf-wscan](https://github.com/kingkaki/ctf-wscan)
