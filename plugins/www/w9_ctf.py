@@ -1,10 +1,13 @@
 #!/usr/bin/env python
+import urlparse
 
 
 def assign(service, arg):
     if service != "www":
         return
-    return True, arg
+    arr = urlparse.urlparse(arg)
+    return True, '%s://%s/' % (arr.scheme, arr.netloc)
+    # return True, arg
 
 
 def audit(arg):
@@ -189,29 +192,28 @@ rss.xml
 crossdomain.xml
 1.txt
 flag.txt
-/wp-config.php
-/configuration.php
-/sites/default/settings.php
-/config.php
-/config.inc.php
-/conf/_basic_config.php
-/config/site.php
-/system/config/default.php
-/framework/conf/config.php
-/mysite/_config.php
-/typo3conf/localconf.php
-/config/config_global.php
-/config/config_ucenter.php
-/lib
-/data/config.php
-/data/config.inc.php
-/includes/config.php
-/data/common.inc.php
-/caches/configs/database.php
-/caches/configs/system.php
-/include/config.inc.php
-/phpsso_server/caches/configs/database.php
-/phpsso_server/caches/configs/system.php
+configuration.php
+sites/default/settings.php
+config.php
+config.inc.php
+conf/_basic_config.php
+config/site.php
+system/config/default.php
+framework/conf/config.php
+mysite/_config.php
+typo3conf/localconf.php
+config/config_global.php
+config/config_ucenter.php
+lib
+data/config.php
+data/config.inc.php
+includes/config.php
+data/common.inc.php
+caches/configs/database.php
+caches/configs/system.php
+include/config.inc.php
+phpsso_server/caches/configs/database.php
+phpsso_server/caches/configs/system.php
 404.php
 index.html
 user/
@@ -229,7 +231,7 @@ downloads/
 manager/
 phpmyadmin/
 phpMyAdmin/
-/log/access.log
+log/access.log
     '''
 
     for x in urls.strip().splitlines():
