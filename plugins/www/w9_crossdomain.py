@@ -13,6 +13,9 @@ def assign(service, arg):
 def audit(arg):
     payload = "/crossdomain.xml"
     vulnurl = arg + payload
-    code, head, html, redirect_url, log = hackhttp.http(vulnurl)
-    if 'allow-access-from domain="*"' in html:
-        security_note(u"存在crossdomain.xml文件发现漏洞...(信息) payload: "+vulnurl)
+    try:
+        code, head, html, redirect_url, log = hackhttp.http(vulnurl)
+        if 'allow-access-from domain="*"' in html:
+            security_note(u"存在crossdomain.xml文件发现漏洞...(信息) payload: "+vulnurl)
+    except:
+        pass

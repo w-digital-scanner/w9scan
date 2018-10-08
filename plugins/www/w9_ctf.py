@@ -235,14 +235,17 @@ log/access.log
     '''
 
     for x in urls.strip().splitlines():
-        code, head, body, redirect, log = hackhttp.http(arg + x)
-        if code != 404:
-            msg = {
-                "url": arg + x,
-                "length": len(body),
-                "status_code": code
-            }
-            security_info(repr(msg), "ctfscan")
+        try:
+            code, head, body, redirect, log = hackhttp.http(arg + x)
+            if code != 404:
+                msg = {
+                    "url": arg + x,
+                    "length": len(body),
+                    "status_code": code
+                }
+                security_info(repr(msg), "ctfscan")
+        except:
+            pass
 
 
 if __name__ == '__main__':
