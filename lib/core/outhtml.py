@@ -2,40 +2,44 @@
 # -*- coding: utf-8 -*-
 from lib.core.exception import ToolkitMissingPrivileges
 from lib.core.data import urlconfig
-from lib.core.data import paths,logger
+from lib.core.data import paths, logger
 from lib.core.common import runningTime
-import time,base64,os
+import time
+import base64
+import os
 from lib.utils.until import get_domain_root
 import cgi
 from lib.core.settings import VERSION
+
 
 class CollectData(object):
     def __init__(self):
         self.dict = dict()
 
-    def add_list(self,k,v):
+    def add_list(self, k, v):
         if k == '':
             k = str(len(self.dict))
         if k not in self.dict:
-            self.dict.setdefault(k,list())
+            self.dict.setdefault(k, list())
         self.dict[k].append(v)
-    
-    def add_set(self,k,v):
+
+    def add_set(self, k, v):
         if k == '':
             k = str(len(self.dict))
         if k not in self.dict:
-            self.dict.setdefault(k,set())
+            self.dict.setdefault(k, set())
         self.dict[k].add(v)
-            
+
     def getData(self):
         return self.dict
+
 
 class buildHtml(object):
 
     def __init__(self):
         self.dict = dict()
 
-    def add_list(self,level,value,k = '',domain = ''):
+    def add_list(self, level, value, k='', domain=''):
         if domain not in self.dict:
             self.dict[domain] = dict()
             self.dict[domain]["info"] = CollectData()
@@ -46,9 +50,9 @@ class buildHtml(object):
         if level not in self.dict[domain]:
             raise ToolkitMissingPrivileges("Building error:level not in dict")
 
-        self.dict[domain][level].add_list(k,value)
+        self.dict[domain][level].add_list(k, value)
 
-    def add_set(self,level,value,k = '',domain = ''):
+    def add_set(self, level, value, k='', domain=''):
         if domain not in self.dict:
             self.dict[domain] = dict()
             self.dict[domain]["info"] = CollectData()
@@ -57,14 +61,14 @@ class buildHtml(object):
             self.dict[domain]["hole"] = CollectData()
         if level not in self.dict[domain]:
             raise ToolkitMissingPrivileges("Building error:level not in dict")
-        self.dict[domain][level].add_set(k,value)
-    
-    def escape(self,html):
+        self.dict[domain][level].add_set(k, value)
+
+    def escape(self, html):
         html = str(html)
         html = cgi.escape(html)
         return html
 
-    def addbug(self,vultype, title, content):
+    def addbug(self, vultype, title, content):
         html = """
         <div class="media">
             <div class="media-left">
@@ -79,22 +83,25 @@ class buildHtml(object):
        </div>
         """ % (vultype, title, content)
         return html
-    
-    def addmutibug(self,title,content):
-        return "%s:%s[/br]"%(title,content)
+
+    def addmutibug(self, title, content):
+        return "%s:%s[/br]" % (title, content)
 
     def mutiBuild(self):
         # build base info
         versionPlace = VERSION
-        reportTime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+        reportTime = time.strftime(
+            '%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         selectPlugin = ' '.join(urlconfig.diyPlugin)
         w9scan_html = "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9InV0Zi04Ij4KICAgIDxtZXRhIGh0dHAtZXF1aXY9IlgtVUEtQ29tcGF0aWJsZSIgY29udGVudD0iSUU9ZWRnZSI+CiAgICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEiPgoKICAgIDx0aXRsZT53OXNjYW4g5om56YeP5ryP5rSe5omr5o+P5oql5ZGKPC90aXRsZT4KCiAgICA8bWV0YSBuYW1lPSJkZXNjcmlwdGlvbiIgY29udGVudD0iU291cmNlIGNvZGUgZ2VuZXJhdGVkIHVzaW5nIGxheW91dGl0LmNvbSI+CiAgICA8bWV0YSBuYW1lPSJhdXRob3IiIGNvbnRlbnQ9IkxheW91dEl0ISI+CgogICAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJodHRwOi8vY2RuLmJvb3Rjc3MuY29tL2Jvb3RzdHJhcC8zLjMuMC9jc3MvYm9vdHN0cmFwLm1pbi5jc3MiPiAKICAgIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cDovL2Nkbi5ib290Y3NzLmNvbS9mb250LWF3ZXNvbWUvNC4yLjAvY3NzL2ZvbnQtYXdlc29tZS5taW4uY3NzIj4gCgogIDwvaGVhZD4KICA8Ym9keT4KCiAgICA8ZGl2IGNsYXNzPSJjb250YWluZXItZmx1aWQiPgoJPGRpdiBjbGFzcz0icm93Ij4KCQk8ZGl2IGNsYXNzPSJjb2wtbWQtMTIiPgoJCQk8ZGl2IGNsYXNzPSJwYWdlLWhlYWRlciI+CgkJCQk8aDE+CgkJCQkJdzlzY2Fu5om56YeP5omr5o+P5oql5ZGKICA8c21hbGw+dnt7dmVyc2lvbn19PC9zbWFsbD4KCQkJCTwvaDE+CgkJCTwvZGl2PiA8c3BhbiBjbGFzcz0ibGFiZWwgbGFiZWwtcHJpbWFyeSI+55Sf5oiQ5pe26Ze077yae3tyZXBvcnRUaW1lfX08L3NwYW4+CiAgICAgICAgICAgIDxzcGFuIGNsYXNzPSJsYWJlbCBsYWJlbC1zdWNjZXNzIj7pgInmi6nmj5Lku7bvvJp7e3NlbGVjdFBsdWdpbn19PC9zcGFuPgogICAgICAgICAgICA8c3BhbiBjbGFzcz0ibGFiZWwgbGFiZWwtZGFuZ2VyIj5TY2FuIHRpbWUJe3tzY2FudGltZX19PC9zcGFuPgogICAgICAgICAgICA8L2JyPjwvYnI+CgkJCTx0YWJsZSBjbGFzcz0idGFibGUiPgoJCQkJPHRoZWFkPgoJCQkJCTx0cj4KICAgIDx0aD4jPC90aD4KICAgIDx0aD5Vcmw8L3RoPgogICAgPHRoPlRpdGxlPC90aD4KICAgIDx0aD5CdWlsZHdpdGg8L3RoPgogICAgPHRoPkluZm88L3RoPgogICAgPHRoPk5vdGU8L3RoPgogICAgPHRoPldhcm5pbmc8L3RoPgogICAgPHRoPkhvbGU8L3RoPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC90cj4KCQkJCTwvdGhlYWQ+CiAgICAgICAgICAgICAgICAKCQkJCTx0Ym9keT4KICAgICAgICAgICAgICAgICAgICB7e2NvbnRlbnR9fQoJCQkJPC90Ym9keT4KCQkJPC90YWJsZT4KCQk8L2Rpdj4KCTwvZGl2Pgo8L2Rpdj4KICA8L2JvZHk+CjwvaHRtbD4="
 
         w9scan_html = base64.b64decode(w9scan_html)
         w9scan_html = w9scan_html.replace("{{version}}", str(versionPlace))
         w9scan_html = w9scan_html.replace("{{reportTime}}", str(reportTime))
-        w9scan_html = w9scan_html.replace("{{scantime}}",runningTime(urlconfig.runningTime) )
-        w9scan_html = w9scan_html.replace("{{selectPlugin}}", str(selectPlugin))
+        w9scan_html = w9scan_html.replace(
+            "{{scantime}}", runningTime(urlconfig.runningTime))
+        w9scan_html = w9scan_html.replace(
+            "{{selectPlugin}}", str(selectPlugin))
 
         htmlDict = dict()
         index = 0
@@ -122,7 +129,7 @@ class buildHtml(object):
                             if "WebStruct" in htmlDict[url][key]:
                                 server = htmlDict[url][key]["WebStruct"]
                                 htmlDict[url][key].pop("WebStruct")
-                            
+
                         for k, v in htmlDict[url][key].items():
                             f = v
                             if isinstance(v, list):
@@ -135,27 +142,29 @@ class buildHtml(object):
                     else:
                         info_page = ""
                     Total[key] = info_page.replace('[/br]', '</br>')
-                
-                tr = "<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>  %s</td><td>%s</td><td>%s</td></tr>"%(index,url,title,server,Total["info"],Total["note"],Total["warning"],Total["hole"])
+
+                tr = "<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>  %s</td><td>%s</td><td>%s</td></tr>" % (
+                    index, url, title, server, Total["info"], Total["note"], Total["warning"], Total["hole"])
                 full.append(tr)
         except Exception as err:
             raise ToolkitMissingPrivileges("Building result faild!")
 
         w9scan_html = w9scan_html.replace("{{content}}", ' '.join(full))
-        filename = os.path.join(paths.w9scan_Output_Path, "BatchScanning" + "_" + str(int(time.time())) + ".html")
+        filename = os.path.join(
+            paths.w9scan_Output_Path, "BatchScanning" + "_" + str(int(time.time())) + ".html")
         result = open(filename, "w")
         result.write(w9scan_html)
         result.close()
         logger.info("success saved :" + filename)
 
-
     def build(self):
         # build base info
-        reportTime = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+        reportTime = time.strftime(
+            '%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
         # build scan info
         htmlDict = dict()
-        Total = {"hole":'0',"note":'0',"warning":'0',"info":'0'}
+        Total = {"hole": '0', "note": '0', "warning": '0', "info": '0'}
 
         # build
         DomainRoot = get_domain_root(''.join(urlconfig.url))
@@ -163,36 +172,43 @@ class buildHtml(object):
         try:
             w9scan_html = base64.b64decode(w9scan_html)
             w9scan_html = w9scan_html.replace("{{url}}", str(urlconfig.url))
-            w9scan_html = w9scan_html.replace("{{scan_all_port}}", str(urlconfig.scanport))
-            w9scan_html = w9scan_html.replace("{{ThreadNum}}", str(urlconfig.threadNum))
-            w9scan_html = w9scan_html.replace("{{select_plugin}}", str(' '.join(urlconfig.diyPlugin)))
-            w9scan_html = w9scan_html.replace("{{reportTime}}", str(reportTime))
-            w9scan_html = w9scan_html.replace("{{scantime}}",runningTime(urlconfig.runningTime) )
+            w9scan_html = w9scan_html.replace(
+                "{{scan_all_port}}", str(urlconfig.scanport))
+            w9scan_html = w9scan_html.replace(
+                "{{ThreadNum}}", str(urlconfig.threadNum))
+            w9scan_html = w9scan_html.replace(
+                "{{select_plugin}}", str(' '.join(urlconfig.diyPlugin)))
+            w9scan_html = w9scan_html.replace(
+                "{{reportTime}}", str(reportTime))
+            w9scan_html = w9scan_html.replace(
+                "{{scantime}}", runningTime(urlconfig.runningTime))
         except Exception:
             raise ToolkitMissingPrivileges("BuildHtml Error Exception")
 
         try:
-            for url,content in self.dict.items():
+            for url, content in self.dict.items():
                 htmlDict[url] = dict()
-                for key,value in content.items():
+                for key, value in content.items():
                     try:
                         htmlDict[url][key] = value.getData()
                         if len(htmlDict[url][key]):
                             infoList = list()
-                            for k,v in htmlDict[url][key].items():
+                            for k, v in htmlDict[url][key].items():
                                 f = v
                                 if isinstance(v, list):
                                     f = '[/br]'.join(v)
-                                elif isinstance(v,set):
+                                elif isinstance(v, set):
                                     f = '[/br]'.join([i for i in f])
-                                f = self.escape(f).replace('[/br]','</br>')
-                                infoList.append(self.addbug(key,str(k),str(f)))
+                                f = self.escape(f).replace('[/br]', '</br>')
+                                infoList.append(
+                                    self.addbug(key, str(k), str(f)))
                             info_page = ''.join(infoList)
-                            substr = "{{%s_content}}"%key
-                            w9scan_html = w9scan_html.replace(substr,info_page)
+                            substr = "{{%s_content}}" % key
+                            w9scan_html = w9scan_html.replace(
+                                substr, info_page)
                         else:
-                            substr = "{{%s_content}}"%key
-                            w9scan_html = w9scan_html.replace(substr,'')
+                            substr = "{{%s_content}}" % key
+                            w9scan_html = w9scan_html.replace(substr, '')
 
                         Total[key] = str(len(value.getData()))
                     except Exception:
@@ -200,13 +216,13 @@ class buildHtml(object):
 
             w9scan_html = w9scan_html.replace("{{total_Hole}}", Total["hole"])
             w9scan_html = w9scan_html.replace("{{total_Note}}", Total["note"])
-            w9scan_html = w9scan_html.replace("{{total_Warning}}", Total["warning"])
+            w9scan_html = w9scan_html.replace(
+                "{{total_Warning}}", Total["warning"])
             w9scan_html = w9scan_html.replace("{{total_Info}}", Total["info"])
 
-
             filename = DomainRoot + "_" + str(int(time.time())) + ".html"
-            filename.replace(":","_")
-            filename = os.path.join(paths.w9scan_Output_Path,filename)
+            filename = filename.replace(":", "_")
+            filename = os.path.join(paths.w9scan_Output_Path, filename)
             result = open(filename, "w")
             result.write(w9scan_html)
             result.close()
@@ -214,11 +230,11 @@ class buildHtml(object):
 
         except Exception as err:
             raise ToolkitMissingPrivileges("Sava Faild! error:" + err)
-    
+
     def getData(self):
         htmlDict = dict()
-        for url,content in self.dict.items():
+        for url, content in self.dict.items():
             htmlDict[url] = dict()
-            for key,value in content.items():
+            for key, value in content.items():
                 htmlDict[url][key] = value.getData()
         return str(htmlDict)
